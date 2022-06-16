@@ -41,16 +41,39 @@ $tagsFilter = [];
 $refFilter = [];
 foreach ($yaml['paths'] as $path => $data) {
     if (in_array($path, $filterPaths)) {
-        $output['paths'][$path] = $data;
-        foreach ($data as $op) {
+        // Change '{agencyid}' path parameter to 'agencyid' string.
+        $path = str_replace('{agencyid}', 'agencyid', $path);
+
+        // Change '{patronid}' path parameter to 'patronid' string.
+        $path = str_replace('{patronid}', 'patronid', $path);
+
+        foreach ($data as $name => $op) {
+            // Find all used tags, so they can be set in output.
             $tagsFilter[] = $op['tags'][0];
-            foreach ($op['parameters'] as $parameter) {
+            foreach ($op['parameters'] as $index => $parameter) {
+                // Remove '{agencyid}' parameters.
+                if ('agencyid' === $parameter['name']) {
+                    unset($data[$name]['parameters'][$index]);
+                }
+
+                // Remove '{patronid}' parameters.
+                if ('patronid' === $parameter['name']) {
+                    unset($data[$name]['parameters'][$index]);
+                }
+
                 if (isset($parameter['schema']['$ref'])) {
                     $parts = explode('/', $parameter['schema']['$ref']);
                     $refFilter[] = end($parts);
                 }
             }
 
+            // Reset index numbers.
+            $data[$name]['parameters'] = array_values($data[$name]['parameters']);
+            if (empty($data[$name]['parameters'])) {
+                unset($data[$name]['parameters']);
+            }
+
+            // Find all used `$ref`, so they can be set in output.
             foreach ($op['responses'] as $respons) {
                 if (isset($respons['schema'])) {
                     if (isset($respons['schema']['$ref'])) {
@@ -63,11 +86,13 @@ foreach ($yaml['paths'] as $path => $data) {
                 }
             }
         }
+
+        $output['paths'][$path] = $data;
     }
 }
 
 // Find definitions that $ref other definitions.
-$tmp = array_walk($yaml['definitions'], function ($definition) use (&$refFilter) {
+array_walk($yaml['definitions'], function ($definition) use (&$refFilter) {
     foreach ($definition['properties'] as $property) {
         if (isset($property['$ref'])) {
             $parts = explode('/', $property['$ref']);
