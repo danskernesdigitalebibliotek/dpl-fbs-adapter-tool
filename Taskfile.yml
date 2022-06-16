@@ -18,7 +18,7 @@ tasks:
     summary: Convert FBS swagger to FBS adapter
     cmds:
 #      - task dev:swagger2yaml
-      - task dev:php:cli -- convert.php fbs/service.yaml
+      - task dev:php:cli -- convert.php fbs/service.yaml output.yaml
 
   dev:php:cli:
     summary: Performs command inside container. Expects parameter(s).
