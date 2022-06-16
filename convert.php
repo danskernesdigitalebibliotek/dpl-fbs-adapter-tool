@@ -6,6 +6,7 @@ require __DIR__.'/vendor/autoload.php';
 
 $yaml = Yaml::parseFile($argv[1]);
 
+// Defined the input paths that should be in the transformed output.
 $filterPaths = [
     // Patron
     '/external/{agencyid}/patrons/{patronid}/v2',
@@ -27,6 +28,7 @@ $filterPaths = [
     '/external/{agencyid}/catalog/holdings/v3',
 ];
 
+// Define basic output structure.
 $output = [
     'swagger' => $yaml['swagger'],
     'info' => [
@@ -61,19 +63,21 @@ foreach ($yaml['paths'] as $path => $data) {
                     unset($data[$name]['parameters'][$index]);
                 }
 
+                // Find internal references for later filtering of definitions.
                 if (isset($parameter['schema']['$ref'])) {
                     $parts = explode('/', $parameter['schema']['$ref']);
                     $refFilter[] = end($parts);
                 }
             }
 
-            // Reset index numbers.
+            // Reset index numbers for parameters as unset have change the array to associative when later converted to
+            // YAML.
             $data[$name]['parameters'] = array_values($data[$name]['parameters']);
             if (empty($data[$name]['parameters'])) {
                 unset($data[$name]['parameters']);
             }
 
-            // Find all used `$ref`, so they can be set in output.
+            // Find all used references in responses, so they can be set in output.
             foreach ($op['responses'] as $respons) {
                 if (isset($respons['schema'])) {
                     if (isset($respons['schema']['$ref'])) {
@@ -87,11 +91,12 @@ foreach ($yaml['paths'] as $path => $data) {
             }
         }
 
+        // Added the cleaned up path description to the output.
         $output['paths'][$path] = $data;
     }
 }
 
-// Find definitions that $ref other definitions.
+// Find definitions that reference other definitions.
 array_walk($yaml['definitions'], function ($definition) use (&$refFilter) {
     foreach ($definition['properties'] as $property) {
         if (isset($property['$ref'])) {
@@ -105,18 +110,19 @@ array_walk($yaml['definitions'], function ($definition) use (&$refFilter) {
     }
 });
 
-// Only output tags used by the paths.
+// Only output tags used by the paths in the output.
 $tagsFilter = array_unique($tagsFilter);
 $tags = array_filter($yaml['tags'], function ($tag) use ($tagsFilter) {
     return in_array($tag['name'], $tagsFilter);
 });
 $output['tags'] = array_values($tags);
 
-// Only output definitions used via $refs.
+// Only output definitions used via references in the output.
 $refFilter = array_unique($refFilter);
 $output['definitions'] = array_filter($yaml['definitions'], function ($name) use ($refFilter) {
     return in_array($name, $refFilter);
 }, ARRAY_FILTER_USE_KEY);
 
+// Write the array as YAML to file.
 $yaml = Yaml::dump($output, 12);
 file_put_contents($argv[2], $yaml);
