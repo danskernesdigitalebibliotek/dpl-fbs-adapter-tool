@@ -1,0 +1,345 @@
+{
+  "apiVersion" : "1.0",
+  "swaggerVersion" : "1.2",
+  "basePath" : "/rest",
+  "resourcePath" : "/external/v1/{agencyid}/catalog",
+  "apis" : [ {
+    "path" : "/external/v1/{agencyid}/catalog/availability",
+    "operations" : [ {
+      "method" : "GET",
+      "nickname" : "getAvailability",
+      "type" : "array",
+      "items" : {
+        "$ref" : "Availability"
+      },
+      "parameters" : [ {
+        "type" : "string",
+        "description" : "ISIL of the agency (e.g. DK-761500)",
+        "paramType" : "path",
+        "name" : "agencyid",
+        "required" : true
+      }, {
+        "type" : "array",
+        "description" : "list of record ids",
+        "items" : {
+          "type" : "string"
+        },
+        "paramType" : "query",
+        "name" : "recordid",
+        "required" : true
+      }, {
+        "type" : "array",
+        "description" : "Identifies the branchIds which are excluded from the result",
+        "items" : {
+          "type" : "string"
+        },
+        "paramType" : "query",
+        "name" : "exclude"
+      } ],
+      "summary" : "Get availability of bibliographical records.",
+      "notes" : "\n Returns an array of availability for each bibliographical record.",
+      "responseMessages" : [ {
+        "code" : 400,
+        "message" : "bad request"
+      }, {
+        "code" : 401,
+        "message" : "client unauthorized"
+      } ]
+    } ]
+  }, {
+    "path" : "/external/v1/{agencyid}/catalog/bookingInformation/{recordid}",
+    "operations" : [ {
+      "method" : "GET",
+      "nickname" : "bookingInformation",
+      "type" : "array",
+      "items" : {
+        "$ref" : "BookingBranchInfo"
+      },
+      "parameters" : [ {
+        "type" : "string",
+        "description" : "ISIL of the agency (e.g. DK-761500)",
+        "paramType" : "path",
+        "name" : "agencyid",
+        "required" : true
+      }, {
+        "type" : "string",
+        "description" : "identifies the bibliographical record, i.e. the FAUST number",
+        "paramType" : "path",
+        "name" : "recordid",
+        "required" : true
+      } ],
+      "summary" : "Retrieves all booking information for each branch of an agency for bookings that ends after the current date.",
+      "notes" : "\n <p>\n Returns an array of BookingBranchInfo which contains:\n <ul>\n <li>- the branch ID</li>\n <li>- gross number of available materials for that branch</li>\n <li>- array of BookingInfo for the given bibliographic record, containing the booking Period and the number of\n preferred materials</li>\n </ul>\n </p>\n <p>\n This is to highlight when materials are available for a new potential booking.\n </p>",
+      "responseMessages" : [ {
+        "code" : 400,
+        "message" : "bad request com.dantek.dl.rest.RestException"
+      }, {
+        "code" : 401,
+        "message" : "client unauthorized"
+      }, {
+        "code" : 404,
+        "message" : "patron not found"
+      } ]
+    } ]
+  }, {
+    "path" : "/external/v1/{agencyid}/catalog/holdings",
+    "operations" : [ {
+      "method" : "GET",
+      "nickname" : "getHoldings",
+      "type" : "array",
+      "items" : {
+        "$ref" : "HoldingsForBibliographicalRecord"
+      },
+      "parameters" : [ {
+        "type" : "string",
+        "description" : "ISIL of the agency (e.g. DK-761500)",
+        "paramType" : "path",
+        "name" : "agencyid",
+        "required" : true
+      }, {
+        "type" : "array",
+        "description" : "Identifies the bibliographical records - The FAUST number.",
+        "items" : {
+          "type" : "string"
+        },
+        "paramType" : "query",
+        "name" : "recordid",
+        "required" : true
+      }, {
+        "type" : "array",
+        "description" : "Identifies the branchIds which are excluded from the result",
+        "items" : {
+          "type" : "string"
+        },
+        "paramType" : "query",
+        "name" : "exclude"
+      } ],
+      "summary" : "Get placement holdings for bibliographical records.",
+      "notes" : "\n Returns an array of holdings for each bibliographical record.\n The holdings lists the materials on each placement, and whether they are available on-shelf or lent out.",
+      "responseMessages" : [ {
+        "code" : 400,
+        "message" : "bad request"
+      }, {
+        "code" : 401,
+        "message" : "client unauthorized"
+      } ]
+    } ]
+  } ],
+  "models" : {
+    "Availability" : {
+      "id" : "Availability",
+      "properties" : {
+        "recordId" : {
+          "type" : "string",
+          "description" : "The FAUST number of the Bibliographic record"
+        },
+        "reservable" : {
+          "type" : "boolean",
+          "description" : "True if materials can be reserved"
+        },
+        "available" : {
+          "type" : "boolean",
+          "description" : "True if materials is available on-shelf at some placement, false if all materials are lent out"
+        }
+      },
+      "required" : [ "recordId", "reservable", "available" ]
+    },
+    "HoldingsForBibliographicalRecord" : {
+      "id" : "HoldingsForBibliographicalRecord",
+      "properties" : {
+        "recordId" : {
+          "type" : "string",
+          "description" : "Identifies the bibliographical record for the available materials,\n The FAUST number"
+        },
+        "reservable" : {
+          "type" : "boolean",
+          "description" : "True if there is any reservable materials"
+        },
+        "holdings" : {
+          "type" : "array",
+          "description" : "An array of holdings for the materials matching the bibliographical record, as distributed across branches,\n departments and locations",
+          "items" : {
+            "$ref" : "Holdings"
+          }
+        }
+      },
+      "required" : [ "recordId", "reservable", "holdings" ]
+    },
+    "BookingBranchInfo" : {
+      "id" : "BookingBranchInfo",
+      "properties" : {
+        "branchId" : {
+          "type" : "string",
+          "description" : "The branch ID"
+        },
+        "grossNumberAvailable" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "The gross number of available materials"
+        },
+        "bookingInfo" : {
+          "type" : "array",
+          "description" : "Details about requested booking information",
+          "items" : {
+            "$ref" : "BookingInfo"
+          }
+        }
+      },
+      "required" : [ "branchId", "grossNumberAvailable", "bookingInfo" ]
+    },
+    "Periodical" : {
+      "id" : "Periodical",
+      "properties" : {
+        "volume" : {
+          "type" : "string"
+        },
+        "volumeYear" : {
+          "type" : "string"
+        },
+        "displayText" : {
+          "type" : "string",
+          "description" : "A representation of the periodica volume information that is suitable for display"
+        },
+        "volumeNumber" : {
+          "type" : "string"
+        }
+      },
+      "required" : [ "displayText" ]
+    },
+    "Holdings" : {
+      "id" : "Holdings",
+      "properties" : {
+        "materials" : {
+          "type" : "array",
+          "description" : "Materials that belongs to this placement",
+          "items" : {
+            "$ref" : "Material"
+          }
+        },
+        "location" : {
+          "type" : "AgencyLocation",
+          "description" : "Placement location"
+        },
+        "sublocation" : {
+          "type" : "AgencySublocation",
+          "description" : "Placement sublocation"
+        },
+        "department" : {
+          "type" : "AgencyDepartment",
+          "description" : "Placement department"
+        },
+        "branch" : {
+          "type" : "AgencyBranch",
+          "description" : "Placement branch"
+        }
+      },
+      "required" : [ "materials", "branch" ]
+    },
+    "AgencyLocation" : {
+      "id" : "AgencyLocation",
+      "properties" : {
+        "locationId" : {
+          "type" : "string",
+          "description" : "Location identifier"
+        },
+        "title" : {
+          "type" : "string",
+          "description" : "Name of the location"
+        }
+      },
+      "required" : [ "locationId", "title" ]
+    },
+    "Period" : {
+      "id" : "Period",
+      "properties" : {
+        "from" : {
+          "type" : "string",
+          "description" : "Open-ended if not set"
+        },
+        "to" : {
+          "type" : "string",
+          "description" : "Open-ended if not set"
+        }
+      }
+    },
+    "Material" : {
+      "id" : "Material",
+      "properties" : {
+        "itemNumber" : {
+          "type" : "string",
+          "description" : "Identifies the material"
+        },
+        "periodical" : {
+          "type" : "Periodical",
+          "description" : "Present if material is a periodical"
+        },
+        "available" : {
+          "type" : "boolean",
+          "description" : "True if material is available on-shelf, false if lent out"
+        },
+        "materialGroupName" : {
+          "type" : "string",
+          "description" : "Name of the material group that the material belongs to"
+        }
+      },
+      "required" : [ "itemNumber", "available", "materialGroupName" ]
+    },
+    "AgencySublocation" : {
+      "id" : "AgencySublocation",
+      "properties" : {
+        "title" : {
+          "type" : "string",
+          "description" : "Name of the sub-location"
+        },
+        "sublocationId" : {
+          "type" : "string",
+          "description" : "Sub-location identifier"
+        }
+      },
+      "required" : [ "title", "sublocationId" ]
+    },
+    "AgencyBranch" : {
+      "id" : "AgencyBranch",
+      "properties" : {
+        "branchId" : {
+          "type" : "string",
+          "description" : "ISIL of branch (e.g. DK-761501)"
+        },
+        "title" : {
+          "type" : "string",
+          "description" : "Name of branch"
+        }
+      },
+      "required" : [ "branchId", "title" ]
+    },
+    "AgencyDepartment" : {
+      "id" : "AgencyDepartment",
+      "properties" : {
+        "departmentId" : {
+          "type" : "string",
+          "description" : "Department identifier"
+        },
+        "title" : {
+          "type" : "string",
+          "description" : "Name of the department"
+        }
+      },
+      "required" : [ "departmentId", "title" ]
+    },
+    "BookingInfo" : {
+      "id" : "BookingInfo",
+      "properties" : {
+        "preferredMaterials" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "The preferred number of materials"
+        },
+        "period" : {
+          "type" : "Period",
+          "description" : "The booking period information containing the start and the end date"
+        }
+      },
+      "required" : [ "preferredMaterials", "period" ]
+    }
+  }
+}

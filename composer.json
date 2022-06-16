@@ -1,0 +1,17 @@
+{
+    "name": "danskernesdigitalebibliotek/fbs-adapter",
+    "description": "Tool to transform FBS API spec. to FBS adapter",
+    "type": "project",
+    "license": "AGPL-3.0-only",
+    "autoload": {
+        "psr-4": {
+            "Danskernesdigitalebibliotek\\FbsAdapter\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "ITKDev"
+        }
+    ],
+    "require": {}
+}

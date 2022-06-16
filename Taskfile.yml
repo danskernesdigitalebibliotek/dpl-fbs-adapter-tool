@@ -1,0 +1,36 @@
+version: '3'
+
+dotenv: [".task.env"]
+
+tasks:
+  dev:install:
+    summary: Install packages
+    cmds:
+      - task dev:node:cli -- yarn install
+      - task dev:composer:cli -- install
+
+  dev:swagger2yaml:
+    summary: Coveret FSB swagger 1.2 to swagger 2.0
+    cmds:
+      -  task dev:node:cli -- node_modules/.bin/api-spec-converter --from=swagger_1 --to=swagger_2 --syntax=yaml fbs/service.json > fbs/service.yaml
+
+  dev:convert:
+    summary: Convert FBS swagger to FBS adapter
+    cmds:
+#      - task dev:swagger2yaml
+      - task dev:php:cli -- convert.php fbs/service.yaml
+
+  dev:php:cli:
+    summary: Performs command inside container. Expects parameter(s).
+    cmds:
+      - docker compose run --rm php php {{.CLI_ARGS}}
+
+  dev:composer:cli:
+    summary: Performs command inside container. Expects parameter(s).
+    cmds:
+      - docker compose run --rm composer composer {{.CLI_ARGS}}
+
+  dev:node:cli:
+    summary: Performs command inside container. Expects parameter(s).
+    cmds:
+      - docker compose run --rm node {{.CLI_ARGS}}
