@@ -37,6 +37,19 @@ $output = [
     ],
     'basePath' => '/',
     'paths' => [],
+    'securityDefinitions' => [
+        'oauth' => [
+            'type' => 'oauth2',
+            'description' => 'OAuth 2.0 password Grant',
+            'flow' => 'password',
+            'tokenUrl' => 'https://login.bib.dk/oauth/token',
+        ],
+    ],
+    'security' => [
+        [
+            'oauth' => [],
+        ],
+    ]
 ];
 
 $tagsFilter = [];
