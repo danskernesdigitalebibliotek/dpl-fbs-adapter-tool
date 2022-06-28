@@ -1,0 +1,330 @@
+{
+  "apiVersion" : "1.0",
+  "swaggerVersion" : "1.2",
+  "basePath" : "/rest",
+  "resourcePath" : "/external/v1/{agencyid}/patrons/{patronid}/loans",
+  "apis" : [ {
+    "path" : "/external/v1/{agencyid}/patrons/{patronid}/loans",
+    "operations" : [ {
+      "method" : "GET",
+      "nickname" : "getLoans",
+      "type" : "array",
+      "items" : {
+        "$ref" : "Loan"
+      },
+      "parameters" : [ {
+        "type" : "string",
+        "description" : "ISIL of the agency (e.g. DK-761500)",
+        "paramType" : "path",
+        "name" : "agencyid",
+        "required" : true
+      }, {
+        "type" : "integer",
+        "format" : "int64",
+        "description" : "the patron that owns the loans",
+        "paramType" : "path",
+        "name" : "patronid",
+        "required" : true
+      } ],
+      "summary" : "Get list of current loans by the patron.",
+      "notes" : "\n Returns an array of loans.\n <p>\n </p>\n If a loan is not renewable then the field renewalStatus will contain a list of one or more of these values:\n <ul>\n <li>- deniedReserved</li>\n <li>- deniedMaxRenewalsReached</li>\n <li>- deniedLoanerIsBlocked</li>\n <li>- deniedMaterialIsNotLoanable</li>\n <li>- deniedMaterialIsNotFound</li>\n <li>- deniedLoanerNotFound</li>\n <li>- deniedLoaningProfileNotFound</li>\n <li>- deniedOtherReason</li>\n </ul>\n <p>\n If any other value is encountered then it must be treated as 'deniedOtherReason'.\n </p>\n The response contains the field loanDetails.loanType, which can be any of these values:\n <ul>\n <li>- loan</li>\n <li>- interLibraryLoan</li>\n </ul>\n <p>\n The values are subject to change. If an unrecognized value is encountered, it should be treated as 'other' .\n </p>\n <p>\n NOTE: Cicero can decide to skip evaluation of the returned loans to minimize response time for loaners with\n many loans. In that case isRenewable will have the value true, as if it were a successful validation.\n </p>",
+      "responseMessages" : [ {
+        "code" : 400,
+        "message" : "bad request"
+      }, {
+        "code" : 401,
+        "message" : "client unauthorized"
+      }, {
+        "code" : 404,
+        "message" : "patron not found"
+      } ]
+    } ]
+  }, {
+    "path" : "/external/v1/{agencyid}/patrons/{patronid}/loans/renew",
+    "operations" : [ {
+      "method" : "POST",
+      "nickname" : "renewLoans",
+      "type" : "array",
+      "items" : {
+        "$ref" : "RenewedLoan"
+      },
+      "parameters" : [ {
+        "type" : "string",
+        "description" : "ISIL of the agency (e.g. DK-761500)",
+        "paramType" : "path",
+        "name" : "agencyid",
+        "required" : true
+      }, {
+        "type" : "integer",
+        "format" : "int64",
+        "description" : "the patron that owns the loans",
+        "paramType" : "path",
+        "name" : "patronid",
+        "required" : true
+      }, {
+        "type" : "array",
+        "description" : "a list of loanId to be renewed",
+        "items" : {
+          "type" : "integer"
+        },
+        "paramType" : "body",
+        "name" : "materialLoanIds",
+        "required" : true
+      } ],
+      "summary" : "Renew loans.",
+      "notes" : "\n Returns an array of the updated loans.\n <p>\n If the materials could not be renewed, the return date will be unchanged.\n </p>\n\n The response field renewalStatus will contain a list of one or more of these values:\n <ul>\n <li>- renewed</li>\n <li>- deniedReserved</li>\n <li>- deniedMaxRenewalsReached</li>\n <li>- deniedLoanerIsBlocked</li>\n <li>- deniedMaterialIsNotLoanable</li>\n <li>- deniedMaterialIsNotFound</li>\n <li>- deniedLoanerNotFound</li>\n <li>- deniedLoaningProfileNotFound</li>\n <li>- deniedOtherReason</li>\n </ul>\n <p>\n If any other value is encountered then it must be treated as 'deniedOtherReason'.\n </p>\n The response contains the field loanDetails.loanType, which can be any of these values:\n <ul>\n <li>- loan</li>\n <li>- interLibraryLoan</li>\n </ul>\n <p>\n The values are subject to change. If an unrecognized value is encountered, it should be treated as 'other' .\n </p>",
+      "responseMessages" : [ {
+        "code" : 400,
+        "message" : "bad request"
+      }, {
+        "code" : 401,
+        "message" : "client unauthorized"
+      }, {
+        "code" : 404,
+        "message" : "patron not found"
+      } ]
+    } ]
+  }, {
+    "path" : "/external/v1/{agencyid}/patrons/{patronid}/loans/{bookingid}",
+    "operations" : [ {
+      "method" : "GET",
+      "nickname" : "getBookingLoans",
+      "type" : "array",
+      "items" : {
+        "$ref" : "BookingLoan"
+      },
+      "parameters" : [ {
+        "type" : "string",
+        "description" : "ISIL of the agency (e.g. DK-761500)",
+        "paramType" : "path",
+        "name" : "agencyid",
+        "required" : true
+      }, {
+        "type" : "integer",
+        "format" : "int64",
+        "description" : "the ID of the patron that owns the bookings",
+        "paramType" : "path",
+        "name" : "patronid",
+        "required" : true
+      }, {
+        "type" : "string",
+        "description" : "ID of the booking",
+        "paramType" : "path",
+        "name" : "bookingid",
+        "required" : true
+      } ],
+      "summary" : "Retrieves material loans for the given booking ID.",
+      "notes" : "\n <p>\n Retrieves an array of BookingLoan corresponding to the given booking ID.\n <p>",
+      "responseMessages" : [ {
+        "code" : 400,
+        "message" : "bad request com.dantek.dl.rest.RestException"
+      }, {
+        "code" : 401,
+        "message" : "client unauthorized"
+      }, {
+        "code" : 404,
+        "message" : "patron not found"
+      } ]
+    } ]
+  } ],
+  "models" : {
+    "RenewedLoan" : {
+      "id" : "RenewedLoan",
+      "properties" : {
+        "loanDetails" : {
+          "type" : "LoanDetails",
+          "description" : "The loan that was attempted renewed"
+        },
+        "renewalStatus" : {
+          "type" : "array",
+          "description" : "indicates if renewal was succesful or denied - including the reason for denial.",
+          "items" : {
+            "type" : "string"
+          }
+        }
+      },
+      "required" : [ "loanDetails", "renewalStatus" ]
+    },
+    "BookingLoan" : {
+      "id" : "BookingLoan",
+      "properties" : {
+        "patronName" : {
+          "type" : "string",
+          "description" : "The name of the patron that owns the booking"
+        },
+        "isRenewable" : {
+          "type" : "boolean",
+          "description" : "indicates whether this loan can be renewed"
+        },
+        "loanDetails" : {
+          "type" : "LoanDetails",
+          "description" : "The loan that was attempted renewed"
+        },
+        "isLongtermLoan" : {
+          "type" : "boolean",
+          "description" : "indicates whether this loan is a long term loan"
+        },
+        "renewalStatusList" : {
+          "type" : "array",
+          "description" : "if isRenewable == false then this states the reasons for denial",
+          "items" : {
+            "type" : "string"
+          }
+        }
+      },
+      "required" : [ "patronName", "isRenewable", "loanDetails", "isLongtermLoan", "renewalStatusList" ]
+    },
+    "Loan" : {
+      "id" : "Loan",
+      "properties" : {
+        "isRenewable" : {
+          "type" : "boolean",
+          "description" : "indicates whether this loan can be renewed"
+        },
+        "loanDetails" : {
+          "type" : "LoanDetails",
+          "description" : "The loan that was attempted renewed"
+        },
+        "isLongtermLoan" : {
+          "type" : "boolean",
+          "description" : "indicates whether this loan is a long term loan"
+        },
+        "renewalStatusList" : {
+          "type" : "array",
+          "description" : "if isRenewable == false then this states the reasons for denial",
+          "items" : {
+            "type" : "string"
+          }
+        }
+      },
+      "required" : [ "isRenewable", "loanDetails", "isLongtermLoan", "renewalStatusList" ]
+    },
+    "Periodical" : {
+      "id" : "Periodical",
+      "properties" : {
+        "volume" : {
+          "type" : "string"
+        },
+        "volumeYear" : {
+          "type" : "string"
+        },
+        "displayText" : {
+          "type" : "string",
+          "description" : "A representation of the periodica volume information that is suitable for display"
+        },
+        "volumeNumber" : {
+          "type" : "string"
+        }
+      },
+      "required" : [ "displayText" ]
+    },
+    "ILLBibliographicRecord" : {
+      "id" : "ILLBibliographicRecord",
+      "properties" : {
+        "author" : {
+          "type" : "string",
+          "description" : "The author of the material"
+        },
+        "isbn" : {
+          "type" : "string",
+          "description" : "ISBN-information from the bibliographic record"
+        },
+        "periodicalNumber" : {
+          "type" : "string",
+          "description" : "Issue number of a periodical"
+        },
+        "edition" : {
+          "type" : "string",
+          "description" : "Edition-information from the bibliographic record"
+        },
+        "language" : {
+          "type" : "string",
+          "description" : "Language of the requested material."
+        },
+        "bibliographicCategory" : {
+          "type" : "string",
+          "description" : "Bibliographic category from danMARC2 008 *t"
+        },
+        "title" : {
+          "type" : "string",
+          "description" : "The title of the material"
+        },
+        "publicationDateOfComponent" : {
+          "type" : "string",
+          "description" : "Publication date of an item component, or article."
+        },
+        "recordId" : {
+          "type" : "string",
+          "description" : "The FAUST number"
+        },
+        "issn" : {
+          "type" : "string",
+          "description" : "ISSN-information from the bibliographic record"
+        },
+        "placeOfPublication" : {
+          "type" : "string"
+        },
+        "mediumType" : {
+          "type" : "string",
+          "description" : "Type of the requested material - from danMARC2 009 *a+*g (general and specific)"
+        },
+        "periodicalVolume" : {
+          "type" : "string",
+          "description" : "Volume name of a periodical"
+        },
+        "publisher" : {
+          "type" : "string",
+          "description" : "Publisher of the requested material."
+        },
+        "publicationDate" : {
+          "type" : "string",
+          "description" : "Publication date of the requested material."
+        }
+      },
+      "required" : [ "recordId", "mediumType" ]
+    },
+    "LoanDetails" : {
+      "id" : "LoanDetails",
+      "properties" : {
+        "recordId" : {
+          "type" : "string",
+          "description" : "The FAUST number of the bibliographic record"
+        },
+        "loanType" : {
+          "type" : "string",
+          "description" : "The loan type, either <b>loan</b> or <b>interLibraryLoan</b>"
+        },
+        "periodical" : {
+          "type" : "Periodical",
+          "description" : "Present if material is a periodical"
+        },
+        "dueDate" : {
+          "type" : "string",
+          "description" : "The date when the material must be returned"
+        },
+        "ilBibliographicRecord" : {
+          "type" : "ILLBibliographicRecord",
+          "description" : "Additional bibliographic information for inter-library loans"
+        },
+        "loanDate" : {
+          "type" : "string",
+          "description" : "The date when the material was picked up"
+        },
+        "materialGroupName" : {
+          "type" : "string",
+          "description" : "Name of the material group that the material belongs to"
+        },
+        "materialItemNumber" : {
+          "type" : "string",
+          "description" : "Identifies the exact material that has been loaned"
+        },
+        "loanId" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "Identifies the loan for use when renewing the loan"
+        }
+      },
+      "required" : [ "recordId", "loanType", "dueDate", "loanDate", "materialGroupName", "materialItemNumber", "loanId" ]
+    }
+  }
+}

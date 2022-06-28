@@ -1,0 +1,23 @@
+version: "3.8"
+
+services:
+  php:
+    image: php:8.1-cli-alpine
+    working_dir: /app
+    volumes:
+      - ./:/app:delegated
+
+  composer:
+    image: composer:2
+    working_dir: /app
+    volumes:
+      - ./:/app:delegated
+
+  node:
+    image: node:16
+    user: node
+    working_dir: /home/node/app
+    volumes:
+      - ./:/home/node/app
+      - ./fbs/externalapidocs:/externalapidocs
+      - ~/.npmrc:/home/node/.npmrc

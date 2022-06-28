@@ -1,0 +1,62 @@
+{
+  "apiVersion" : "1.0",
+  "swaggerVersion" : "1.2",
+  "basePath" : "/rest",
+  "resourcePath" : "/external/v1/{agencyid}/authentication",
+  "apis" : [ {
+    "path" : "/external/v1/{agencyid}/authentication/login",
+    "operations" : [ {
+      "method" : "POST",
+      "nickname" : "login",
+      "type" : "ExternalAPIUserInfo",
+      "parameters" : [ {
+        "type" : "string",
+        "description" : "ISIL of the agency to log into (e.g. DK-761500)",
+        "paramType" : "path",
+        "name" : "agencyid",
+        "required" : true
+      }, {
+        "type" : "Login",
+        "description" : "credentials for the client system",
+        "paramType" : "body",
+        "name" : "login",
+        "required" : true
+      } ],
+      "summary" : "Authenticate the client system.",
+      "notes" : "\n The other services can only be used by an authenticated client system. This service authenticates the client\n system to be able to use the other services.\n <p>The response contains a session key which must be supplied in the HTTP header 'X-Session' of all subsequent\n service calls.\n The session key can timeout (yielding HTTP Status code 401 on a service call),\n and if this happens the client system must login again.</p>",
+      "responseMessages" : [ {
+        "code" : 400,
+        "message" : "bad request"
+      }, {
+        "code" : 403,
+        "message" : "invalid client credentials"
+      } ]
+    } ]
+  } ],
+  "models" : {
+    "ExternalAPIUserInfo" : {
+      "id" : "ExternalAPIUserInfo",
+      "properties" : {
+        "sessionKey" : {
+          "type" : "string",
+          "description" : "Session key for subsequent API calls"
+        }
+      },
+      "required" : [ "sessionKey" ]
+    },
+    "Login" : {
+      "id" : "Login",
+      "properties" : {
+        "password" : {
+          "type" : "string",
+          "description" : "Clear text password"
+        },
+        "username" : {
+          "type" : "string",
+          "description" : "Username for the client system"
+        }
+      },
+      "required" : [ "password", "username" ]
+    }
+  }
+}

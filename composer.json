@@ -1,0 +1,14 @@
+{
+    "name": "danskernesdigitalebibliotek/fbs-adapter",
+    "description": "Tool to transform FBS API spec. to FBS adapter",
+    "type": "project",
+    "license": "AGPL-3.0-only",    
+    "authors": [
+        {
+            "name": "ITKDev"
+        }
+    ],
+    "require": {
+        "symfony/yaml": "^6.1"
+    }
+}

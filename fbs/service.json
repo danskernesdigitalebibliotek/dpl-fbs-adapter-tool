@@ -1,0 +1,54 @@
+{
+  "swaggerVersion" : "1.2",
+  "apiVersion" : "1.0",
+  "basePath" : "/externalapidocs",
+  "apis" : [ {
+    "path" : "/external_v1_agencyid_patrons_patronid_bookings.{format}",
+    "description" : "External Booking"
+  }, {
+    "path" : "/external_v1_agencyid_patron_patronid.{format}",
+    "description" : "External Payment"
+  }, {
+    "path" : "/external_v1_agencyid_patrongroups.{format}",
+    "description" : "External Patron Group"
+  }, {
+    "path" : "/external_v1_agencyid_authentication.{format}",
+    "description" : "External Authentication"
+  }, {
+    "path" : "/external_v1_agencyid.{format}",
+    "description" : "External Placement"
+  }, {
+    "path" : "/external_v1_agencyid_catalog.{format}",
+    "description" : "External Catalog"
+  }, {
+    "path" : "/external_agencyid_patron_patronid.{format}",
+    "description" : "External Payment"
+  }, {
+    "path" : "/external_agencyid_patrons.{format}",
+    "description" : "External Patron"
+  }, {
+    "path" : "/external_v2_agencyid_patrons.{format}",
+    "description" : "External Patron"
+  }, {
+    "path" : "/external_v1_agencyid_patrons.{format}",
+    "description" : "External Patron"
+  }, {
+    "path" : "/external_v2_agencyid_catalog.{format}",
+    "description" : "External Catalog"
+  }, {
+    "path" : "/external_agencyid_catalog.{format}",
+    "description" : "External Catalog"
+  }, {
+    "path" : "/external_v1_agencyid_patrons_patronid_loans.{format}",
+    "description" : "External Material Loans"
+  }, {
+    "path" : "/external_v1_agencyid_configuration.{format}",
+    "description" : "External Configuration"
+  }, {
+    "path" : "/external_agencyid_patrons_patronid_loans.{format}",
+    "description" : "External Material Loans"
+  }, {
+    "path" : "/external_v1_agencyid_patrons_patronid_reservations.{format}",
+    "description" : "External Reservations"
+  } ]
+}

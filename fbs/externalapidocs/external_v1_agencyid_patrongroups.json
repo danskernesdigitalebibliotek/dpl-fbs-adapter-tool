@@ -1,0 +1,63 @@
+{
+  "apiVersion" : "1.0",
+  "swaggerVersion" : "1.2",
+  "basePath" : "/rest",
+  "resourcePath" : "/external/v1/{agencyid}/patrongroups",
+  "apis" : [ {
+    "path" : "/external/v1/{agencyid}/patrongroups",
+    "operations" : [ {
+      "method" : "GET",
+      "nickname" : "getRootGroup",
+      "type" : "PatronGroup",
+      "parameters" : [ {
+        "type" : "string",
+        "description" : "ISIL of the agency (e.g. DK-761500)",
+        "paramType" : "path",
+        "name" : "agencyid",
+        "required" : true
+      } ],
+      "summary" : "Returns the root group of a specific agency.",
+      "notes" : "\n <p>\n Returns the root of the PatronGroup and the whole groups hierarchy in the specified agency.\n </p>",
+      "responseMessages" : [ {
+        "code" : 400,
+        "message" : "bad request"
+      }, {
+        "code" : 401,
+        "message" : "client unauthorized"
+      } ]
+    } ]
+  } ],
+  "models" : {
+    "PatronGroup" : {
+      "id" : "PatronGroup",
+      "properties" : {
+        "membersCount" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "The number of all members in this group, including descendants"
+        },
+        "patronGroupId" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "The patron group identifier"
+        },
+        "name" : {
+          "type" : "string",
+          "description" : "The name of the group"
+        },
+        "description" : {
+          "type" : "string",
+          "description" : "The description of the group"
+        },
+        "childGroups" : {
+          "type" : "array",
+          "description" : "The array of child groups of this group",
+          "items" : {
+            "$ref" : "PatronGroup"
+          }
+        }
+      },
+      "required" : [ "membersCount", "patronGroupId", "name", "description" ]
+    }
+  }
+}

@@ -1,0 +1,301 @@
+{
+  "apiVersion" : "1.0",
+  "swaggerVersion" : "1.2",
+  "basePath" : "/rest",
+  "resourcePath" : "/external/v1/{agencyid}/patrons/{patronid}/bookings",
+  "apis" : [ {
+    "path" : "/external/v1/{agencyid}/patrons/{patronid}/bookings",
+    "operations" : [ {
+      "method" : "GET",
+      "nickname" : "getBookings",
+      "type" : "array",
+      "items" : {
+        "$ref" : "Booking"
+      },
+      "parameters" : [ {
+        "type" : "string",
+        "description" : "ISIL of the agency (e.g. DK-761500)",
+        "paramType" : "path",
+        "name" : "agencyid",
+        "required" : true
+      }, {
+        "type" : "integer",
+        "format" : "int64",
+        "description" : "the ID of the patron that owns the bookings",
+        "paramType" : "path",
+        "name" : "patronid",
+        "required" : true
+      } ],
+      "summary" : "Retrieve all bookings made by the patron.",
+      "notes" : "\n <p>\n Returns an array of booking details in one of the following states\n <ul>\n <li>- active</li>\n <li>- fulfilled</li>\n <li>- beingFulfilled</li>\n </ul>\n Bookings having any other state will not be received.\n </p>",
+      "responseMessages" : [ {
+        "code" : 400,
+        "message" : "bad request com.dantek.dl.rest.RestException"
+      }, {
+        "code" : 401,
+        "message" : "client unauthorized"
+      }, {
+        "code" : 404,
+        "message" : "patron not found"
+      } ]
+    }, {
+      "method" : "POST",
+      "nickname" : "createBookings",
+      "type" : "array",
+      "items" : {
+        "$ref" : "BookingResponse"
+      },
+      "parameters" : [ {
+        "type" : "string",
+        "description" : "ISIL of the agency (e.g. DK-761500)",
+        "paramType" : "path",
+        "name" : "agencyid",
+        "required" : true
+      }, {
+        "type" : "integer",
+        "format" : "int64",
+        "description" : "the ID of the patron that owns the bookings",
+        "paramType" : "path",
+        "name" : "patronid",
+        "required" : true
+      }, {
+        "type" : "CreateBookingBatch",
+        "description" : "information about bookings that are going to be created",
+        "paramType" : "body",
+        "name" : "batch",
+        "required" : true
+      } ],
+      "summary" : "Create a new bookings for the patron.",
+      "notes" : "\n <p>\n Given a CreateBookingBatch, it creates a list of bookings and returns an array of BookingResponse.\n </p>\n <p>\n Each response element contains a result of the creation and if ALL results have the value <code>success</code>\n the created Booking is returned. Otherwise the field is <code>null</code>.\n </p>\n <p>\n No booking is created if ANY element in the CreateBookingBatch fails to be created\n </p>\n <p>\n The result of the creation can have the following values:\n <ul>\n <li>- success</li>\n <li>- notEnoughMaterials</li>\n <li>- notUpdatable</li>\n <li>- patronDoesNotHavePermission</li>\n <li>- other</li>\n </ul>\n </p>",
+      "responseMessages" : [ {
+        "code" : 400,
+        "message" : "bad request com.dantek.dl.rest.RestException"
+      }, {
+        "code" : 401,
+        "message" : "client unauthorized"
+      }, {
+        "code" : 404,
+        "message" : "patron not found"
+      } ]
+    }, {
+      "method" : "PUT",
+      "nickname" : "updateBookings",
+      "type" : "array",
+      "items" : {
+        "$ref" : "BookingResponse"
+      },
+      "parameters" : [ {
+        "type" : "string",
+        "paramType" : "path",
+        "name" : "agencyid",
+        "required" : true
+      }, {
+        "type" : "integer",
+        "format" : "int64",
+        "description" : "the ID of the patron that owns the bookings",
+        "paramType" : "path",
+        "name" : "patronid",
+        "required" : true
+      }, {
+        "type" : "UpdateBookingBatch",
+        "description" : "information about bookings that are going to be updated",
+        "paramType" : "body",
+        "name" : "batch",
+        "required" : true
+      } ],
+      "summary" : "Update existing bookings",
+      "notes" : "\n <p>\n Given an UpdateBookingBatch, it updates the list of existing bookings and returns an array of BookingResponse.\n </p>\n <p>\n Each response element contains a result of the update operation and the updated Booking if the operation\n succeeds. On failure, the result field is updated accordingly and the booking is set to null.\n </p>\n <p>\n The result of the creation can have the following values:\n <ul>\n <li>- success</li>\n <li>- notEnoughMaterials</li>\n <li>- notUpdatable</li>\n <li>- patronDoesNotHavePermission</li>\n <li>- other</li>\n </ul>\n </p>",
+      "responseMessages" : [ {
+        "code" : 400,
+        "message" : "bad request com.dantek.dl.rest.RestException"
+      }, {
+        "code" : 401,
+        "message" : "client unauthorized"
+      }, {
+        "code" : 404,
+        "message" : "patron not found"
+      } ]
+    }, {
+      "method" : "DELETE",
+      "nickname" : "deleteBookings",
+      "type" : "void",
+      "parameters" : [ {
+        "type" : "string",
+        "description" : "ISIL of the agency (e.g. DK-761500)",
+        "paramType" : "path",
+        "name" : "agencyid",
+        "required" : true
+      }, {
+        "type" : "integer",
+        "format" : "int64",
+        "description" : "the ID of the patron that owns the bookings",
+        "paramType" : "path",
+        "name" : "patronid",
+        "required" : true
+      } ],
+      "summary" : "Deletes bookings with the specified IDs.",
+      "notes" : "\n <p>\n Deletes the bookings corresponding to the given booking IDs\n </p>",
+      "responseMessages" : [ {
+        "code" : 400,
+        "message" : "bad request com.dantek.dl.rest.RestException"
+      }, {
+        "code" : 401,
+        "message" : "client unauthorized"
+      }, {
+        "code" : 404,
+        "message" : "patron not found"
+      } ]
+    } ]
+  } ],
+  "models" : {
+    "Period" : {
+      "id" : "Period",
+      "properties" : {
+        "from" : {
+          "type" : "string",
+          "description" : "Open-ended if not set"
+        },
+        "to" : {
+          "type" : "string",
+          "description" : "Open-ended if not set"
+        }
+      }
+    },
+    "Booking" : {
+      "id" : "Booking",
+      "properties" : {
+        "recordId" : {
+          "type" : "string",
+          "description" : "The record ID"
+        },
+        "preferredMaterials" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "The preferred number of materials"
+        },
+        "note" : {
+          "type" : "string",
+          "description" : "Additional information about this booking"
+        },
+        "period" : {
+          "type" : "Period",
+          "description" : "The booking period information containing the start and the end date"
+        },
+        "minimumMaterials" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "The minimum number of materials"
+        },
+        "patronGroupId" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "The patron group ID for this booking"
+        },
+        "automaticForwardLoan" : {
+          "type" : "boolean",
+          "description" : "True if automatic forward is active for this booking"
+        },
+        "state" : {
+          "type" : "string",
+          "description" : "The booking state"
+        },
+        "requestedFromBranchId" : {
+          "type" : "string",
+          "description" : "The branch that provides the material for booking"
+        },
+        "bookingId" : {
+          "type" : "string",
+          "description" : "The booking identifier"
+        },
+        "deliverBranchId" : {
+          "type" : "string",
+          "description" : "The delivery branch identifier"
+        }
+      },
+      "required" : [ "recordId", "preferredMaterials", "period", "minimumMaterials", "patronGroupId", "automaticForwardLoan", "state", "requestedFromBranchId", "bookingId", "deliverBranchId" ]
+    },
+    "BookingResponse" : {
+      "id" : "BookingResponse",
+      "properties" : {
+        "result" : {
+          "type" : "string",
+          "description" : "The operation result"
+        },
+        "booking" : {
+          "type" : "Booking",
+          "description" : "The booking data as returned by the create/update operation"
+        }
+      },
+      "required" : [ "result" ]
+    },
+    "CreateBooking" : {
+      "id" : "CreateBooking",
+      "properties" : {
+        "recordId" : {
+          "type" : "string",
+          "description" : "The record ID"
+        },
+        "preferredMaterials" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "The preferred number of materials"
+        },
+        "note" : {
+          "type" : "string",
+          "description" : "Additional information about this booking"
+        },
+        "period" : {
+          "type" : "Period",
+          "description" : "The booking period information containing the start and the end date"
+        },
+        "minimumMaterials" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "The minimum number of materials"
+        },
+        "patronGroupId" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "The patron group ID for this booking"
+        },
+        "automaticForwardLoan" : {
+          "type" : "boolean",
+          "description" : "True if automatic forward is active for this booking"
+        },
+        "requestedFromBranchId" : {
+          "type" : "string",
+          "description" : "The branch that provides the material for booking"
+        },
+        "deliverBranchId" : {
+          "type" : "string",
+          "description" : "The delivery branch identifier"
+        }
+      },
+      "required" : [ "recordId", "preferredMaterials", "period", "minimumMaterials", "patronGroupId", "automaticForwardLoan", "requestedFromBranchId", "deliverBranchId" ]
+    },
+    "CreateBookingBatch" : {
+      "id" : "CreateBookingBatch",
+      "properties" : {
+        "bookings" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "CreateBooking"
+          }
+        }
+      },
+      "required" : [ "bookings" ]
+    },
+    "UpdateBookingBatch" : {
+      "id" : "UpdateBookingBatch",
+      "properties" : {
+        "bookings" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "Booking"
+          }
+        }
+      },
+      "required" : [ "bookings" ]
+    }
+  }
+}

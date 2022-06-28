@@ -1,0 +1,74 @@
+{
+  "apiVersion" : "1.0",
+  "swaggerVersion" : "1.2",
+  "basePath" : "/rest",
+  "resourcePath" : "/external/v1/{agencyid}/configuration",
+  "apis" : [ {
+    "path" : "/external/v1/{agencyid}/configuration/{key}",
+    "operations" : [ {
+      "method" : "GET",
+      "nickname" : "getConfiguration",
+      "type" : "string",
+      "parameters" : [ {
+        "type" : "string",
+        "description" : "ISIL of the agency (e.g. DK-761500)",
+        "paramType" : "path",
+        "name" : "agencyid",
+        "required" : true
+      }, {
+        "type" : "string",
+        "description" : "the configuration key to look up",
+        "paramType" : "path",
+        "name" : "key",
+        "required" : true
+      } ],
+      "summary" : "Get a configuration setting based on a configuration key.",
+      "notes" : "\n Returns a string representation of the setting.\n <p>Note: If the settings for the key is a list of values, this method is not suitable for getting the settings.</p>\n <p>The list of available configuration settings will be distributed\n seperately to the clients that needs them, along with a description on how\n the settings is encoded in the string representation.</p>",
+      "responseMessages" : [ {
+        "code" : 400,
+        "message" : "bad request"
+      }, {
+        "code" : 401,
+        "message" : "client unauthorized"
+      }, {
+        "code" : 404,
+        "message" : "key not found"
+      } ]
+    } ]
+  }, {
+    "path" : "/external/v1/{agencyid}/configuration/{key}/list",
+    "operations" : [ {
+      "method" : "GET",
+      "nickname" : "getConfigurationList",
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      },
+      "parameters" : [ {
+        "type" : "string",
+        "description" : "ISIL of the agency (e.g. DK-761500)",
+        "paramType" : "path",
+        "name" : "agencyid",
+        "required" : true
+      }, {
+        "type" : "string",
+        "description" : "the configuration key to look up",
+        "paramType" : "path",
+        "name" : "key",
+        "required" : true
+      } ],
+      "summary" : "Get a configuration setting based on a configuration key.",
+      "notes" : "\n Returns an array of strings representation of the setting.\n <p>This method is suitable for keys that has a list of values.</p>\n <p>The list of available configuration settings will be distributed\n seperately to the clients that needs them, along with a description on how\n the settings is encoded in the string representation.</p>",
+      "responseMessages" : [ {
+        "code" : 400,
+        "message" : "bad request"
+      }, {
+        "code" : 401,
+        "message" : "client unauthorized"
+      }, {
+        "code" : 404,
+        "message" : "key not found"
+      } ]
+    } ]
+  } ]
+}
