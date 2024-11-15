@@ -90,6 +90,32 @@
       } ]
     } ]
   }, {
+    "path" : "/external/v1/{agencyid}/sections",
+    "operations" : [ {
+      "method" : "GET",
+      "nickname" : "getSections",
+      "type" : "array",
+      "items" : {
+        "$ref" : "AgencySection"
+      },
+      "parameters" : [ {
+        "type" : "string",
+        "description" : "ISIL of the agency (e.g. DK-761500)",
+        "paramType" : "path",
+        "name" : "agencyid",
+        "required" : true
+      } ],
+      "summary" : "Get translations from section identifiers to displayable text.",
+      "notes" : "\n Returns array of sections.",
+      "responseMessages" : [ {
+        "code" : 400,
+        "message" : "bad request"
+      }, {
+        "code" : 401,
+        "message" : "client unauthorized"
+      } ]
+    } ]
+  }, {
     "path" : "/external/v1/{agencyid}/sublocations",
     "operations" : [ {
       "method" : "GET",
@@ -115,8 +141,156 @@
         "message" : "client unauthorized"
       } ]
     } ]
+  }, {
+    "path" : "/external/v1/{agencyid}/{branchId}/closingdates",
+    "operations" : [ {
+      "method" : "GET",
+      "nickname" : "getClosingDatesByBranchId",
+      "type" : "array",
+      "items" : {
+        "$ref" : "ClosingDateV1"
+      },
+      "parameters" : [ {
+        "type" : "string",
+        "description" : "ISIL of the agency (e.g. DK-761500)",
+        "paramType" : "path",
+        "name" : "agencyid",
+        "required" : true
+      }, {
+        "type" : "string",
+        "description" : "ISIL of branch (e.g. DK-761501)",
+        "paramType" : "path",
+        "name" : "branchId",
+        "required" : true
+      }, {
+        "type" : "string",
+        "description" : "Starting date of the interval in the format yyyy-mm-dd",
+        "paramType" : "query",
+        "name" : "startDate"
+      }, {
+        "type" : "string",
+        "description" : "End date of the interval in the format yyyy-mm-dd",
+        "paramType" : "query",
+        "name" : "endDate"
+      } ],
+      "summary" : "Get closing dates for a branch in an interval, inclusively between startDate and endDate.",
+      "notes" : "\n Returns array of closing dates.",
+      "responseMessages" : [ {
+        "code" : 400,
+        "message" : "bad request"
+      }, {
+        "code" : 401,
+        "message" : "client unauthorized"
+      } ]
+    } ]
+  }, {
+    "path" : "/external/v1/{agencyid}/{branchId}/openinghours",
+    "operations" : [ {
+      "method" : "GET",
+      "nickname" : "getOpeningHoursByBranchId",
+      "type" : "array",
+      "items" : {
+        "$ref" : "OpeningHoursV1"
+      },
+      "parameters" : [ {
+        "type" : "string",
+        "description" : "ISIL of the agency (e.g. DK-761500)",
+        "paramType" : "path",
+        "name" : "agencyid",
+        "required" : true
+      }, {
+        "type" : "string",
+        "description" : "ISIL of branch (e.g. DK-761501)",
+        "paramType" : "path",
+        "name" : "branchId",
+        "required" : true
+      } ],
+      "summary" : "Get opening hours for a branch.",
+      "notes" : "\n Returns array of opening hours.",
+      "responseMessages" : [ {
+        "code" : 400,
+        "message" : "bad request"
+      }, {
+        "code" : 401,
+        "message" : "client unauthorized"
+      } ]
+    } ]
   } ],
   "models" : {
+    "ClosingDateV1" : {
+      "id" : "ClosingDateV1",
+      "properties" : {
+        "branchId" : {
+          "type" : "string"
+        },
+        "description" : {
+          "type" : "string"
+        },
+        "closingDate" : {
+          "type" : "string"
+        }
+      },
+      "required" : [ "branchId", "description", "closingDate" ]
+    },
+    "OpeningHoursV1" : {
+      "id" : "OpeningHoursV1",
+      "properties" : {
+        "branchId" : {
+          "type" : "string",
+          "description" : "ISIL of branch (e.g. DK-761501)"
+        },
+        "serviceHoursStartTime" : {
+          "type" : "string",
+          "description" : "The opening time for the service hours\n Format: HH:MM:SS"
+        },
+        "serviceHoursEndTime" : {
+          "type" : "string",
+          "description" : "The closing time for the service hours\n Format: HH:MM:SS"
+        },
+        "openHoursEndTime" : {
+          "type" : "string",
+          "description" : "The closing time for the opening hours\n Format: HH:MM:SS"
+        },
+        "day" : {
+          "type" : "string",
+          "description" : "The day of the specified opening hours",
+          "enum" : [ "MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY", "SUNDAY" ]
+        },
+        "openHoursStartTime" : {
+          "type" : "string",
+          "description" : "The opening time for the opening hours.\n Format: HH:MM:SS"
+        }
+      },
+      "required" : [ "branchId", "serviceHoursStartTime", "serviceHoursEndTime", "openHoursEndTime", "day", "openHoursStartTime" ]
+    },
+    "AgencySection" : {
+      "id" : "AgencySection",
+      "properties" : {
+        "sectionId" : {
+          "type" : "string",
+          "description" : "Section identifier"
+        },
+        "title" : {
+          "type" : "string",
+          "description" : "Name of the section"
+        }
+      },
+      "required" : [ "sectionId", "title" ]
+    },
+    "AgencyLocation" : {
+      "id" : "AgencyLocation",
+      "properties" : {
+        "locationId" : {
+          "type" : "string",
+          "description" : "Location identifier"
+        },
+        "title" : {
+          "type" : "string",
+          "description" : "Name of the location"
+        }
+      },
+      "required" : [ "locationId", "title" ]
+    },
     "AgencySublocation" : {
       "id" : "AgencySublocation",
       "properties" : {
@@ -158,20 +332,6 @@
         }
       },
       "required" : [ "departmentId", "title" ]
-    },
-    "AgencyLocation" : {
-      "id" : "AgencyLocation",
-      "properties" : {
-        "locationId" : {
-          "type" : "string",
-          "description" : "Location identifier"
-        },
-        "title" : {
-          "type" : "string",
-          "description" : "Name of the location"
-        }
-      },
-      "required" : [ "locationId", "title" ]
     }
   }
 }

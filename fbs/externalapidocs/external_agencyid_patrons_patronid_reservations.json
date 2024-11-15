@@ -1,0 +1,393 @@
+{
+  "apiVersion" : "1.0",
+  "swaggerVersion" : "1.2",
+  "basePath" : "/rest",
+  "resourcePath" : "/external/{agencyid}/patrons/{patronid}/reservations",
+  "apis" : [ {
+    "path" : "/external/{agencyid}/patrons/{patronid}/reservations/v2",
+    "operations" : [ {
+      "method" : "PUT",
+      "nickname" : "updateReservationsV2",
+      "type" : "array",
+      "items" : {
+        "$ref" : "ReservationDetailsV3"
+      },
+      "parameters" : [ {
+        "type" : "string",
+        "description" : "ISIL of the agency (e.g. DK-761500)",
+        "paramType" : "path",
+        "name" : "agencyid",
+        "required" : true
+      }, {
+        "type" : "integer",
+        "format" : "int64",
+        "description" : "the patron that owns the reservations",
+        "paramType" : "path",
+        "name" : "patronid",
+        "required" : true
+      }, {
+        "type" : "UpdateReservationBatchV2",
+        "description" : "the reservations to be updated",
+        "paramType" : "body",
+        "name" : "reservations",
+        "required" : true
+      } ],
+      "summary" : "Update existing reservations.",
+      "notes" : "\n Returns an array of the updated reservation details.\n <p></p>\n The response contains reservation state, which can be any of these values:\n <ul>\n     <li>- reserved</li>\n     <li>- readyForPickup</li>\n     <li>- interLibraryReservation</li>\n     <li>- inTransit</li>\n     <li>- other</li>\n </ul>\n <p>The values are subject to change. If an unrecognized value is encountered, it should be treated as 'other'.</p>\n The response contains loanType, which can be any of these values:\n <ul>\n     <li>- loan</li>\n     <li>- interLibraryLoan</li>\n </ul>\n <p>The values are subject to change. If an unrecognized value is encountered, it should be treated as 'other'\n .</p>\n <p>The activation date can only be updated for active or passive reservations</p>",
+      "responseMessages" : [ {
+        "code" : 400,
+        "message" : "bad request"
+      }, {
+        "code" : 401,
+        "message" : "client unauthorized"
+      } ]
+    } ]
+  }, {
+    "path" : "/external/{agencyid}/patrons/{patronid}/reservations/v3",
+    "operations" : [ {
+      "method" : "GET",
+      "nickname" : "getReservationsV3",
+      "type" : "array",
+      "items" : {
+        "$ref" : "ReservationDetailsV3"
+      },
+      "parameters" : [ {
+        "type" : "string",
+        "description" : "ISIL of the agency (e.g. DK-761500)",
+        "paramType" : "path",
+        "name" : "agencyid",
+        "required" : true
+      }, {
+        "type" : "integer",
+        "format" : "int64",
+        "description" : "the patron that owns the reservations",
+        "paramType" : "path",
+        "name" : "patronid",
+        "required" : true
+      } ],
+      "summary" : "Get all unfulfilled reservations made by the patron.",
+      "notes" : "\n Returns an array of reservation details.\n <p>When the patron picks up the reserved materials,\n the reservation will no longer be returned.\n Expired or deleted reservations will not be returned.</p>\n\n The response contains reservation state, which can be any of these values:\n <ul>\n     <li>- reserved</li>\n     <li>- readyForPickup</li>\n     <li>- interLibraryReservation</li>\n     <li>- inTransit</li>\n     <li>- other</li>\n </ul>\n <p>The values are subject to change. If an unrecognized value is encountered, it should be treated as 'other'\n .</p>\n The response contains reservationType, which can be any of these values:\n <ul>\n     <li>- NORMAL</li>\n     <li>- PARALLEL</li>\n     <li>- SERIAL</li>\n     <li>- INTER_LIBRARY</li>\n </ul>\n <p>The values are subject to change. If an unrecognized value is encountered, iit should be treated as 'normal'</p>\n <p>The response contains a transactionId, which links together parallel reservations.</p>",
+      "responseMessages" : [ {
+        "code" : 400,
+        "message" : "bad request"
+      }, {
+        "code" : 401,
+        "message" : "client unauthorized"
+      } ]
+    }, {
+      "method" : "POST",
+      "nickname" : "addReservationsV3",
+      "type" : "ReservationResponseV3",
+      "parameters" : [ {
+        "type" : "string",
+        "description" : "ISIL of the agency (e.g. DK-761500)",
+        "paramType" : "path",
+        "name" : "agencyid",
+        "required" : true
+      }, {
+        "type" : "integer",
+        "format" : "int64",
+        "description" : "the patron that makes the reservations",
+        "paramType" : "path",
+        "name" : "patronid",
+        "required" : true
+      }, {
+        "type" : "CreateReservationBatchV3",
+        "description" : "the reservations to be created",
+        "paramType" : "body",
+        "name" : "createReservationBatch",
+        "required" : true
+      } ],
+      "summary" : "Create new reservations for the patron.",
+      "notes" : "\n <p>Given a CreateReservationBatch, it creates a list of reservations and returns a ReservationResponse.</p>\n <p>The CreateReservationBatch.type indicates the reservation type of the request. If left out the request will be considered of type\n normal. The type can be any of the following values:</p>\n <ul>\n     <li>- normal</li>\n     <li>- parallel</li>\n </ul>\n <p>The values are subject to change.</p>\n\n <p>ReservationResponse.success indicates if the reservations were created sucessfully.\n If all reservations are successfully created ReservationResponse.success will be true.\n If the type is normal, and any of the reservations have failed then ReservationResponse.success will be false,\n and no reservations are created.\n If the type is parallel, and any of the reservations have failed then ReservationResponse.success will be false,\n but successful reservations are created.\n\n <p></p>\n\n <p>ReservationResponse.reservationResults contains details about each reservation.\n A ReservationResult.result has the status of a reservation and can be any of the following values:</p>\n <ul>\n     <li>- success</li>\n     <li>- patron_is_blocked</li>\n     <li>- patron_not_found</li>\n     <li>- already_reserved</li>\n     <li>- already_loaned</li>\n     <li>- material_not_loanable</li>\n     <li>- material_not_reservable</li>\n     <li>- material_lost</li>\n     <li>- material_Discarded</li>\n     <li>- loaning_profile_not_found</li>\n     <li>- material_not_found</li>\n     <li>- material_part_of_collection</li>\n     <li>- not_reservable</li>\n     <li>- no_reservable_materials</li>\n     <li>- interlibrary_material_not_reservable</li>\n     <li>- previously_loaned_by_homebound_patron</li>\n     <li>- exceeds_max_reservations</li>\n </ul>\n <p>The values are subject to change. If an unrecognized value is encountered, it should be treated as an error.</p>\n\n <p></p>\n\n The reservation detail in the response contains a reservation state, which can be any of these values:\n <ul>\n     <li>- reserved</li>\n     <li>- readyForPickup</li>\n     <li>- interLibraryReservation</li>\n     <li>- inTransit</li>\n     <li>- other</li>\n </ul>\n <p>The values are subject to change. If an unrecognized value is encountered, it should be treated as 'other'.</p>\n\n <p></p>\n\n <p>\n     When making a reservation of a periodical, the values to put in the PeriodicalReservation structure can be obtained\n     from the periodical information retrieved with the Catalog service.\n </p>",
+      "responseMessages" : [ {
+        "code" : 400,
+        "message" : "bad request"
+      }, {
+        "code" : 401,
+        "message" : "client unauthorized"
+      }, {
+        "code" : 404,
+        "message" : "patron not found"
+      } ]
+    } ]
+  } ],
+  "models" : {
+    "PeriodicalReservation" : {
+      "id" : "PeriodicalReservation",
+      "properties" : {
+        "volume" : {
+          "type" : "string"
+        },
+        "volumeYear" : {
+          "type" : "string"
+        },
+        "volumeNumber" : {
+          "type" : "string"
+        }
+      }
+    },
+    "ReservationResultV3" : {
+      "id" : "ReservationResultV3",
+      "properties" : {
+        "recordId" : {
+          "type" : "string",
+          "description" : "Recordid of the record to reserve"
+        },
+        "result" : {
+          "type" : "string",
+          "description" : "The reservation result"
+        },
+        "periodical" : {
+          "type" : "PeriodicalReservation",
+          "description" : "Periodical information of the reservation"
+        },
+        "reservationDetails" : {
+          "type" : "ReservationDetailsV3",
+          "description" : "The reservation data as returned by the create/update operation"
+        }
+      },
+      "required" : [ "recordId", "result" ]
+    },
+    "CreateReservationBatchV3" : {
+      "id" : "CreateReservationBatchV3",
+      "properties" : {
+        "reservations" : {
+          "type" : "array",
+          "description" : "Reservations with duplicate record id's will be removed.",
+          "items" : {
+            "$ref" : "CreateReservationV2"
+          }
+        },
+        "type" : {
+          "type" : "string",
+          "description" : "Will be considered normal if not set"
+        }
+      },
+      "required" : [ "reservations" ]
+    },
+    "ILLBibliographicRecord" : {
+      "id" : "ILLBibliographicRecord",
+      "properties" : {
+        "author" : {
+          "type" : "string",
+          "description" : "The author of the material"
+        },
+        "isbn" : {
+          "type" : "string",
+          "description" : "ISBN-information from the bibliographic record"
+        },
+        "periodicalNumber" : {
+          "type" : "string",
+          "description" : "Issue number of a periodical"
+        },
+        "edition" : {
+          "type" : "string",
+          "description" : "Edition-information from the bibliographic record"
+        },
+        "language" : {
+          "type" : "string",
+          "description" : "Language of the requested material."
+        },
+        "bibliographicCategory" : {
+          "type" : "string",
+          "description" : "Bibliographic category from danMARC2 008 *t"
+        },
+        "title" : {
+          "type" : "string",
+          "description" : "The title of the material"
+        },
+        "publicationDateOfComponent" : {
+          "type" : "string",
+          "description" : "Publication date of an item component, or article."
+        },
+        "recordId" : {
+          "type" : "string",
+          "description" : "The FAUST number"
+        },
+        "issn" : {
+          "type" : "string",
+          "description" : "ISSN-information from the bibliographic record"
+        },
+        "placeOfPublication" : {
+          "type" : "string"
+        },
+        "mediumType" : {
+          "type" : "string",
+          "description" : "Type of the requested material - from danMARC2 009 *a+*g (general and specific)"
+        },
+        "periodicalVolume" : {
+          "type" : "string",
+          "description" : "Volume name of a periodical"
+        },
+        "publisher" : {
+          "type" : "string",
+          "description" : "Publisher of the requested material."
+        },
+        "publicationDate" : {
+          "type" : "string",
+          "description" : "Publication date of the requested material."
+        }
+      },
+      "required" : [ "recordId", "mediumType" ]
+    },
+    "Periodical" : {
+      "id" : "Periodical",
+      "properties" : {
+        "volume" : {
+          "type" : "string"
+        },
+        "volumeYear" : {
+          "type" : "string"
+        },
+        "displayText" : {
+          "type" : "string",
+          "description" : "A representation of the periodica volume information that is suitable for display"
+        },
+        "volumeNumber" : {
+          "type" : "string"
+        }
+      },
+      "required" : [ "displayText" ]
+    },
+    "UpdateReservationBatchV2" : {
+      "id" : "UpdateReservationBatchV2",
+      "properties" : {
+        "reservations" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "UpdateReservationV2"
+          }
+        }
+      },
+      "required" : [ "reservations" ]
+    },
+    "ReservationResponseV3" : {
+      "id" : "ReservationResponseV3",
+      "properties" : {
+        "success" : {
+          "type" : "boolean",
+          "description" : "True if all reservations were created successfully otherwise false"
+        },
+        "reservationResults" : {
+          "type" : "array",
+          "description" : "Result of each reservation",
+          "items" : {
+            "$ref" : "ReservationResultV3"
+          }
+        }
+      },
+      "required" : [ "success", "reservationResults" ]
+    },
+    "ReservationDetailsV3" : {
+      "id" : "ReservationDetailsV3",
+      "properties" : {
+        "pickupBranch" : {
+          "type" : "string",
+          "description" : "ISIL-number of pickup branch"
+        },
+        "pickupDeadline" : {
+          "type" : "string",
+          "description" : "Set if reserved material is available for loan"
+        },
+        "dateOfReservation" : {
+          "type" : "string"
+        },
+        "ilBibliographicRecord" : {
+          "type" : "ILLBibliographicRecord",
+          "description" : "Additional bibliographic information for inter-library loans"
+        },
+        "numberInQueue" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "The number in the reservation queue."
+        },
+        "pickupNumber" : {
+          "type" : "string",
+          "description" : "The reservation number. Will be present if the reservation is ready for pickup (the state is 'readyForPickup')"
+        },
+        "transactionId" : {
+          "type" : "string",
+          "description" : "Identifies the transaction of reservations"
+        },
+        "recordId" : {
+          "type" : "string",
+          "description" : "The FAUST number"
+        },
+        "expiryDate" : {
+          "type" : "string",
+          "description" : "The date when the patron is no longer interested in the reserved material"
+        },
+        "reservationId" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "Identifies the reservation for use when updating or deleting the reservation"
+        },
+        "periodical" : {
+          "type" : "Periodical",
+          "description" : "Present if material is a periodical"
+        },
+        "reservationType" : {
+          "type" : "string"
+        },
+        "state" : {
+          "type" : "string"
+        },
+        "activationDate" : {
+          "type" : "string",
+          "description" : "Sets the activation date. From this date, the reservation can be fulfilled."
+        }
+      },
+      "required" : [ "pickupBranch", "dateOfReservation", "transactionId", "recordId", "expiryDate", "reservationId", "reservationType", "state" ]
+    },
+    "CreateReservationV2" : {
+      "id" : "CreateReservationV2",
+      "properties" : {
+        "recordId" : {
+          "type" : "string",
+          "description" : "Identifies the bibliographical record to reserve - The FAUST number"
+        },
+        "expiryDate" : {
+          "type" : "string",
+          "description" : "The date where the patron is no longer interested in the reserved material.\n If not set, a date will be calculated from the agency default interest period"
+        },
+        "pickupBranch" : {
+          "type" : "string",
+          "description" : "ISIL-number of pickup branch.\n If not set, will default to patrons preferred pickup branch"
+        },
+        "periodical" : {
+          "type" : "PeriodicalReservation",
+          "description" : "Present if making reservation on a periodical"
+        },
+        "activationDate" : {
+          "type" : "string",
+          "description" : "Sets the activation date. From this date, the reservation can be fulfilled."
+        }
+      },
+      "required" : [ "recordId" ]
+    },
+    "UpdateReservationV2" : {
+      "id" : "UpdateReservationV2",
+      "properties" : {
+        "expiryDate" : {
+          "type" : "string",
+          "description" : "The date where the patron is no longer interested in the reserved material.\n If not set, a date will be calculated from the libraries default interest period"
+        },
+        "pickupBranch" : {
+          "type" : "string",
+          "description" : "ISIL-number of pickup branch.\n If not set, will default to patrons preferred pickup branch"
+        },
+        "reservationId" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "Identifies the reservation"
+        },
+        "activationDate" : {
+          "type" : "string",
+          "description" : "Sets the activation date. From this date, the reservation can be fulfilled."
+        }
+      },
+      "required" : [ "reservationId" ]
+    }
+  }
+}

@@ -120,6 +120,461 @@
       } ]
     } ]
   }, {
+    "path" : "/external/{agencyid}/patrons/authenticate/v7",
+    "operations" : [ {
+      "method" : "POST",
+      "nickname" : "authenticateV7",
+      "type" : "AuthenticatedPatronV7",
+      "parameters" : [ {
+        "type" : "string",
+        "description" : "ISIL of the agency (e.g. DK-761500)",
+        "paramType" : "path",
+        "name" : "agencyid",
+        "required" : true
+      }, {
+        "type" : "AuthenticationRequest",
+        "description" : "credentials for patron to be authenticated",
+        "paramType" : "body",
+        "name" : "authenticationRequest",
+        "required" : true
+      } ],
+      "summary" : "Authenticates a patron and returns the patron details.",
+      "notes" : "\n The returned patron details includes a patronId that has to be used by all subsequent\n service calls made on behalf of that patron.\n <p></p>\n If a patron is blocked the reason is available as a code:\n <ul>\n     <li>- 'O': library card stolen</li>\n     <li>- 'U': exclusion</li>\n     <li>- 'F': extended exclusion</li>\n     <li>- 'S': blocked by self service automaton</li>\n     <li>- 'W': self created at website</li>\n </ul>\n <p>The codes are informational, and can be used for looking up end user messages by the client system. However,\n the list is subject to change at any time, so any unexpected values should be interpreted as 'other reason'.</p>",
+      "responseMessages" : [ {
+        "code" : 400,
+        "message" : "bad request"
+      }, {
+        "code" : 401,
+        "message" : "client unauthorized"
+      } ]
+    } ]
+  }, {
+    "path" : "/external/{agencyid}/patrons/authenticate/v8",
+    "operations" : [ {
+      "method" : "POST",
+      "nickname" : "authenticateV8",
+      "type" : "AuthenticatedPatronV8",
+      "parameters" : [ {
+        "type" : "string",
+        "description" : "ISIL of the agency (e.g. DK-761500)",
+        "paramType" : "path",
+        "name" : "agencyid",
+        "required" : true
+      }, {
+        "type" : "AuthenticationRequest",
+        "description" : "credentials for patron to be authenticated",
+        "paramType" : "body",
+        "name" : "authenticationRequest",
+        "required" : true
+      } ],
+      "summary" : "Authenticates a patron and returns the patron details.",
+      "notes" : "\n The returned patron details includes a patronId that has to be used by all subsequent\n service calls made on behalf of that patron.\n <p></p>\n If a patron is blocked the reason is available as a code:\n <ul>\n     <li>- 'O': library card stolen</li>\n     <li>- 'U': exclusion</li>\n     <li>- 'F': extended exclusion</li>\n     <li>- 'S': blocked by self service automaton</li>\n     <li>- 'W': self created at website</li>\n </ul>\n <p>The codes are informational, and can be used for looking up end user messages by the client system. However,\n the list is subject to change at any time, so any unexpected values should be interpreted as 'other reason'.</p>",
+      "responseMessages" : [ {
+        "code" : 400,
+        "message" : "bad request"
+      }, {
+        "code" : 401,
+        "message" : "client unauthorized"
+      } ]
+    } ]
+  }, {
+    "path" : "/external/{agencyid}/patrons/authenticate/v9",
+    "operations" : [ {
+      "method" : "POST",
+      "nickname" : "authenticateV9",
+      "type" : "PatronAuthenticationResponse",
+      "parameters" : [ {
+        "type" : "string",
+        "description" : "ISIL of the agency (e.g. DK-761500)",
+        "paramType" : "path",
+        "name" : "agencyid",
+        "required" : true
+      }, {
+        "type" : "AuthenticationRequest",
+        "description" : "credentials for patron to be authenticated",
+        "paramType" : "body",
+        "name" : "authenticationRequest",
+        "required" : true
+      } ],
+      "summary" : "Authenticates a patron and returns a patron id, patron type and authentication status.",
+      "notes" : "\n The returned patronId must be used by all subsequent service calls made on behalf of that patron.\n The full patron can be fetched with the operation corresponding to the patron type\n using the patron id and patron type.",
+      "responseMessages" : [ {
+        "code" : 400,
+        "message" : "bad request"
+      }, {
+        "code" : 401,
+        "message" : "client unauthorized"
+      } ]
+    } ]
+  }, {
+    "path" : "/external/{agencyid}/patrons/company/{patronid}",
+    "operations" : [ {
+      "method" : "GET",
+      "nickname" : "getCompanyTypePatronInformation",
+      "type" : "CompanyPatron",
+      "parameters" : [ {
+        "type" : "string",
+        "description" : "ISIL of the agency (e.g. DK-761500)",
+        "paramType" : "path",
+        "name" : "agencyid",
+        "required" : true
+      }, {
+        "type" : "integer",
+        "format" : "int64",
+        "description" : "patron id of the patron",
+        "paramType" : "path",
+        "name" : "patronid",
+        "required" : true
+      } ],
+      "summary" : "Returns the patron details for company patron",
+      "notes" : "\n <p></p>\n If a patron is blocked the reason is available as a code:\n <ul>\n     <li>- 'O': library card stolen</li>\n     <li>- 'U': exclusion</li>\n     <li>- 'F': extended exclusion</li>\n     <li>- 'S': blocked by self service automaton</li>\n     <li>- 'W': self created at website</li>\n     <li>- 'E': maximum amount of allowed debt exceeded</li>\n     <li>- 'D': deceased</li>\n </ul>\n <p>The codes are informational, and can be used for looking up end user messages by the client system. However,\n the list is subject to change at any time, so any unexpected values should be interpreted as 'other reason'.</p>",
+      "responseMessages" : [ {
+        "code" : 400,
+        "message" : "bad request"
+      }, {
+        "code" : 401,
+        "message" : "client unauthorized"
+      } ]
+    } ]
+  }, {
+    "path" : "/external/{agencyid}/patrons/company/{patronid}/v2",
+    "operations" : [ {
+      "method" : "GET",
+      "nickname" : "getCompanyTypePatronInformationV2",
+      "type" : "CompanyPatronV2",
+      "parameters" : [ {
+        "type" : "string",
+        "description" : "ISIL of the agency (e.g. DK-761500)",
+        "paramType" : "path",
+        "name" : "agencyid",
+        "required" : true
+      }, {
+        "type" : "integer",
+        "format" : "int64",
+        "description" : "patron id of the patron",
+        "paramType" : "path",
+        "name" : "patronid",
+        "required" : true
+      } ],
+      "summary" : "Returns the patron details for company patron",
+      "notes" : "\n <p></p>\n If a patron is blocked the reason is available as a code:\n <ul>\n     <li>- 'O': library card stolen</li>\n     <li>- 'U': exclusion</li>\n     <li>- 'F': extended exclusion</li>\n     <li>- 'S': blocked by self service automaton</li>\n     <li>- 'W': self created at website</li>\n     <li>- 'E': maximum amount of allowed debt exceeded</li>\n     <li>- 'D': deceased</li>\n </ul>\n <p>The codes are informational, and can be used for looking up end user messages by the client system. However,\n the list is subject to change at any time, so any unexpected values should be interpreted as 'other reason'.</p>",
+      "responseMessages" : [ {
+        "code" : 400,
+        "message" : "bad request"
+      }, {
+        "code" : 401,
+        "message" : "client unauthorized"
+      } ]
+    } ]
+  }, {
+    "path" : "/external/{agencyid}/patrons/company/{patronid}/v3",
+    "operations" : [ {
+      "method" : "GET",
+      "nickname" : "getCompanyTypePatronInformationV3",
+      "type" : "CompanyPatronV3",
+      "parameters" : [ {
+        "type" : "string",
+        "description" : "ISIL of the agency (e.g. DK-761500)",
+        "paramType" : "path",
+        "name" : "agencyid",
+        "required" : true
+      }, {
+        "type" : "integer",
+        "format" : "int64",
+        "description" : "patron id of the patron",
+        "paramType" : "path",
+        "name" : "patronid",
+        "required" : true
+      } ],
+      "summary" : "Returns the patron details for company patron",
+      "notes" : "\n <p></p>\n If a patron is blocked the reason is available as a code:\n <ul>\n     <li>- 'O': library card stolen</li>\n     <li>- 'U': exclusion</li>\n     <li>- 'F': extended exclusion</li>\n     <li>- 'S': blocked by self service automaton</li>\n     <li>- 'W': self created at website</li>\n     <li>- 'E': maximum amount of allowed debt exceeded</li>\n     <li>- 'D': deceased</li>\n </ul>\n <p>The codes are informational, and can be used for looking up end user messages by the client system. However,\n the list is subject to change at any time, so any unexpected values should be interpreted as 'other reason'.</p>",
+      "responseMessages" : [ {
+        "code" : 400,
+        "message" : "bad request"
+      }, {
+        "code" : 401,
+        "message" : "client unauthorized"
+      } ]
+    } ]
+  }, {
+    "path" : "/external/{agencyid}/patrons/company/{patronid}/v4",
+    "operations" : [ {
+      "method" : "GET",
+      "nickname" : "getCompanyTypePatronInformationV4",
+      "type" : "CompanyPatronV4",
+      "parameters" : [ {
+        "type" : "string",
+        "description" : "ISIL of the agency (e.g. DK-761500)",
+        "paramType" : "path",
+        "name" : "agencyid",
+        "required" : true
+      }, {
+        "type" : "integer",
+        "format" : "int64",
+        "description" : "patron id of the patron",
+        "paramType" : "path",
+        "name" : "patronid",
+        "required" : true
+      } ],
+      "summary" : "Returns the patron details for company patron",
+      "notes" : "\n <p></p>\n If a patron is blocked the reason is available as a code:\n <ul>\n     <li>- 'O': library card stolen</li>\n     <li>- 'U': exclusion</li>\n     <li>- 'F': extended exclusion</li>\n     <li>- 'S': blocked by self service automaton</li>\n     <li>- 'W': self created at website</li>\n     <li>- 'E': maximum amount of allowed debt exceeded</li>\n     <li>- 'D': deceased</li>\n </ul>\n <p>The codes are informational, and can be used for looking up end user messages by the client system. However,\n the list is subject to change at any time, so any unexpected values should be interpreted as 'other reason'.</p>",
+      "responseMessages" : [ {
+        "code" : 400,
+        "message" : "bad request"
+      }, {
+        "code" : 401,
+        "message" : "client unauthorized"
+      } ]
+    } ]
+  }, {
+    "path" : "/external/{agencyid}/patrons/consent/{patronid}/v1",
+    "operations" : [ {
+      "method" : "GET",
+      "nickname" : "getConsentsV1",
+      "type" : "array",
+      "items" : {
+        "$ref" : "ConsentV1"
+      },
+      "parameters" : [ {
+        "type" : "string",
+        "description" : "ISIL of the agency (e.g. DK-761500)",
+        "paramType" : "path",
+        "name" : "agencyid",
+        "required" : true
+      }, {
+        "type" : "integer",
+        "format" : "int64",
+        "description" : "owner of the consents",
+        "paramType" : "path",
+        "name" : "patronid",
+        "required" : true
+      } ],
+      "summary" : "Get the list of given consents for a patron.",
+      "responseMessages" : [ {
+        "code" : 200,
+        "message" : "ok"
+      }, {
+        "code" : 401,
+        "message" : "client unauthorized"
+      }, {
+        "code" : 403,
+        "message" : "forbidden access to wrong agency"
+      }, {
+        "code" : 404,
+        "message" : "no patron found for patronId"
+      } ]
+    } ]
+  }, {
+    "path" : "/external/{agencyid}/patrons/group/{patronid}",
+    "operations" : [ {
+      "method" : "GET",
+      "nickname" : "getGroupTypePatronInformation",
+      "type" : "GroupPatron",
+      "parameters" : [ {
+        "type" : "string",
+        "description" : "ISIL of the agency (e.g. DK-761500)",
+        "paramType" : "path",
+        "name" : "agencyid",
+        "required" : true
+      }, {
+        "type" : "integer",
+        "format" : "int64",
+        "description" : "patron id of the patron",
+        "paramType" : "path",
+        "name" : "patronid",
+        "required" : true
+      } ],
+      "summary" : "Returns the patron details for a group patron",
+      "notes" : "\n <p></p>\n If a patron is blocked the reason is available as a code:\n <ul>\n     <li>- 'O': library card stolen</li>\n     <li>- 'U': exclusion</li>\n     <li>- 'F': extended exclusion</li>\n     <li>- 'S': blocked by self service automaton</li>\n     <li>- 'W': self created at website</li>\n     <li>- 'E': maximum amount of allowed debt exceeded</li>\n     <li>- 'D': deceased</li>\n </ul>\n <p>The codes are informational, and can be used for looking up end user messages by the client system. However,\n the list is subject to change at any time, so any unexpected values should be interpreted as 'other reason'.</p>",
+      "responseMessages" : [ {
+        "code" : 400,
+        "message" : "bad request"
+      }, {
+        "code" : 401,
+        "message" : "client unauthorized"
+      } ]
+    } ]
+  }, {
+    "path" : "/external/{agencyid}/patrons/group/{patronid}/v2",
+    "operations" : [ {
+      "method" : "GET",
+      "nickname" : "getGroupTypePatronInformationV2",
+      "type" : "GroupPatronV2",
+      "parameters" : [ {
+        "type" : "string",
+        "description" : "ISIL of the agency (e.g. DK-761500)",
+        "paramType" : "path",
+        "name" : "agencyid",
+        "required" : true
+      }, {
+        "type" : "integer",
+        "format" : "int64",
+        "description" : "patron id of the patron",
+        "paramType" : "path",
+        "name" : "patronid",
+        "required" : true
+      } ],
+      "summary" : "Returns the patron details for a group patron",
+      "notes" : "\n <p></p>\n If a patron is blocked the reason is available as a code:\n <ul>\n     <li>- 'O': library card stolen</li>\n     <li>- 'U': exclusion</li>\n     <li>- 'F': extended exclusion</li>\n     <li>- 'S': blocked by self service automaton</li>\n     <li>- 'W': self created at website</li>\n     <li>- 'E': maximum amount of allowed debt exceeded</li>\n     <li>- 'D': deceased</li>\n </ul>\n <p>The codes are informational, and can be used for looking up end user messages by the client system. However,\n the list is subject to change at any time, so any unexpected values should be interpreted as 'other reason'.</p>",
+      "responseMessages" : [ {
+        "code" : 400,
+        "message" : "bad request"
+      }, {
+        "code" : 401,
+        "message" : "client unauthorized"
+      } ]
+    } ]
+  }, {
+    "path" : "/external/{agencyid}/patrons/group/{patronid}/v3",
+    "operations" : [ {
+      "method" : "GET",
+      "nickname" : "getGroupTypePatronInformationV3",
+      "type" : "GroupPatronV3",
+      "parameters" : [ {
+        "type" : "string",
+        "description" : "ISIL of the agency (e.g. DK-761500)",
+        "paramType" : "path",
+        "name" : "agencyid",
+        "required" : true
+      }, {
+        "type" : "integer",
+        "format" : "int64",
+        "description" : "patron id of the patron",
+        "paramType" : "path",
+        "name" : "patronid",
+        "required" : true
+      } ],
+      "summary" : "Returns the patron details for a group patron",
+      "notes" : "\n <p></p>\n If a patron is blocked the reason is available as a code:\n <ul>\n     <li>- 'O': library card stolen</li>\n     <li>- 'U': exclusion</li>\n     <li>- 'F': extended exclusion</li>\n     <li>- 'S': blocked by self service automaton</li>\n     <li>- 'W': self created at website</li>\n     <li>- 'E': maximum amount of allowed debt exceeded</li>\n     <li>- 'D': deceased</li>\n </ul>\n <p>The codes are informational, and can be used for looking up end user messages by the client system. However,\n the list is subject to change at any time, so any unexpected values should be interpreted as 'other reason'.</p>",
+      "responseMessages" : [ {
+        "code" : 400,
+        "message" : "bad request"
+      }, {
+        "code" : 401,
+        "message" : "client unauthorized"
+      } ]
+    } ]
+  }, {
+    "path" : "/external/{agencyid}/patrons/group/{patronid}/v4",
+    "operations" : [ {
+      "method" : "GET",
+      "nickname" : "getGroupTypePatronInformationV4",
+      "type" : "GroupPatronV4",
+      "parameters" : [ {
+        "type" : "string",
+        "description" : "ISIL of the agency (e.g. DK-761500)",
+        "paramType" : "path",
+        "name" : "agencyid",
+        "required" : true
+      }, {
+        "type" : "integer",
+        "format" : "int64",
+        "description" : "patron id of the patron",
+        "paramType" : "path",
+        "name" : "patronid",
+        "required" : true
+      } ],
+      "summary" : "Returns the patron details for a group patron",
+      "notes" : "\n <p></p>\n If a patron is blocked the reason is available as a code:\n <ul>\n     <li>- 'O': library card stolen</li>\n     <li>- 'U': exclusion</li>\n     <li>- 'F': extended exclusion</li>\n     <li>- 'S': blocked by self service automaton</li>\n     <li>- 'W': self created at website</li>\n     <li>- 'E': maximum amount of allowed debt exceeded</li>\n     <li>- 'D': deceased</li>\n </ul>\n <p>The codes are informational, and can be used for looking up end user messages by the client system. However,\n the list is subject to change at any time, so any unexpected values should be interpreted as 'other reason'.</p>",
+      "responseMessages" : [ {
+        "code" : 400,
+        "message" : "bad request"
+      }, {
+        "code" : 401,
+        "message" : "client unauthorized"
+      } ]
+    } ]
+  }, {
+    "path" : "/external/{agencyid}/patrons/guardian/v1",
+    "operations" : [ {
+      "method" : "POST",
+      "nickname" : "getAllPatronsForGuardianV1",
+      "type" : "array",
+      "items" : {
+        "$ref" : "AuthenticatedPatronV8"
+      },
+      "parameters" : [ {
+        "type" : "string",
+        "description" : "ISIL of the agency (e.g. DK-761500)",
+        "paramType" : "path",
+        "name" : "agencyid",
+        "required" : true
+      }, {
+        "type" : "string",
+        "paramType" : "body",
+        "name" : "guardianPersonId",
+        "required" : true
+      } ],
+      "summary" : "Returns the patron details of all patrons for a guardian that have the guardian visibility enabled.",
+      "notes" : "\n <p>If the corresponding agency configuration through /external/v1/{agencyid}/configuration/loaner.guardianVisibility.enabled is not enabled,\n then response message 403 will be sent back.</p>\n <p>If there are no patrons found, that have the guardian visibility enabled, for the given guardian CPR,\n then response message 404 will be sent back.</p>\n The returned patrons details includes a patronId that has to be used by all subsequent\n service calls made on behalf of that patron. Note: This method can only be used for patrons who\n are people, and not e.g. Companies or Libraries.\n <p></p>\n If a patron is blocked the reason is available as a code:\n <ul>\n     <li>- 'O': library card stolen</li>\n     <li>- 'U': exclusion</li>\n     <li>- 'F': extended exclusion</li>\n     <li>- 'S': blocked by self service automaton</li>\n     <li>- 'W': self created at website</li>\n </ul>\n <p>The codes are informational, and can be used for looking up end user messages by the client system. However,\n the list is subject to change at any time, so any unexpected values should be interpreted as 'other reason'.</p>",
+      "responseMessages" : [ {
+        "code" : 400,
+        "message" : "bad request"
+      }, {
+        "code" : 401,
+        "message" : "client unauthorized"
+      }, {
+        "code" : 403,
+        "message" : "the guardians do not have access to patron details on this agency"
+      }, {
+        "code" : 404,
+        "message" : "no patrons found that have the guardian as a financial resposible or that have the guardian visibility enabled"
+      } ]
+    } ]
+  }, {
+    "path" : "/external/{agencyid}/patrons/guardian/v2",
+    "operations" : [ {
+      "method" : "POST",
+      "nickname" : "getAllPatronsForGuardianV2",
+      "type" : "array",
+      "items" : {
+        "$ref" : "AuthenticatedPatronV10"
+      },
+      "parameters" : [ {
+        "type" : "string",
+        "description" : "ISIL of the agency (e.g. DK-761500)",
+        "paramType" : "path",
+        "name" : "agencyid",
+        "required" : true
+      }, {
+        "type" : "string",
+        "paramType" : "body",
+        "name" : "guardianPersonId",
+        "required" : true
+      } ],
+      "summary" : "Returns the patron details of all patrons for a guardian that have the guardian visibility enabled.",
+      "notes" : "\n <p>If the corresponding agency configuration through /external/v1/{agencyid}/configuration/loaner.guardianVisibility.enabled is not enabled,\n then response message 403 will be sent back.</p>\n <p>If there are no patrons found, that have the guardian visibility enabled, for the given guardian person identifier (e.g. CPR-number),\n then response message 404 will be sent back.</p>\n The returned patrons details includes a patronId that has to be used by all subsequent\n service calls made on behalf of that patron. Note: This method can only be used for patrons who\n are people, and not e.g. Companies or Libraries.\n <p></p>\n If a patron is blocked the reason is available as a code:\n <ul>\n     <li>- 'O': library card stolen</li>\n     <li>- 'U': exclusion</li>\n     <li>- 'F': extended exclusion</li>\n     <li>- 'S': blocked by self service automaton</li>\n     <li>- 'W': self created at website</li>\n </ul>\n <p>The codes are informational, and can be used for looking up end user messages by the client system. However,\n the list is subject to change at any time, so any unexpected values should be interpreted as 'other reason'.</p>",
+      "responseMessages" : [ {
+        "code" : 400,
+        "message" : "bad request"
+      }, {
+        "code" : 401,
+        "message" : "client unauthorized"
+      }, {
+        "code" : 403,
+        "message" : "the guardians do not have access to patron details on this agency"
+      }, {
+        "code" : 404,
+        "message" : "no patrons found that have the guardian as a financial resposible or that have the guardian visibility enabled"
+      } ]
+    } ]
+  }, {
+    "path" : "/external/{agencyid}/patrons/interests/v1",
+    "operations" : [ {
+      "method" : "GET",
+      "nickname" : "getAllowedInterests",
+      "type" : "PatronInterestsV1",
+      "parameters" : [ {
+        "type" : "string",
+        "description" : "agencyId ISIL of the agency (e.g. DK-761500)",
+        "paramType" : "path",
+        "name" : "agencyid",
+        "required" : true
+      } ],
+      "summary" : "Returns a list of interests that are configured for the agency.",
+      "notes" : "\n Interests can be added to patrons."
+    } ]
+  }, {
     "path" : "/external/{agencyid}/patrons/languages/v1",
     "operations" : [ {
       "method" : "GET",
@@ -146,6 +601,126 @@
       } ]
     } ]
   }, {
+    "path" : "/external/{agencyid}/patrons/library/{patronid}",
+    "operations" : [ {
+      "method" : "GET",
+      "nickname" : "getLibraryTypePatronInformation",
+      "type" : "LibraryPatron",
+      "parameters" : [ {
+        "type" : "string",
+        "description" : "ISIL of the agency (e.g. DK-761500)",
+        "paramType" : "path",
+        "name" : "agencyid",
+        "required" : true
+      }, {
+        "type" : "integer",
+        "format" : "int64",
+        "description" : "patron id of the patron",
+        "paramType" : "path",
+        "name" : "patronid",
+        "required" : true
+      } ],
+      "summary" : "Returns the patron details for a library patron",
+      "notes" : "\n <p></p>\n If a patron is blocked the reason is available as a code:\n <ul>\n     <li>- 'O': library card stolen</li>\n     <li>- 'U': exclusion</li>\n     <li>- 'F': extended exclusion</li>\n     <li>- 'S': blocked by self service automaton</li>\n     <li>- 'W': self created at website</li>\n     <li>- 'E': maximum amount of allowed debt exceeded</li>\n     <li>- 'D': deceased</li>\n </ul>\n <p>The codes are informational, and can be used for looking up end user messages by the client system. However,\n the list is subject to change at any time, so any unexpected values should be interpreted as 'other reason'.</p>",
+      "responseMessages" : [ {
+        "code" : 400,
+        "message" : "bad request"
+      }, {
+        "code" : 401,
+        "message" : "client unauthorized"
+      } ]
+    } ]
+  }, {
+    "path" : "/external/{agencyid}/patrons/library/{patronid}/v2",
+    "operations" : [ {
+      "method" : "GET",
+      "nickname" : "getLibraryTypePatronInformationV2",
+      "type" : "LibraryPatronV2",
+      "parameters" : [ {
+        "type" : "string",
+        "description" : "ISIL of the agency (e.g. DK-761500)",
+        "paramType" : "path",
+        "name" : "agencyid",
+        "required" : true
+      }, {
+        "type" : "integer",
+        "format" : "int64",
+        "description" : "patron id of the patron",
+        "paramType" : "path",
+        "name" : "patronid",
+        "required" : true
+      } ],
+      "summary" : "Returns the patron details for a library patron",
+      "notes" : "\n <p></p>\n If a patron is blocked the reason is available as a code:\n <ul>\n     <li>- 'O': library card stolen</li>\n     <li>- 'U': exclusion</li>\n     <li>- 'F': extended exclusion</li>\n     <li>- 'S': blocked by self service automaton</li>\n     <li>- 'W': self created at website</li>\n     <li>- 'E': maximum amount of allowed debt exceeded</li>\n     <li>- 'D': deceased</li>\n </ul>\n <p>The codes are informational, and can be used for looking up end user messages by the client system. However,\n the list is subject to change at any time, so any unexpected values should be interpreted as 'other reason'.</p>",
+      "responseMessages" : [ {
+        "code" : 400,
+        "message" : "bad request"
+      }, {
+        "code" : 401,
+        "message" : "client unauthorized"
+      } ]
+    } ]
+  }, {
+    "path" : "/external/{agencyid}/patrons/library/{patronid}/v3",
+    "operations" : [ {
+      "method" : "GET",
+      "nickname" : "getLibraryTypePatronInformationV3",
+      "type" : "LibraryPatronV3",
+      "parameters" : [ {
+        "type" : "string",
+        "description" : "ISIL of the agency (e.g. DK-761500)",
+        "paramType" : "path",
+        "name" : "agencyid",
+        "required" : true
+      }, {
+        "type" : "integer",
+        "format" : "int64",
+        "description" : "patron id of the patron",
+        "paramType" : "path",
+        "name" : "patronid",
+        "required" : true
+      } ],
+      "summary" : "Returns the patron details for a library patron",
+      "notes" : "\n <p></p>\n If a patron is blocked the reason is available as a code:\n <ul>\n     <li>- 'O': library card stolen</li>\n     <li>- 'U': exclusion</li>\n     <li>- 'F': extended exclusion</li>\n     <li>- 'S': blocked by self service automaton</li>\n     <li>- 'W': self created at website</li>\n     <li>- 'E': maximum amount of allowed debt exceeded</li>\n     <li>- 'D': deceased</li>\n </ul>\n <p>The codes are informational, and can be used for looking up end user messages by the client system. However,\n the list is subject to change at any time, so any unexpected values should be interpreted as 'other reason'.</p>",
+      "responseMessages" : [ {
+        "code" : 400,
+        "message" : "bad request"
+      }, {
+        "code" : 401,
+        "message" : "client unauthorized"
+      } ]
+    } ]
+  }, {
+    "path" : "/external/{agencyid}/patrons/library/{patronid}/v4",
+    "operations" : [ {
+      "method" : "GET",
+      "nickname" : "getLibraryTypePatronInformationV4",
+      "type" : "LibraryPatronV4",
+      "parameters" : [ {
+        "type" : "string",
+        "description" : "ISIL of the agency (e.g. DK-761500)",
+        "paramType" : "path",
+        "name" : "agencyid",
+        "required" : true
+      }, {
+        "type" : "integer",
+        "format" : "int64",
+        "description" : "patron id of the patron",
+        "paramType" : "path",
+        "name" : "patronid",
+        "required" : true
+      } ],
+      "summary" : "Returns the patron details for a library patron",
+      "notes" : "\n <p></p>\n If a patron is blocked the reason is available as a code:\n <ul>\n     <li>- 'O': library card stolen</li>\n     <li>- 'U': exclusion</li>\n     <li>- 'F': extended exclusion</li>\n     <li>- 'S': blocked by self service automaton</li>\n     <li>- 'W': self created at website</li>\n     <li>- 'E': maximum amount of allowed debt exceeded</li>\n     <li>- 'D': deceased</li>\n </ul>\n <p>The codes are informational, and can be used for looking up end user messages by the client system. However,\n the list is subject to change at any time, so any unexpected values should be interpreted as 'other reason'.</p>",
+      "responseMessages" : [ {
+        "code" : 400,
+        "message" : "bad request"
+      }, {
+        "code" : 401,
+        "message" : "client unauthorized"
+      } ]
+    } ]
+  }, {
     "path" : "/external/{agencyid}/patrons/notificationprotocols/v1",
     "operations" : [ {
       "method" : "GET",
@@ -162,6 +737,126 @@
         "required" : true
       } ],
       "summary" : "Get the list of notification protocols that is possible to set for a patron.",
+      "responseMessages" : [ {
+        "code" : 400,
+        "message" : "bad request"
+      }, {
+        "code" : 401,
+        "message" : "client unauthorized"
+      } ]
+    } ]
+  }, {
+    "path" : "/external/{agencyid}/patrons/person/{patronid}",
+    "operations" : [ {
+      "method" : "GET",
+      "nickname" : "getPersonTypePatronInformation",
+      "type" : "PersonPatron",
+      "parameters" : [ {
+        "type" : "string",
+        "description" : "ISIL of the agency (e.g. DK-761500)",
+        "paramType" : "path",
+        "name" : "agencyid",
+        "required" : true
+      }, {
+        "type" : "integer",
+        "format" : "int64",
+        "description" : "patron id of the patron",
+        "paramType" : "path",
+        "name" : "patronid",
+        "required" : true
+      } ],
+      "summary" : "Returns the patron details for a person patron",
+      "notes" : "\n <p></p>\n If a patron is blocked the reason is available as a code:\n <ul>\n     <li>- 'O': library card stolen</li>\n     <li>- 'U': exclusion</li>\n     <li>- 'F': extended exclusion</li>\n     <li>- 'S': blocked by self service automaton</li>\n     <li>- 'W': self created at website</li>\n     <li>- 'E': maximum amount of allowed debt exceeded</li>\n     <li>- 'D': deceased</li>\n </ul>\n <p>The codes are informational, and can be used for looking up end user messages by the client system. However,\n the list is subject to change at any time, so any unexpected values should be interpreted as 'other reason'.</p>",
+      "responseMessages" : [ {
+        "code" : 400,
+        "message" : "bad request"
+      }, {
+        "code" : 401,
+        "message" : "client unauthorized"
+      } ]
+    } ]
+  }, {
+    "path" : "/external/{agencyid}/patrons/person/{patronid}/v2",
+    "operations" : [ {
+      "method" : "GET",
+      "nickname" : "getPersonTypePatronInformationV2",
+      "type" : "PersonPatronV2",
+      "parameters" : [ {
+        "type" : "string",
+        "description" : "ISIL of the agency (e.g. DK-761500)",
+        "paramType" : "path",
+        "name" : "agencyid",
+        "required" : true
+      }, {
+        "type" : "integer",
+        "format" : "int64",
+        "description" : "patron id of the patron",
+        "paramType" : "path",
+        "name" : "patronid",
+        "required" : true
+      } ],
+      "summary" : "Returns the patron details for a person patron",
+      "notes" : "\n <p></p>\n If a patron is blocked the reason is available as a code:\n <ul>\n     <li>- 'O': library card stolen</li>\n     <li>- 'U': exclusion</li>\n     <li>- 'F': extended exclusion</li>\n     <li>- 'S': blocked by self service automaton</li>\n     <li>- 'W': self created at website</li>\n     <li>- 'E': maximum amount of allowed debt exceeded</li>\n     <li>- 'D': deceased</li>\n </ul>\n <p>The codes are informational, and can be used for looking up end user messages by the client system. However,\n the list is subject to change at any time, so any unexpected values should be interpreted as 'other reason'.</p>",
+      "responseMessages" : [ {
+        "code" : 400,
+        "message" : "bad request"
+      }, {
+        "code" : 401,
+        "message" : "client unauthorized"
+      } ]
+    } ]
+  }, {
+    "path" : "/external/{agencyid}/patrons/person/{patronid}/v3",
+    "operations" : [ {
+      "method" : "GET",
+      "nickname" : "getPersonTypePatronInformationV3",
+      "type" : "PersonPatronV3",
+      "parameters" : [ {
+        "type" : "string",
+        "description" : "ISIL of the agency (e.g. DK-761500)",
+        "paramType" : "path",
+        "name" : "agencyid",
+        "required" : true
+      }, {
+        "type" : "integer",
+        "format" : "int64",
+        "description" : "patron id of the patron",
+        "paramType" : "path",
+        "name" : "patronid",
+        "required" : true
+      } ],
+      "summary" : "Returns the patron details for a person patron",
+      "notes" : "\n <p></p>\n If a patron is blocked the reason is available as a code:\n <ul>\n     <li>- 'O': library card stolen</li>\n     <li>- 'U': exclusion</li>\n     <li>- 'F': extended exclusion</li>\n     <li>- 'S': blocked by self service automaton</li>\n     <li>- 'W': self created at website</li>\n     <li>- 'E': maximum amount of allowed debt exceeded</li>\n     <li>- 'D': deceased</li>\n </ul>\n <p>The codes are informational, and can be used for looking up end user messages by the client system. However,\n the list is subject to change at any time, so any unexpected values should be interpreted as 'other reason'.</p>",
+      "responseMessages" : [ {
+        "code" : 400,
+        "message" : "bad request"
+      }, {
+        "code" : 401,
+        "message" : "client unauthorized"
+      } ]
+    } ]
+  }, {
+    "path" : "/external/{agencyid}/patrons/person/{patronid}/v4",
+    "operations" : [ {
+      "method" : "GET",
+      "nickname" : "getPersonTypePatronInformationV4",
+      "type" : "PersonPatronV4",
+      "parameters" : [ {
+        "type" : "string",
+        "description" : "ISIL of the agency (e.g. DK-761500)",
+        "paramType" : "path",
+        "name" : "agencyid",
+        "required" : true
+      }, {
+        "type" : "integer",
+        "format" : "int64",
+        "description" : "patron id of the patron",
+        "paramType" : "path",
+        "name" : "patronid",
+        "required" : true
+      } ],
+      "summary" : "Returns the patron details for a person patron",
+      "notes" : "\n <p></p>\n If a patron is blocked the reason is available as a code:\n <ul>\n     <li>- 'O': library card stolen</li>\n     <li>- 'U': exclusion</li>\n     <li>- 'F': extended exclusion</li>\n     <li>- 'S': blocked by self service automaton</li>\n     <li>- 'W': self created at website</li>\n     <li>- 'E': maximum amount of allowed debt exceeded</li>\n     <li>- 'D': deceased</li>\n </ul>\n <p>The codes are informational, and can be used for looking up end user messages by the client system. However,\n the list is subject to change at any time, so any unexpected values should be interpreted as 'other reason'.</p>",
       "responseMessages" : [ {
         "code" : 400,
         "message" : "bad request"
@@ -201,6 +896,96 @@
       } ]
     } ]
   }, {
+    "path" : "/external/{agencyid}/patrons/preauthenticated/patronId/v2",
+    "operations" : [ {
+      "method" : "POST",
+      "nickname" : "getPreAuthenticatedPatronByPatronIdV2",
+      "type" : "AuthenticatedPatronV7",
+      "parameters" : [ {
+        "type" : "string",
+        "description" : "ISIL of the agency (e.g. DK-761500)",
+        "paramType" : "path",
+        "name" : "agencyid",
+        "required" : true
+      }, {
+        "type" : "integer",
+        "format" : "int64",
+        "description" : "patron id of the patron",
+        "paramType" : "body",
+        "name" : "patronId",
+        "required" : true
+      } ],
+      "summary" : "Returns the patron details of a patron that the client has pre-authenticated using a third party.",
+      "notes" : "\n Patrons can be looked up based on their patronId.\n <p></p>\n If a patron is blocked the reason is available as a code:\n <ul>\n     <li>- 'O': library card stolen</li>\n     <li>- 'U': exclusion</li>\n     <li>- 'F': extended exclusion</li>\n     <li>- 'S': blocked by self service automaton</li>\n     <li>- 'W': self created at website</li>\n </ul>\n <p>The codes are informational, and can be used for looking up end user messages by the client system. However,\n the list is subject to change at any time, so any unexpected values should be interpreted as 'other reason'.</p>",
+      "responseMessages" : [ {
+        "code" : 400,
+        "message" : "bad request"
+      }, {
+        "code" : 401,
+        "message" : "client unauthorized"
+      } ]
+    } ]
+  }, {
+    "path" : "/external/{agencyid}/patrons/preauthenticated/patronId/v3",
+    "operations" : [ {
+      "method" : "POST",
+      "nickname" : "getPreAuthenticatedPatronByPatronIdV3",
+      "type" : "AuthenticatedPatronV8",
+      "parameters" : [ {
+        "type" : "string",
+        "description" : "ISIL of the agency (e.g. DK-761500)",
+        "paramType" : "path",
+        "name" : "agencyid",
+        "required" : true
+      }, {
+        "type" : "integer",
+        "format" : "int64",
+        "description" : "patron id of the patron",
+        "paramType" : "body",
+        "name" : "patronId",
+        "required" : true
+      } ],
+      "summary" : "Returns the patron details of a patron that the client has pre-authenticated using a third party.",
+      "notes" : "\n Patrons can be looked up based on their patronId.\n <p></p>\n If a patron is blocked the reason is available as a code:\n <ul>\n     <li>- 'O': library card stolen</li>\n     <li>- 'U': exclusion</li>\n     <li>- 'F': extended exclusion</li>\n     <li>- 'S': blocked by self service automaton</li>\n     <li>- 'W': self created at website</li>\n </ul>\n <p>The codes are informational, and can be used for looking up end user messages by the client system. However,\n the list is subject to change at any time, so any unexpected values should be interpreted as 'other reason'.</p>",
+      "responseMessages" : [ {
+        "code" : 400,
+        "message" : "bad request"
+      }, {
+        "code" : 401,
+        "message" : "client unauthorized"
+      } ]
+    } ]
+  }, {
+    "path" : "/external/{agencyid}/patrons/preauthenticated/patronId/v4",
+    "operations" : [ {
+      "method" : "POST",
+      "nickname" : "getPreAuthenticatedPatronByPatronIdV4",
+      "type" : "PatronAuthenticationResponse",
+      "parameters" : [ {
+        "type" : "string",
+        "description" : "ISIL of the agency (e.g. DK-761500)",
+        "paramType" : "path",
+        "name" : "agencyid",
+        "required" : true
+      }, {
+        "type" : "integer",
+        "format" : "int64",
+        "description" : "patron id of the patron",
+        "paramType" : "body",
+        "name" : "patronId",
+        "required" : true
+      } ],
+      "summary" : "Returns a patron id, patron type and authentication status for a patron that the client has pre-authenticated\n using a third party.",
+      "notes" : "\n Patrons can be looked up based on their patronId.\n The returned patronId must be used by all subsequent service calls made on behalf of that patron.\n The full patron can be fetched with the operation corresponding to the patron type\n using the patron id and patron type.",
+      "responseMessages" : [ {
+        "code" : 400,
+        "message" : "bad request"
+      }, {
+        "code" : 401,
+        "message" : "client unauthorized"
+      } ]
+    } ]
+  }, {
     "path" : "/external/{agencyid}/patrons/preauthenticated/unic/v3",
     "operations" : [ {
       "method" : "POST",
@@ -220,7 +1005,7 @@
         "required" : true
       } ],
       "summary" : "Returns the patron details of a patron that the client has pre-authenticated using UNIC.",
-      "notes" : "\n The returned patron details includes a patronId that has to be used by all subsequent\n service calls made on behalf of that patron. Note: Whis method can only be used for patrons who\n are persons, and not e.g. Companies or Libraries.\n <p></p>\n If a patron is blocked the reason is available as a code:\n <ul>\n     <li>- 'O': library card stolen</li>\n     <li>- 'U': exclusion</li>\n     <li>- 'F': extended exclusion</li>\n     <li>- 'S': blocked by self service automaton</li>\n     <li>- 'W': self created at website</li>\n </ul>\n <p>The codes are informational, and can be used for looking up end user messages by the client system. However,\n the list is subject to change at any time, so any unexpected values should be interpreted as 'other reason'.</p>",
+      "notes" : "\n The returned patron details includes a patronId that has to be used by all subsequent\n service calls made on behalf of that patron. Note: This method can only be used for patrons who\n are persons, and not e.g. Companies or Libraries.\n <p></p>\n If a patron is blocked the reason is available as a code:\n <ul>\n     <li>- 'O': library card stolen</li>\n     <li>- 'U': exclusion</li>\n     <li>- 'F': extended exclusion</li>\n     <li>- 'S': blocked by self service automaton</li>\n     <li>- 'W': self created at website</li>\n     <li>- 'E': maximum amount of allowed debt exceeded</li>\n     <li>- 'D': deceased</li>\n </ul>\n <p>The codes are informational, and can be used for looking up end user messages by the client system. However,\n the list is subject to change at any time, so any unexpected values should be interpreted as 'other reason'.</p>",
       "responseMessages" : [ {
         "code" : 400,
         "message" : "bad request"
@@ -249,7 +1034,7 @@
         "required" : true
       } ],
       "summary" : "Returns the patron details of a patron that the client has pre-authenticated using UNIC.",
-      "notes" : "\n The returned patron details includes a patronId that has to be used by all subsequent\n service calls made on behalf of that patron. Note: Whis method can only be used for patrons who\n are persons, and not e.g. Companies or Libraries.\n <p></p>\n If a patron is blocked the reason is available as a code:\n <ul>\n     <li>- 'O': library card stolen</li>\n     <li>- 'U': exclusion</li>\n     <li>- 'F': extended exclusion</li>\n     <li>- 'S': blocked by self service automaton</li>\n     <li>- 'W': self created at website</li>\n </ul>\n <p>The codes are informational, and can be used for looking up end user messages by the client system. However,\n the list is subject to change at any time, so any unexpected values should be interpreted as 'other reason'.</p>",
+      "notes" : "\n The returned patron details includes a patronId that has to be used by all subsequent\n service calls made on behalf of that patron. Note: This method can only be used for patrons who\n are persons, and not e.g. Companies or Libraries.\n <p></p>\n If a patron is blocked the reason is available as a code:\n <ul>\n     <li>- 'O': library card stolen</li>\n     <li>- 'U': exclusion</li>\n     <li>- 'F': extended exclusion</li>\n     <li>- 'S': blocked by self service automaton</li>\n     <li>- 'W': self created at website</li>\n </ul>\n <p>The codes are informational, and can be used for looking up end user messages by the client system. However,\n the list is subject to change at any time, so any unexpected values should be interpreted as 'other reason'.</p>",
       "responseMessages" : [ {
         "code" : 400,
         "message" : "bad request"
@@ -278,7 +1063,7 @@
         "required" : true
       } ],
       "summary" : "Returns the patron details of a patron that the client has pre-authenticated using UNIC.",
-      "notes" : "\n The returned patron details includes a patronId that has to be used by all subsequent\n service calls made on behalf of that patron. Note: Whis method can only be used for patrons who\n are persons, and not e.g. Companies or Libraries.\n <p></p>\n If a patron is blocked the reason is available as a code:\n <ul>\n     <li>- 'O': library card stolen</li>\n     <li>- 'U': exclusion</li>\n     <li>- 'F': extended exclusion</li>\n     <li>- 'S': blocked by self service automaton</li>\n     <li>- 'W': self created at website</li>\n </ul>\n <p>The codes are informational, and can be used for looking up end user messages by the client system. However,\n the list is subject to change at any time, so any unexpected values should be interpreted as 'other reason'.</p>",
+      "notes" : "\n The returned patron details includes a patronId that has to be used by all subsequent\n service calls made on behalf of that patron. Note: This method can only be used for patrons who\n are persons, and not e.g. Companies or Libraries.\n <p></p>\n If a patron is blocked the reason is available as a code:\n <ul>\n     <li>- 'O': library card stolen</li>\n     <li>- 'U': exclusion</li>\n     <li>- 'F': extended exclusion</li>\n     <li>- 'S': blocked by self service automaton</li>\n     <li>- 'W': self created at website</li>\n </ul>\n <p>The codes are informational, and can be used for looking up end user messages by the client system. However,\n the list is subject to change at any time, so any unexpected values should be interpreted as 'other reason'.</p>",
       "responseMessages" : [ {
         "code" : 400,
         "message" : "bad request"
@@ -307,7 +1092,36 @@
         "required" : true
       } ],
       "summary" : "Returns the patron details of a patron that the client has pre-authenticated using UNIC (DEPRECATED).",
-      "notes" : "\n The returned patron details includes a patronId that has to be used by all subsequent\n service calls made on behalf of that patron. Note: Whis method can only be used for patrons who\n are persons, and not e.g. Companies or Libraries.\n <p></p>\n If a patron is blocked the reason is available as a code:\n <ul>\n     <li>- 'O': library card stolen</li>\n     <li>- 'U': exclusion</li>\n     <li>- 'F': extended exclusion</li>\n     <li>- 'S': blocked by self service automaton</li>\n     <li>- 'W': self created at website</li>\n </ul>\n <p>The codes are informational, and can be used for looking up end user messages by the client system. However,\n the list is subject to change at any time, so any unexpected values should be interpreted as 'other reason'.</p>",
+      "notes" : "\n The returned patron details includes a patronId that has to be used by all subsequent\n service calls made on behalf of that patron. Note: This method can only be used for patrons who\n are persons, and not e.g. Companies or Libraries.\n <p></p>\n If a patron is blocked the reason is available as a code:\n <ul>\n     <li>- 'O': library card stolen</li>\n     <li>- 'U': exclusion</li>\n     <li>- 'F': extended exclusion</li>\n     <li>- 'S': blocked by self service automaton</li>\n     <li>- 'W': self created at website</li>\n </ul>\n <p>The codes are informational, and can be used for looking up end user messages by the client system. However,\n the list is subject to change at any time, so any unexpected values should be interpreted as 'other reason'.</p>",
+      "responseMessages" : [ {
+        "code" : 400,
+        "message" : "bad request"
+      }, {
+        "code" : 401,
+        "message" : "client unauthorized"
+      } ]
+    } ]
+  }, {
+    "path" : "/external/{agencyid}/patrons/preauthenticated/v10",
+    "operations" : [ {
+      "method" : "POST",
+      "nickname" : "getPreAuthenticatedPatronV10",
+      "type" : "PatronAuthenticationResponse",
+      "parameters" : [ {
+        "type" : "string",
+        "description" : "ISIL of the agency (e.g. DK-761500)",
+        "paramType" : "path",
+        "name" : "agencyid",
+        "required" : true
+      }, {
+        "type" : "string",
+        "description" : "Given patron identifier",
+        "paramType" : "body",
+        "name" : "patronIdentifier",
+        "required" : true
+      } ],
+      "summary" : "Returns a patron id, patron type and authentication status for a patron that the client has pre-authenticated\n using a third party.",
+      "notes" : "\n Patrons can be looked up based on a patronIdentifier number (e.g. CPR, Library card, UNI-Login).\n The returned patronId must be used by all subsequent service calls made on behalf of that patron.\n The full patron can be fetched with the operation corresponding to the patron type\n using the patron id and patron type.",
       "responseMessages" : [ {
         "code" : 400,
         "message" : "bad request"
@@ -452,6 +1266,64 @@
         "required" : true
       } ],
       "summary" : "Returns the patron details of a patron that the client has pre-authenticated using a third party.",
+      "notes" : "\n Patrons can be looked up based on a patronIdentifier number (e.g. CPR, Library card, UNI-Login).\n The returned patron details includes a patronId that has to be used by all subsequent\n service calls made on behalf of that patron. Note: This method can only be used for patrons who\n are people, and not e.g. Companies or Libraries.\n <p></p>\n If a patron is blocked the reason is available as a code:\n <ul>\n     <li>- 'O': library card stolen</li>\n     <li>- 'U': exclusion</li>\n     <li>- 'F': extended exclusion</li>\n     <li>- 'S': blocked by self service automaton</li>\n     <li>- 'W': self created at website</li>\n </ul>\n <p>The codes are informational, and can be used for looking up end user messages by the client system. However,\n the list is subject to change at any time, so any unexpected values should be interpreted as 'other reason'.</p>",
+      "responseMessages" : [ {
+        "code" : 400,
+        "message" : "bad request"
+      }, {
+        "code" : 401,
+        "message" : "client unauthorized"
+      } ]
+    } ]
+  }, {
+    "path" : "/external/{agencyid}/patrons/preauthenticated/v8",
+    "operations" : [ {
+      "method" : "POST",
+      "nickname" : "getPreAuthenticatedPatronV8",
+      "type" : "AuthenticatedPatronV7",
+      "parameters" : [ {
+        "type" : "string",
+        "description" : "ISIL of the agency (e.g. DK-761500)",
+        "paramType" : "path",
+        "name" : "agencyid",
+        "required" : true
+      }, {
+        "type" : "string",
+        "description" : "Given patron identifier",
+        "paramType" : "body",
+        "name" : "patronIdentifier",
+        "required" : true
+      } ],
+      "summary" : "Returns the patron details of a patron that the client has pre-authenticated using a third party.",
+      "notes" : "\n Patrons can be looked up based on a patronIdentifier number (e.g. CPR, Library card, UNI-Login).\n The returned patron details includes a patronId that has to be used by all subsequent\n service calls made on behalf of that patron. Note: This method can only be used for patrons who\n are people, and not e.g. Companies or Libraries.\n <p></p>\n If a patron is blocked the reason is available as a code:\n <ul>\n     <li>- 'O': library card stolen</li>\n     <li>- 'U': exclusion</li>\n     <li>- 'F': extended exclusion</li>\n     <li>- 'S': blocked by self service automaton</li>\n     <li>- 'W': self created at website</li>\n </ul>\n <p>The codes are informational, and can be used for looking up end user messages by the client system. However,\n the list is subject to change at any time, so any unexpected values should be interpreted as 'other reason'.</p>",
+      "responseMessages" : [ {
+        "code" : 400,
+        "message" : "bad request"
+      }, {
+        "code" : 401,
+        "message" : "client unauthorized"
+      } ]
+    } ]
+  }, {
+    "path" : "/external/{agencyid}/patrons/preauthenticated/v9",
+    "operations" : [ {
+      "method" : "POST",
+      "nickname" : "getPreAuthenticatedPatronV9",
+      "type" : "AuthenticatedPatronV8",
+      "parameters" : [ {
+        "type" : "string",
+        "description" : "ISIL of the agency (e.g. DK-761500)",
+        "paramType" : "path",
+        "name" : "agencyid",
+        "required" : true
+      }, {
+        "type" : "string",
+        "description" : "Given patron identifier",
+        "paramType" : "body",
+        "name" : "patronIdentifier",
+        "required" : true
+      } ],
+      "summary" : "Returns the patron details of a patron that the client has pre-authenticated using a third party.",
       "notes" : "\n Patrons can be looked up based on a patronIdentifier number (e.g. CPR, Library card, UNI-Login).\n The returned patron details includes a patronId that has to be used by all subsequent\n service calls made on behalf of that patron. Note: Whis method can only be used for patrons who\n are people, and not e.g. Companies or Libraries.\n <p></p>\n If a patron is blocked the reason is available as a code:\n <ul>\n     <li>- 'O': library card stolen</li>\n     <li>- 'U': exclusion</li>\n     <li>- 'F': extended exclusion</li>\n     <li>- 'S': blocked by self service automaton</li>\n     <li>- 'W': self created at website</li>\n </ul>\n <p>The codes are informational, and can be used for looking up end user messages by the client system. However,\n the list is subject to change at any time, so any unexpected values should be interpreted as 'other reason'.</p>",
       "responseMessages" : [ {
         "code" : 400,
@@ -459,6 +1331,108 @@
       }, {
         "code" : 401,
         "message" : "client unauthorized"
+      } ]
+    } ]
+  }, {
+    "path" : "/external/{agencyid}/patrons/resetPincode/v1",
+    "operations" : [ {
+      "method" : "POST",
+      "nickname" : "resetPincode",
+      "type" : "void",
+      "parameters" : [ {
+        "type" : "string",
+        "description" : "ISIL of the agency (e.g. DK-761500)",
+        "paramType" : "path",
+        "name" : "agencyid",
+        "required" : true
+      }, {
+        "type" : "string",
+        "description" : "emailAddress belonging to the patron",
+        "paramType" : "body",
+        "name" : "emailAddress",
+        "required" : true
+      } ],
+      "summary" : "Send a reset pincode email to the patron with the provided emailaddress.",
+      "notes" : "\n\n <p>The response is successful, if an email was successfully sent to the patron to reset their pincode.</p>\n <p>If the supplied emailaddress has an invalid format, then response message 400 will be sent back.</p>\n <p>If multiple patrons within the supplied agency have the same emailaddress, then response message 400 will be sent back.</p>\n <p>If the emailadress does not correspond to any patron, then response message 404 will be sent back.</p>",
+      "responseMessages" : [ {
+        "code" : 400,
+        "message" : "bad request - invalid format or multiple patrons found for emailaddress"
+      }, {
+        "code" : 401,
+        "message" : "client unauthorized"
+      }, {
+        "code" : 403,
+        "message" : "forbidden access to wrong agency"
+      }, {
+        "code" : 404,
+        "message" : "no patron found for emailAddress"
+      } ]
+    } ]
+  }, {
+    "path" : "/external/{agencyid}/patrons/updatePincode/v1",
+    "operations" : [ {
+      "method" : "POST",
+      "nickname" : "updatePincode",
+      "type" : "void",
+      "parameters" : [ {
+        "type" : "string",
+        "description" : "ISIL of the agency (e.g. DK-761500)",
+        "paramType" : "path",
+        "name" : "agencyid",
+        "required" : true
+      }, {
+        "type" : "UpdatePincodeRequestV1",
+        "description" : "Request to update patron pincode",
+        "paramType" : "body",
+        "name" : "updatePincode",
+        "required" : true
+      } ],
+      "summary" : "Using the UUID provided through a reset pincode email, update the pincode of the patron.",
+      "notes" : "\n\n <p>The response is successful, if the pincode was successfully updated.</p>\n <p>If the supplied pincode is invalid, blank or too long, then response message 400 will be sent back.</p>\n <p>If the supplied UUID is invalid, blank or not a valid format, then response message 400 will be sent back.</p>\n <p>If the UUID has expired or cannot be found, then response message 404 will be sent back.</p>",
+      "responseMessages" : [ {
+        "code" : 400,
+        "message" : "bad request - invalid format for pincode or UUID"
+      }, {
+        "code" : 401,
+        "message" : "client unauthorized"
+      }, {
+        "code" : 403,
+        "message" : "forbidden access to wrong agency"
+      }, {
+        "code" : 404,
+        "message" : "UUID not found"
+      } ]
+    } ]
+  }, {
+    "path" : "/external/{agencyid}/patrons/v10",
+    "operations" : [ {
+      "method" : "POST",
+      "nickname" : "createV10",
+      "type" : "AuthenticatedPatronV10",
+      "parameters" : [ {
+        "type" : "string",
+        "description" : "ISIL of the agency (e.g. DK-761500)",
+        "paramType" : "path",
+        "name" : "agencyid",
+        "required" : true
+      }, {
+        "type" : "CreatePatronRequestV8",
+        "description" : "the patron to be created",
+        "paramType" : "body",
+        "name" : "createPatronRequest",
+        "required" : true
+      } ],
+      "summary" : "Create a new patron who is a person.",
+      "notes" : "\n When a patron doesn't have a patron account in the library system, but logs in using a trusted authentication\n source (e.g NemId), the patron account can be created using this service. Name and address will be automatically\n fetched from configured person registry, and cannot be supplied by the client. If the configured person registry is not authorized to\n provide information about the patron, then response message 404 will be sent back\n <p>Multiple email addresses and phone numbers can be stored for a patron.</p>\n <p>If multiple email addresses are supplied having receiveNotification as true, then only one of them will be randomly stored\n as preferred and the rest will be stored as not preferred.</p>\n <p>If multiple phone numbers are supplied having receiveNotification as true, then only one of them will be randomly stored\n as preferred and the rest will be stored as not preferred.</p>\n <p>\n This version includes a possibility of including a BlockStatus in the request.\n The reason of the blockstatus must be one of the following one-letter choices\n <ul>\n <li>- 'O': library card stolen</li></li>\n <li>- 'F': extended exclusion</li>\n <li>- 'U': exclusion</li>\n <li>- 'S': blocked by self service automaton</li>\n <li>- 'W': self created at website</li>\n <li>- 'E': maximum amount of allowed debt exceeded</li>\n <li>- 'D': deceased</li>\n </ul>\n\n <p>If the request includes a blockstatus for the patron, and the blockedSince date is not given or in the wrong format, or the blockedReason is not one of the one-letter choices shown above, then response message 400 will be sent back.\n </p>\n <p>Setting nationalRegistryConsent to true will allow the data of the created patron to be synchronized with the Norwegian national registry.\n </p>",
+      "responseMessages" : [ {
+        "code" : 400,
+        "message" : "bad request"
+      }, {
+        "code" : 401,
+        "message" : "client unauthorized"
+      }, {
+        "code" : 404,
+        "message" : "Data not found"
       } ]
     } ]
   }, {
@@ -558,6 +1532,134 @@
       } ]
     } ]
   }, {
+    "path" : "/external/{agencyid}/patrons/v6",
+    "operations" : [ {
+      "method" : "POST",
+      "nickname" : "createV6",
+      "type" : "AuthenticatedPatronV7",
+      "parameters" : [ {
+        "type" : "string",
+        "description" : "ISIL of the agency (e.g. DK-761500)",
+        "paramType" : "path",
+        "name" : "agencyid",
+        "required" : true
+      }, {
+        "type" : "CreatePatronRequestV4",
+        "description" : "the patron to be created",
+        "paramType" : "body",
+        "name" : "createPatronRequest",
+        "required" : true
+      } ],
+      "summary" : "Create a new patron who is a person.",
+      "notes" : "\n When a patron doesn't have a patron account in the library system, but logs in using a trusted authentication\n source (e.g NemId), the patron account can be created using this service. Name and address will be automatically\n fetched from CPR-Registry, and cannot be supplied by the client. If the CPR-Registry is not authorized to\n provide information about the patron, then repsonse message 404 will be sent back\n <p></p>\n If a patron is blocked the reason is available as a code:\n <ul>\n     <li>- 'O': library card stolen</li>\n     <li>- 'U': exclusion</li>\n     <li>- 'F': extended exclusion</li>\n     <li>- 'S': blocked by self service automaton</li>\n     <li>- 'W': self created at website</li>\n </ul>\n <p>The codes are informational, and can be used for looking up end user messages by the client system. However,\n the list is subject to change at any time, so any unexpected values should be interpreted as 'other reason'.</p>",
+      "responseMessages" : [ {
+        "code" : 400,
+        "message" : "bad request"
+      }, {
+        "code" : 401,
+        "message" : "client unauthorized"
+      }, {
+        "code" : 404,
+        "message" : "Data not found"
+      } ]
+    } ]
+  }, {
+    "path" : "/external/{agencyid}/patrons/v7",
+    "operations" : [ {
+      "method" : "POST",
+      "nickname" : "createV7",
+      "type" : "AuthenticatedPatronV8",
+      "parameters" : [ {
+        "type" : "string",
+        "description" : "ISIL of the agency (e.g. DK-761500)",
+        "paramType" : "path",
+        "name" : "agencyid",
+        "required" : true
+      }, {
+        "type" : "CreatePatronRequestV5",
+        "description" : "the patron to be created",
+        "paramType" : "body",
+        "name" : "createPatronRequest",
+        "required" : true
+      } ],
+      "summary" : "Create a new patron who is a person.",
+      "notes" : "\n When a patron doesn't have a patron account in the library system, but logs in using a trusted authentication\n source (e.g NemId), the patron account can be created using this service. Name and address will be automatically\n fetched from CPR-Registry, and cannot be supplied by the client. If the CPR-Registry is not authorized to\n provide information about the patron, then repsonse message 404 will be sent back\n <p></p>\n If a patron is blocked the reason is available as a code:\n <ul>\n     <li>- 'O': library card stolen</li>\n     <li>- 'U': exclusion</li>\n     <li>- 'F': extended exclusion</li>\n     <li>- 'S': blocked by self service automaton</li>\n     <li>- 'W': self created at website</li>\n </ul>\n <p>The codes are informational, and can be used for looking up end user messages by the client system. However,\n the list is subject to change at any time, so any unexpected values should be interpreted as 'other reason'.</p>",
+      "responseMessages" : [ {
+        "code" : 400,
+        "message" : "bad request"
+      }, {
+        "code" : 401,
+        "message" : "client unauthorized"
+      }, {
+        "code" : 404,
+        "message" : "Data not found"
+      } ]
+    } ]
+  }, {
+    "path" : "/external/{agencyid}/patrons/v8",
+    "operations" : [ {
+      "method" : "POST",
+      "nickname" : "createV8",
+      "type" : "AuthenticatedPatronV9",
+      "parameters" : [ {
+        "type" : "string",
+        "description" : "ISIL of the agency (e.g. DK-761500)",
+        "paramType" : "path",
+        "name" : "agencyid",
+        "required" : true
+      }, {
+        "type" : "CreatePatronRequestV6",
+        "description" : "the patron to be created",
+        "paramType" : "body",
+        "name" : "createPatronRequest",
+        "required" : true
+      } ],
+      "summary" : "Create a new patron who is a person.",
+      "notes" : "\n When a patron doesn't have a patron account in the library system, but logs in using a trusted authentication\n source (e.g NemId), the patron account can be created using this service. Name and address will be automatically\n fetched from CPR-Registry, and cannot be supplied by the client. If the CPR-Registry is not authorized to\n provide information about the patron, then response message 404 will be sent back\n <p>\n This version includes a possibility of including a BlockStatus in the request.\n The reason of the blockstatus must be one of the following one-letter choices\n <ul>\n <li>- 'O': library card stolen</li></li>\n <li>- 'F': extended exclusion</li>\n <li>- 'U': exclusion</li>\n <li>- 'S': blocked by self service automaton</li>\n <li>- 'W': self created at website</li>\n <li>- 'E': maximum amount of allowed debt exceeded</li>\n <li>- 'D': deceased</li>\n </ul>\n\n <p>If the request includes a blockstatus for the patron, and the blockedSince date is not given or in the wrong format, or the blockedReason is not one of the one-letter choices shown above, then response message 400 will be sent back.\n </p>",
+      "responseMessages" : [ {
+        "code" : 400,
+        "message" : "bad request"
+      }, {
+        "code" : 401,
+        "message" : "client unauthorized"
+      }, {
+        "code" : 404,
+        "message" : "Data not found"
+      } ]
+    } ]
+  }, {
+    "path" : "/external/{agencyid}/patrons/v9",
+    "operations" : [ {
+      "method" : "POST",
+      "nickname" : "createV9",
+      "type" : "AuthenticatedPatronV10",
+      "parameters" : [ {
+        "type" : "string",
+        "description" : "ISIL of the agency (e.g. DK-761500)",
+        "paramType" : "path",
+        "name" : "agencyid",
+        "required" : true
+      }, {
+        "type" : "CreatePatronRequestV7",
+        "description" : "the patron to be created",
+        "paramType" : "body",
+        "name" : "createPatronRequest",
+        "required" : true
+      } ],
+      "summary" : "Create a new patron who is a person.",
+      "notes" : "\n When a patron doesn't have a patron account in the library system, but logs in using a trusted authentication\n source (e.g NemId), the patron account can be created using this service. Name and address will be automatically\n fetched from configured person registry, and cannot be supplied by the client. If the configured person registry is not authorized to\n provide information about the patron, then response message 404 will be sent back\n <p>Multiple email addresses and phone numbers can be stored for a patron.</p>\n <p>If multiple email addresses are supplied having receiveNotification as true, then only one of them will be randomly stored\n as preferred and the rest will be stored as not preferred.</p>\n <p>If multiple phone numbers are supplied having receiveNotification as true, then only one of them will be randomly stored\n as preferred and the rest will be stored as not preferred.</p>\n <p>\n This version includes a possibility of including a BlockStatus in the request.\n The reason of the blockstatus must be one of the following one-letter choices\n <ul>\n <li>- 'O': library card stolen</li></li>\n <li>- 'F': extended exclusion</li>\n <li>- 'U': exclusion</li>\n <li>- 'S': blocked by self service automaton</li>\n <li>- 'W': self created at website</li>\n <li>- 'E': maximum amount of allowed debt exceeded</li>\n <li>- 'D': deceased</li>\n </ul>\n\n <p>If the request includes a blockstatus for the patron, and the blockedSince date is not given or in the wrong format, or the blockedReason is not one of the one-letter choices shown above, then response message 400 will be sent back.\n </p>",
+      "responseMessages" : [ {
+        "code" : 400,
+        "message" : "bad request"
+      }, {
+        "code" : 401,
+        "message" : "client unauthorized"
+      }, {
+        "code" : 404,
+        "message" : "Data not found"
+      } ]
+    } ]
+  }, {
     "path" : "/external/{agencyid}/patrons/withGuardian/v1",
     "operations" : [ {
       "method" : "POST",
@@ -625,6 +1727,529 @@
       } ]
     } ]
   }, {
+    "path" : "/external/{agencyid}/patrons/withGuardian/v2",
+    "operations" : [ {
+      "method" : "POST",
+      "nickname" : "createWithGuardianV2",
+      "type" : "integer",
+      "parameters" : [ {
+        "type" : "string",
+        "description" : "ISIL of the agency (e.g. DK-761500)",
+        "paramType" : "path",
+        "name" : "agencyid",
+        "required" : true
+      }, {
+        "type" : "PatronWithGuardianRequestV2",
+        "description" : "The payload with information for the patron to create",
+        "paramType" : "body",
+        "name" : "patronWithGuardianRequest",
+        "required" : true
+      } ],
+      "summary" : "Creates a person patron with a guardian (eg A financial responsible).",
+      "notes" : "\n\n Returns the id of the patron if the request succeeds.\n Name and address will be automatically fetched from the CPR-Registry.\n This version includes a possibility of including a BlockStatusRequest in the PatronWithGuardianRequest.\n The reason of the blockstatusRequest must be one of the following one-letter choices\n <br>\n <ul>\n  <li>- 'O': library card stolen</li>\n  <li>- 'U': exclusion</li>\n  <li>- 'F': extended exclusion</li>\n  <li>- 'S': blocked by self service automaton</li>\n  <li>- 'W': self created at website</li>\n  <li>- 'E': maximum amount of allowed debt exceeded</li>\n  <li>- 'D': deceased</li>\n </ul>\n\n <p>If the CPR-Registry is not authorized to provide information about the patron, then response message 404 will be sent back.</p>\n <p>If the supplied cpr number of the patron equals that of the guardian, then response message 400 will be sent back.</p>\n <p>If the email of the guardian is invalid, then response message 400 will be sent back.</p>\n <p>If an email or phone number for the patron is supplied and it is invalid, then response message 400 will be sent back.</p>\n <p>If the request includes a blockstatusRequest for the patron, and the blockedSince date is not given or in the wrong format, or the blockedReason is not one of the one-letter choices shown above, then response message 400 will be sent back</p>\n <p>In case of a successful creation of the patron, a confirmation email is sent to the guardian.\n In case of failure an email is sent to guardian stating the creation failed.</p>",
+      "responseMessages" : [ {
+        "code" : 200,
+        "message" : "Ok"
+      }, {
+        "code" : 400,
+        "message" : "bad request"
+      }, {
+        "code" : 401,
+        "message" : "client unauthorized"
+      }, {
+        "code" : 404,
+        "message" : "Data not found"
+      } ]
+    }, {
+      "method" : "PUT",
+      "nickname" : "updateGuardianV2",
+      "type" : "integer",
+      "parameters" : [ {
+        "type" : "string",
+        "description" : "ISIL of the agency (e.g. DK-761500)",
+        "paramType" : "path",
+        "name" : "agencyid",
+        "required" : true
+      }, {
+        "type" : "UpdateGuardianRequestV2",
+        "description" : "The payload with information for the guardian update",
+        "paramType" : "body",
+        "name" : "updateGuardianRequest",
+        "required" : true
+      } ],
+      "summary" : "Updates a person patron's guardian (eg A financial responsible).",
+      "notes" : "\n If the person doesn't have a guardian, a new one is created with the information provided.\n\n Returns the id of the patron if the request succeeds.\n Name and address will be automatically fetched from the configured person registry.\n <p>If the configured person registry is not authorized to provide information about the patron and guardian, then response message 404 will be sent back.</p>\n <p>If the supplied person identifier (e.g. CPR-number) of the patron equals that of the guardian, then response message 400 will be sent back.</p>\n <p>If the email of the guardian is invalid, then response message 400 will be sent back.</p>\n <p>In case of a successful update of the guardian, a confirmation email is sent to the guardian.\n In case of failure an email is sent to guardian stating the update failed.</p>",
+      "responseMessages" : [ {
+        "code" : 200,
+        "message" : "Ok"
+      }, {
+        "code" : 400,
+        "message" : "bad request"
+      }, {
+        "code" : 401,
+        "message" : "client unauthorized"
+      }, {
+        "code" : 404,
+        "message" : "Data not found"
+      } ]
+    } ]
+  }, {
+    "path" : "/external/{agencyid}/patrons/withGuardian/v3",
+    "operations" : [ {
+      "method" : "POST",
+      "nickname" : "createWithGuardianV3",
+      "type" : "integer",
+      "parameters" : [ {
+        "type" : "string",
+        "description" : "ISIL of the agency (e.g. DK-761500)",
+        "paramType" : "path",
+        "name" : "agencyid",
+        "required" : true
+      }, {
+        "type" : "PatronWithGuardianRequestV3",
+        "description" : "The payload with information for the patron to create",
+        "paramType" : "body",
+        "name" : "patronWithGuardianRequest",
+        "required" : true
+      } ],
+      "summary" : "Creates a person patron with a guardian (eg A financial responsible).",
+      "notes" : "\n\n Returns the id of the patron if the request succeeds.\n Name and address will be automatically fetched from the configured person registry.\n This version includes a possibility of including a BlockStatusRequest in the PatronWithGuardianRequest.\n The reason of the blockstatusRequest must be one of the following one-letter choices\n <br>\n <ul>\n  <li>- 'O': library card stolen</li>\n  <li>- 'U': exclusion</li>\n  <li>- 'F': extended exclusion</li>\n  <li>- 'S': blocked by self service automaton</li>\n  <li>- 'W': self created at website</li>\n  <li>- 'E': maximum amount of allowed debt exceeded</li>\n  <li>- 'D': deceased</li>\n </ul>\n\n <p>If the configured person registry is not authorized to provide information about the patron, then response message 404 will be sent back.</p>\n <p>If the supplied person identifier (e.g. CPR-number) of the patron equals that of the guardian, then response message 400 will be sent back.</p>\n <p>If the email of the guardian is invalid, then response message 400 will be sent back.</p>\n <p>If an email or phone number for the patron is supplied and it is invalid, then response message 400 will be sent back.</p>\n <p>Multiple email addresses and phone numbers can be stored for a patron.</p>\n <p>If multiple email addresses are supplied having receiveNotification as true, then only one of them will be randomly stored\n as preferred and the rest will be stored as not preferred.</p>\n <p>If multiple phone numbers are supplied having receiveNotification as true, then only one of them will be randomly stored\n as preferred and the rest will be stored as not preferred.</p>\n <p>If the request includes a blockstatus for the patron, and the blockedSince date is not given or in the wrong format, or the blockedReason is not one of the one-letter choices shown above, then response message 400 will be sent back</p>\n <p>In case of a successful creation of the patron, a confirmation email is sent to the guardian.\n In case of failure an email is sent to guardian stating the creation failed.</p>",
+      "responseMessages" : [ {
+        "code" : 200,
+        "message" : "Ok"
+      }, {
+        "code" : 400,
+        "message" : "bad request"
+      }, {
+        "code" : 401,
+        "message" : "client unauthorized"
+      }, {
+        "code" : 404,
+        "message" : "Data not found"
+      } ]
+    } ]
+  }, {
+    "path" : "/external/{agencyid}/patrons/withGuardian/v4",
+    "operations" : [ {
+      "method" : "POST",
+      "nickname" : "createWithGuardianV4",
+      "type" : "integer",
+      "parameters" : [ {
+        "type" : "string",
+        "description" : "ISIL of the agency (e.g. DK-761500)",
+        "paramType" : "path",
+        "name" : "agencyid",
+        "required" : true
+      }, {
+        "type" : "PatronWithGuardianRequestV4",
+        "description" : "The payload with information for the patron to create",
+        "paramType" : "body",
+        "name" : "patronWithGuardianRequest",
+        "required" : true
+      } ],
+      "summary" : "Creates a person patron with a guardian (eg A financial responsible).",
+      "notes" : "\n\n Returns the id of the patron if the request succeeds.\n Name and address will be automatically fetched from the configured person registry.\n This version includes a possibility of including a BlockStatusRequest in the PatronWithGuardianRequest.\n The reason of the blockstatusRequest must be one of the following one-letter choices\n <br>\n <ul>\n  <li>- 'O': library card stolen</li>\n  <li>- 'U': exclusion</li>\n  <li>- 'F': extended exclusion</li>\n  <li>- 'S': blocked by self service automaton</li>\n  <li>- 'W': self created at website</li>\n  <li>- 'E': maximum amount of allowed debt exceeded</li>\n  <li>- 'D': deceased</li>\n </ul>\n\n <p>If the configured person registry is not authorized to provide information about the patron, then response message 404 will be sent back.</p>\n <p>If the supplied person identifier (e.g. CPR-number) of the patron equals that of the guardian, then response message 400 will be sent back.</p>\n <p>If the email of the guardian is invalid, then response message 400 will be sent back.</p>\n <p>If an email or phone number for the patron is supplied and it is invalid, then response message 400 will be sent back.</p>\n <p>Multiple email addresses and phone numbers can be stored for a patron.</p>\n <p>If multiple email addresses are supplied having receiveNotification as true, then only one of them will be randomly stored\n as preferred and the rest will be stored as not preferred.</p>\n <p>If multiple phone numbers are supplied having receiveNotification as true, then only one of them will be randomly stored\n as preferred and the rest will be stored as not preferred.</p>\n <p>If the request includes a blockstatus for the patron, and the blockedSince date is not given or in the wrong format, or the blockedReason is not one of the one-letter choices shown above, then response message 400 will be sent back</p>\n <p>In case of a successful creation of the patron, a confirmation email is sent to the guardian.\n In case of failure an email is sent to guardian stating the creation failed.</p>\n <p>Setting nationalRegistryConsent to true will allow the data of the created patron to be synchronized with the Norwegian national registry.\n </p>",
+      "responseMessages" : [ {
+        "code" : 200,
+        "message" : "Ok"
+      }, {
+        "code" : 400,
+        "message" : "bad request"
+      }, {
+        "code" : 401,
+        "message" : "client unauthorized"
+      }, {
+        "code" : 404,
+        "message" : "Data not found"
+      } ]
+    } ]
+  }, {
+    "path" : "/external/{agencyid}/patrons/{patronid}",
+    "operations" : [ {
+      "method" : "DELETE",
+      "nickname" : "deletePatron",
+      "type" : "void",
+      "parameters" : [ {
+        "type" : "string",
+        "description" : "ISIL of the agency (e.g. DK-761500)",
+        "paramType" : "path",
+        "name" : "agencyid",
+        "required" : true
+      }, {
+        "type" : "integer",
+        "format" : "int64",
+        "description" : "Id of the patron to be deleted",
+        "paramType" : "path",
+        "name" : "patronid",
+        "required" : true
+      } ],
+      "summary" : "Deletes a patron."
+    } ]
+  }, {
+    "path" : "/external/{agencyid}/patrons/{patronid}/addMailIdentifier/v1",
+    "operations" : [ {
+      "method" : "POST",
+      "nickname" : "addIdentifierV1",
+      "type" : "EmailIdentifierV1",
+      "parameters" : [ {
+        "type" : "string",
+        "description" : "ISIL of the agency (e.g. DK-761500)",
+        "paramType" : "path",
+        "name" : "agencyid",
+        "required" : true
+      }, {
+        "type" : "integer",
+        "format" : "int64",
+        "description" : "the patron concerned",
+        "paramType" : "path",
+        "name" : "patronid",
+        "required" : true
+      }, {
+        "type" : "string",
+        "description" : "emailAddress belonging to the patron",
+        "paramType" : "body",
+        "name" : "emailAddress",
+        "required" : true
+      } ],
+      "summary" : "Add the email as a LoanerIdentifier of type LibraryCard for the patron."
+    } ]
+  }, {
+    "path" : "/external/{agencyid}/patrons/{patronid}/favorites/v1",
+    "operations" : [ {
+      "method" : "GET",
+      "nickname" : "getFavoritesForPatron",
+      "type" : "array",
+      "items" : {
+        "$ref" : "FavoritesV1"
+      },
+      "parameters" : [ {
+        "type" : "string",
+        "description" : "agencyId ISIL of the agency (e.g. DK-761500)",
+        "paramType" : "path",
+        "name" : "agencyid",
+        "required" : true
+      }, {
+        "type" : "integer",
+        "format" : "int64",
+        "paramType" : "path",
+        "name" : "patronid",
+        "required" : true
+      } ],
+      "summary" : "Retrieves a list of the patron's favorites lists"
+    }, {
+      "method" : "PUT",
+      "nickname" : "saveCompleteFavoritesForPatron",
+      "type" : "void",
+      "parameters" : [ {
+        "type" : "string",
+        "description" : "agencyId ISIL of the agency (e.g. DK-761500)",
+        "paramType" : "path",
+        "name" : "agencyid",
+        "required" : true
+      }, {
+        "type" : "integer",
+        "format" : "int64",
+        "paramType" : "path",
+        "name" : "patronid",
+        "required" : true
+      }, {
+        "type" : "array",
+        "items" : {
+          "$ref" : "UpdateFavoritesRequestV1"
+        },
+        "paramType" : "body",
+        "name" : "requestV1",
+        "required" : true
+      } ],
+      "summary" : "Replaces the existing lists of favorites of the patron with the supplied lists.",
+      "notes" : "\n The patron's favorites lists can be deleted by supplying an empty list."
+    } ]
+  }, {
+    "path" : "/external/{agencyid}/patrons/{patronid}/guardian/v1",
+    "operations" : [ {
+      "method" : "PUT",
+      "nickname" : "updatePatronAsGuardianV1",
+      "type" : "AuthenticatedPatronV8",
+      "parameters" : [ {
+        "type" : "string",
+        "description" : "ISIL of the agency (e.g. DK-761500)",
+        "paramType" : "path",
+        "name" : "agencyid",
+        "required" : true
+      }, {
+        "type" : "integer",
+        "format" : "int64",
+        "description" : "the patron to be updated",
+        "paramType" : "path",
+        "name" : "patronid",
+        "required" : true
+      }, {
+        "type" : "UpdatePatronAsGuardianRequestV1",
+        "description" : "updated information about the patron",
+        "paramType" : "body",
+        "name" : "updatePatronAsGuardian",
+        "required" : true
+      } ],
+      "summary" : "Update information about the patron as a guardian.",
+      "notes" : "\n <p>If the corresponding agency configuration through /external/v1/{agencyid}/configuration/loaner.guardianVisibility.enabled is not enabled\n or there is no patron found, that has the guardian visibility enabled, for the patronid parameter,\n then response message 403 will be sent back.</p>\n The name and address cannot be supplied by the client. If the CPR-Registry is not authorized to provide\n information about the patron, then the name and address will not be updated.\n <p>It is possible to either update just the pincode, update just some patron settings, or update both.</p>\n <p></p>\n If a patron is blocked the reason is available as a code:\n <ul>\n     <li>- 'O': library card stolen</li>\n     <li>- 'U': exclusion</li>\n     <li>- 'F': extended exclusion</li>\n     <li>- 'S': blocked by self service automaton</li>\n     <li>- 'W': self created at website</li>\n </ul>\n <p>The codes are informational, and can be used for looking up end user messages by the client system. However,\n the list is subject to change at any time, so any unexpected values should be interpreted as 'other reason'.</p>",
+      "responseMessages" : [ {
+        "code" : 400,
+        "message" : "bad request"
+      }, {
+        "code" : 401,
+        "message" : "client unauthorized"
+      }, {
+        "code" : 403,
+        "message" : "the guardian does not have access to update the patron details"
+      } ]
+    } ]
+  }, {
+    "path" : "/external/{agencyid}/patrons/{patronid}/guardian/v2",
+    "operations" : [ {
+      "method" : "PUT",
+      "nickname" : "updatePatronAsGuardianV2",
+      "type" : "AuthenticatedPatronV10",
+      "parameters" : [ {
+        "type" : "string",
+        "description" : "ISIL of the agency (e.g. DK-761500)",
+        "paramType" : "path",
+        "name" : "agencyid",
+        "required" : true
+      }, {
+        "type" : "integer",
+        "format" : "int64",
+        "description" : "the patron to be updated",
+        "paramType" : "path",
+        "name" : "patronid",
+        "required" : true
+      }, {
+        "type" : "UpdatePatronAsGuardianRequestV2",
+        "description" : "updated information about the patron",
+        "paramType" : "body",
+        "name" : "updatePatronAsGuardian",
+        "required" : true
+      } ],
+      "summary" : "Update information about the patron as a guardian.",
+      "notes" : "\n <p>If the corresponding agency configuration through /external/v1/{agencyid}/configuration/loaner.guardianVisibility.enabled is not enabled\n or there is no patron found, that has the guardian visibility enabled, for the patronid parameter,\n then response message 403 will be sent back.</p>\n The name and address cannot be supplied by the client. If the configured person registry is not authorized to provide\n information about the patron, then the name and address will not be updated.\n <p>It is possible to either update just the pincode, update just some patron settings, or update both.</p>\n <p></p>\n If a patron is blocked the reason is available as a code:\n <ul>\n     <li>- 'O': library card stolen</li>\n     <li>- 'U': exclusion</li>\n     <li>- 'F': extended exclusion</li>\n     <li>- 'S': blocked by self service automaton</li>\n     <li>- 'W': self created at website</li>\n </ul>\n <p>The codes are informational, and can be used for looking up end user messages by the client system. However,\n the list is subject to change at any time, so any unexpected values should be interpreted as 'other reason'.</p>\n <p>Multiple email addresses and phone numbers can be stored for a patron.</p>\n <p>If multiple email addresses are supplied having receiveNotification as true, then only one of them will be randomly stored\n as preferred and the rest will be stored as not preferred.</p>\n <p>If multiple phone numbers are supplied having receiveNotification as true, then only one of them will be randomly stored\n as preferred and the rest will be stored as not preferred.</p>",
+      "responseMessages" : [ {
+        "code" : 400,
+        "message" : "bad request"
+      }, {
+        "code" : 401,
+        "message" : "client unauthorized"
+      }, {
+        "code" : 403,
+        "message" : "the guardian does not have access to update the patron details"
+      } ]
+    } ]
+  }, {
+    "path" : "/external/{agencyid}/patrons/{patronid}/identifiers/block/v1",
+    "operations" : [ {
+      "method" : "PUT",
+      "nickname" : "blockPatronIdentifier",
+      "type" : "void",
+      "parameters" : [ {
+        "type" : "string",
+        "description" : "agencyId ISIL of the agency (e.g. DK-761500)",
+        "paramType" : "path",
+        "name" : "agencyid",
+        "required" : true
+      }, {
+        "type" : "integer",
+        "format" : "int64",
+        "description" : "the id of a given patron",
+        "paramType" : "path",
+        "name" : "patronid",
+        "required" : true
+      }, {
+        "type" : "BlockIdentifierV1",
+        "description" : "Identifier to be blocked",
+        "paramType" : "body",
+        "name" : "blockIdentifier",
+        "required" : true
+      } ],
+      "summary" : "Block identifier for the given patron.",
+      "notes" : "\n The identifier for the given patron is blocked"
+    } ]
+  }, {
+    "path" : "/external/{agencyid}/patrons/{patronid}/identifiers/v1",
+    "operations" : [ {
+      "method" : "GET",
+      "nickname" : "getIdentifiersForPatronV1",
+      "type" : "array",
+      "items" : {
+        "$ref" : "LoanerIdentifierV1"
+      },
+      "parameters" : [ {
+        "type" : "string",
+        "description" : "agencyId ISIL of the agency (e.g. DK-761500)",
+        "paramType" : "path",
+        "name" : "agencyid",
+        "required" : true
+      }, {
+        "type" : "integer",
+        "format" : "int64",
+        "description" : "the id of a given patron",
+        "paramType" : "path",
+        "name" : "patronid",
+        "required" : true
+      } ],
+      "summary" : "Retrieve all non-expired identifiers for the given patron.",
+      "notes" : " The identifiers are sorted by IdentifierType."
+    } ]
+  }, {
+    "path" : "/external/{agencyid}/patrons/{patronid}/updateconsent/historicaldata/v1",
+    "operations" : [ {
+      "method" : "PUT",
+      "nickname" : "updateHistoricalDataConsentV1",
+      "type" : "AuthenticatedPatronV9",
+      "parameters" : [ {
+        "type" : "string",
+        "description" : "ISIL of the agency (e.g. DK-761500)",
+        "paramType" : "path",
+        "name" : "agencyid",
+        "required" : true
+      }, {
+        "type" : "integer",
+        "format" : "int64",
+        "description" : "patron id of the patron",
+        "paramType" : "path",
+        "name" : "patronid",
+        "required" : true
+      }, {
+        "type" : "boolean",
+        "paramType" : "body",
+        "name" : "consent",
+        "required" : true
+      } ],
+      "summary" : "Updates the patron’s consent to keep historical loans.",
+      "notes" : "\n Withdrawing consent will permanently delete existing historical loans."
+    } ]
+  }, {
+    "path" : "/external/{agencyid}/patrons/{patronid}/updateconsent/historicaldata/v2",
+    "operations" : [ {
+      "method" : "PUT",
+      "nickname" : "updateHistoricalDataConsentV2",
+      "type" : "array",
+      "items" : {
+        "$ref" : "ConsentV1"
+      },
+      "parameters" : [ {
+        "type" : "string",
+        "description" : "ISIL of the agency (e.g. DK-761500)",
+        "paramType" : "path",
+        "name" : "agencyid",
+        "required" : true
+      }, {
+        "type" : "integer",
+        "format" : "int64",
+        "description" : "patron id of the patron",
+        "paramType" : "path",
+        "name" : "patronid",
+        "required" : true
+      }, {
+        "type" : "UpdateConsentV1",
+        "description" : "payload containing true or false consent",
+        "paramType" : "body",
+        "name" : "updateConsent",
+        "required" : true
+      } ],
+      "summary" : "Updates the patron’s consent to keep historical loans.",
+      "notes" : "\n Withdrawing consent will permanently delete existing historical loans.\n Returns list of given consents for the patron.",
+      "responseMessages" : [ {
+        "code" : 200,
+        "message" : "ok"
+      }, {
+        "code" : 400,
+        "message" : "bad request"
+      }, {
+        "code" : 401,
+        "message" : "client unauthorized"
+      }, {
+        "code" : 403,
+        "message" : "forbidden access to wrong agency"
+      }, {
+        "code" : 404,
+        "message" : "no patron found for patronId"
+      } ]
+    } ]
+  }, {
+    "path" : "/external/{agencyid}/patrons/{patronid}/updateconsent/nationalregistry/v1",
+    "operations" : [ {
+      "method" : "PUT",
+      "nickname" : "updateNationalRegistrySyncConsentV1",
+      "type" : "AuthenticatedPatronV9",
+      "parameters" : [ {
+        "type" : "string",
+        "description" : "ISIL of the agency (e.g. DK-761500)",
+        "paramType" : "path",
+        "name" : "agencyid",
+        "required" : true
+      }, {
+        "type" : "integer",
+        "format" : "int64",
+        "description" : "patron id of the patron",
+        "paramType" : "path",
+        "name" : "patronid",
+        "required" : true
+      }, {
+        "type" : "boolean",
+        "paramType" : "body",
+        "name" : "consent",
+        "required" : true
+      } ],
+      "summary" : "Updates the patron's consent to having their data synchronized with the National Patron Registry.",
+      "notes" : "\n The data that is synchronized can be configured for the library."
+    } ]
+  }, {
+    "path" : "/external/{agencyid}/patrons/{patronid}/updateconsent/nationalregistry/v2",
+    "operations" : [ {
+      "method" : "PUT",
+      "nickname" : "updateNationalRegistrySyncConsentV2",
+      "type" : "array",
+      "items" : {
+        "$ref" : "ConsentV1"
+      },
+      "parameters" : [ {
+        "type" : "string",
+        "description" : "ISIL of the agency (e.g. DK-761500)",
+        "paramType" : "path",
+        "name" : "agencyid",
+        "required" : true
+      }, {
+        "type" : "integer",
+        "format" : "int64",
+        "description" : "patron id of the patron",
+        "paramType" : "path",
+        "name" : "patronid",
+        "required" : true
+      }, {
+        "type" : "UpdateConsentV1",
+        "description" : "payload containing true or false consent",
+        "paramType" : "body",
+        "name" : "updateConsent",
+        "required" : true
+      } ],
+      "summary" : "Updates the patron's consent to having their data synchronized with the National Patron Registry.",
+      "notes" : "\n The data that is synchronized can be configured for the library.\n Returns list of given consents for the patron.",
+      "responseMessages" : [ {
+        "code" : 200,
+        "message" : "ok"
+      }, {
+        "code" : 400,
+        "message" : "bad request"
+      }, {
+        "code" : 401,
+        "message" : "client unauthorized"
+      }, {
+        "code" : 403,
+        "message" : "forbidden access to wrong agency"
+      }, {
+        "code" : 404,
+        "message" : "no patron found for patronId"
+      } ]
+    } ]
+  }, {
     "path" : "/external/{agencyid}/patrons/{patronid}/v1",
     "operations" : [ {
       "method" : "GET",
@@ -687,6 +2312,33 @@
   }, {
     "path" : "/external/{agencyid}/patrons/{patronid}/v3",
     "operations" : [ {
+      "method" : "GET",
+      "nickname" : "getPatronInformationByPatronIdV3",
+      "type" : "AuthenticatedPatronV7",
+      "parameters" : [ {
+        "type" : "string",
+        "description" : "ISIL of the agency (e.g. DK-761500)",
+        "paramType" : "path",
+        "name" : "agencyid",
+        "required" : true
+      }, {
+        "type" : "integer",
+        "format" : "int64",
+        "description" : "patron id of the patron",
+        "paramType" : "path",
+        "name" : "patronid",
+        "required" : true
+      } ],
+      "summary" : "Returns the patron details",
+      "notes" : "\n <p></p>\n If a patron is blocked the reason is available as a code:\n <ul>\n     <li>- 'O': library card stolen</li>\n     <li>- 'U': exclusion</li>\n     <li>- 'F': extended exclusion</li>\n     <li>- 'S': blocked by self service automaton</li>\n     <li>- 'W': self created at website</li>\n </ul>\n <p>The codes are informational, and can be used for looking up end user messages by the client system. However,\n the list is subject to change at any time, so any unexpected values should be interpreted as 'other reason'.</p>",
+      "responseMessages" : [ {
+        "code" : 400,
+        "message" : "bad request"
+      }, {
+        "code" : 401,
+        "message" : "client unauthorized"
+      } ]
+    }, {
       "method" : "PUT",
       "nickname" : "updateV3",
       "type" : "AuthenticatedPatronV3",
@@ -726,6 +2378,33 @@
   }, {
     "path" : "/external/{agencyid}/patrons/{patronid}/v4",
     "operations" : [ {
+      "method" : "GET",
+      "nickname" : "getPatronInformationByPatronIdV4",
+      "type" : "AuthenticatedPatronV8",
+      "parameters" : [ {
+        "type" : "string",
+        "description" : "ISIL of the agency (e.g. DK-761500)",
+        "paramType" : "path",
+        "name" : "agencyid",
+        "required" : true
+      }, {
+        "type" : "integer",
+        "format" : "int64",
+        "description" : "patron id of the patron",
+        "paramType" : "path",
+        "name" : "patronid",
+        "required" : true
+      } ],
+      "summary" : "Returns the patron details",
+      "notes" : "\n <p></p>\n If a patron is blocked the reason is available as a code:\n <ul>\n     <li>- 'O': library card stolen</li>\n     <li>- 'U': exclusion</li>\n     <li>- 'F': extended exclusion</li>\n     <li>- 'S': blocked by self service automaton</li>\n     <li>- 'W': self created at website</li>\n </ul>\n <p>The codes are informational, and can be used for looking up end user messages by the client system. However,\n the list is subject to change at any time, so any unexpected values should be interpreted as 'other reason'.</p>",
+      "responseMessages" : [ {
+        "code" : 400,
+        "message" : "bad request"
+      }, {
+        "code" : 401,
+        "message" : "client unauthorized"
+      } ]
+    }, {
       "method" : "PUT",
       "nickname" : "updateV4",
       "type" : "AuthenticatedPatronV4",
@@ -801,50 +2480,142 @@
         "message" : "patron not found"
       } ]
     } ]
+  }, {
+    "path" : "/external/{agencyid}/patrons/{patronid}/v6",
+    "operations" : [ {
+      "method" : "PUT",
+      "nickname" : "updateV6",
+      "type" : "AuthenticatedPatronV7",
+      "parameters" : [ {
+        "type" : "string",
+        "description" : "ISIL of the agency (e.g. DK-761500)",
+        "paramType" : "path",
+        "name" : "agencyid",
+        "required" : true
+      }, {
+        "type" : "integer",
+        "format" : "int64",
+        "description" : "the patron to be updated",
+        "paramType" : "path",
+        "name" : "patronid",
+        "required" : true
+      }, {
+        "type" : "UpdatePatronRequestV4",
+        "description" : "updated information about the patron",
+        "paramType" : "body",
+        "name" : "updatePatron",
+        "required" : true
+      } ],
+      "summary" : "Update information about the patron.",
+      "notes" : "\n The name and address cannot be supplied by the client. If the CPR-Registry is not authorized to provide\n information about the patron, then the name and address will not be updated.\n <p>It is possible to either update just the pincode, update just some patron settings, or update both.</p>\n <p></p>\n If a patron is blocked the reason is available as a code:\n <ul>\n     <li>- 'O': library card stolen</li>\n     <li>- 'U': exclusion</li>\n     <li>- 'F': extended exclusion</li>\n     <li>- 'S': blocked by self service automaton</li>\n     <li>- 'W': self created at website</li>\n </ul>\n <p>The codes are informational, and can be used for looking up end user messages by the client system. However,\n the list is subject to change at any time, so any unexpected values should be interpreted as 'other reason'.</p>",
+      "responseMessages" : [ {
+        "code" : 400,
+        "message" : "bad request"
+      }, {
+        "code" : 401,
+        "message" : "client unauthorized"
+      }, {
+        "code" : 404,
+        "message" : "patron not found"
+      } ]
+    } ]
+  }, {
+    "path" : "/external/{agencyid}/patrons/{patronid}/v7",
+    "operations" : [ {
+      "method" : "PUT",
+      "nickname" : "updateV7",
+      "type" : "AuthenticatedPatronV8",
+      "parameters" : [ {
+        "type" : "string",
+        "description" : "ISIL of the agency (e.g. DK-761500)",
+        "paramType" : "path",
+        "name" : "agencyid",
+        "required" : true
+      }, {
+        "type" : "integer",
+        "format" : "int64",
+        "description" : "the patron to be updated",
+        "paramType" : "path",
+        "name" : "patronid",
+        "required" : true
+      }, {
+        "type" : "UpdatePatronRequestV5",
+        "description" : "updated information about the patron",
+        "paramType" : "body",
+        "name" : "updatePatron",
+        "required" : true
+      } ],
+      "summary" : "Update information about the patron.",
+      "notes" : "\n The name and address cannot be supplied by the client. If the CPR-Registry is not authorized to provide\n information about the patron, then the name and address will not be updated.\n <p>It is possible to either update just the pincode, update just some patron settings, or update both.</p>\n <p></p>\n If a patron is blocked the reason is available as a code:\n <ul>\n     <li>- 'O': library card stolen</li>\n     <li>- 'U': exclusion</li>\n     <li>- 'F': extended exclusion</li>\n     <li>- 'S': blocked by self service automaton</li>\n     <li>- 'W': self created at website</li>\n </ul>\n <p>The codes are informational, and can be used for looking up end user messages by the client system. However,\n the list is subject to change at any time, so any unexpected values should be interpreted as 'other reason'.</p>",
+      "responseMessages" : [ {
+        "code" : 400,
+        "message" : "bad request"
+      }, {
+        "code" : 401,
+        "message" : "client unauthorized"
+      }, {
+        "code" : 404,
+        "message" : "patron not found"
+      } ]
+    } ]
+  }, {
+    "path" : "/external/{agencyid}/patrons/{patronid}/v8",
+    "operations" : [ {
+      "method" : "PUT",
+      "nickname" : "updateV8",
+      "type" : "Response",
+      "parameters" : [ {
+        "type" : "string",
+        "description" : "ISIL of the agency (e.g. DK-761500)",
+        "paramType" : "path",
+        "name" : "agencyid",
+        "required" : true
+      }, {
+        "type" : "integer",
+        "format" : "int64",
+        "description" : "the patron to be updated",
+        "paramType" : "path",
+        "name" : "patronid",
+        "required" : true
+      }, {
+        "type" : "UpdatePatronRequestV6",
+        "description" : "updated information about the patron",
+        "paramType" : "body",
+        "name" : "updatePatron",
+        "required" : true
+      } ],
+      "summary" : "Update information about the patron.",
+      "notes" : "\n The name and address cannot be supplied by the client. If the configured person registry is not authorized to provide\n information about the patron, then the name and address will not be updated.\n <p>It is possible to either update just the pincode, update just some patron settings, or update both.</p>\n <p>Multiple email addresses and phone numbers can be stored for a patron.</p>\n <p>If multiple email addresses are supplied having receiveNotification as true, then only one of them will be randomly stored\n as preferred and the rest will be stored as not preferred.</p>\n <p>If multiple phone numbers are supplied having receiveNotification as true, then only one of them will be randomly stored\n as preferred and the rest will be stored as not preferred.</p>\n <p></p>\n If a patron is blocked the reason is available as a code:\n <ul>\n     <li>- 'O': library card stolen</li>\n     <li>- 'U': exclusion</li>\n     <li>- 'F': extended exclusion</li>\n     <li>- 'S': blocked by self service automaton</li>\n     <li>- 'W': self created at website</li>\n </ul>\n <p>The codes are informational, and can be used for looking up end user messages by the client system. However,\n the list is subject to change at any time, so any unexpected values should be interpreted as 'other reason'.</p>",
+      "responseMessages" : [ {
+        "code" : 400,
+        "message" : "bad request"
+      }, {
+        "code" : 401,
+        "message" : "client unauthorized"
+      }, {
+        "code" : 404,
+        "message" : "patron not found"
+      }, {
+        "code" : 204,
+        "message" : "no content"
+      } ]
+    } ]
   } ],
   "models" : {
-    "BlockStatus" : {
-      "id" : "BlockStatus",
+    "EmailIdentifierV1" : {
+      "id" : "EmailIdentifierV1",
       "properties" : {
-        "blockedReason" : {
+        "result" : {
           "type" : "string",
-          "description" : "Reason code for block"
+          "description" : "result of the attempt at creating a email identifier for the patron",
+          "enum" : [ "TOO_MANY_LIBRARY_CARDS_ALREADY", "EMAIL_ADDRESS_NOT_VERIFIED", "EMAIL_ADDRESS_DOES_NOT_BELONG_TO_LOANER", "IDENTIFIER_EXISTS_ON_AGENCY", "UNKNOWN_ERROR", "EMAIL_IDENTIFIER_CREATED" ]
         },
-        "blockedSince" : {
-          "type" : "string"
-        },
-        "message" : {
-          "type" : "string",
-          "description" : "Message about block"
+        "success" : {
+          "type" : "boolean",
+          "description" : "true, if creation of email identifier was successful, false otherwise"
         }
       },
-      "required" : [ "blockedReason", "blockedSince", "message" ]
-    },
-    "AddressV2" : {
-      "id" : "AddressV2",
-      "properties" : {
-        "country" : {
-          "type" : "string",
-          "description" : "Country"
-        },
-        "city" : {
-          "type" : "string",
-          "description" : "City"
-        },
-        "street" : {
-          "type" : "string",
-          "description" : "Street and number"
-        },
-        "coName" : {
-          "type" : "string",
-          "description" : "c/o name"
-        },
-        "postalCode" : {
-          "type" : "string",
-          "description" : "Postal code"
-        }
-      },
-      "required" : [ "country", "city", "street", "coName", "postalCode" ]
+      "required" : [ "result", "success" ]
     },
     "UpdateGuardianRequest" : {
       "id" : "UpdateGuardianRequest",
@@ -886,80 +2657,182 @@
       },
       "required" : [ "country", "city", "street", "coName", "postalCode" ]
     },
-    "PatronWithGuardianRequest" : {
-      "id" : "PatronWithGuardianRequest",
+    "PatronV7" : {
+      "id" : "PatronV7",
       "properties" : {
-        "cprNumber" : {
+        "birthday" : {
           "type" : "string"
         },
-        "pincode" : {
-          "type" : "string"
+        "secondaryAddress" : {
+          "type" : "AddressV2"
         },
-        "phoneNumber" : {
+        "preferredLanguage" : {
           "type" : "string",
-          "description" : "Must be valid if supplied"
-        },
-        "address" : {
-          "type" : "Address"
+          "description" : "Language in which the patron prefers the communication with the library to take place"
         },
         "preferredPickupBranch" : {
           "type" : "string",
-          "description" : "Must be a valid branch id (eg. DK-761501)"
+          "description" : "ISIL of preferred pickup branch"
+        },
+        "address" : {
+          "type" : "AddressV2"
+        },
+        "onHold" : {
+          "type" : "Period",
+          "description" : "If not set then the patron is not on hold"
+        },
+        "patronId" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "Patron identifier to be used in subsequent service calls involving the patron"
+        },
+        "guardianVisibility" : {
+          "type" : "boolean"
+        },
+        "receiveEmail" : {
+          "type" : "boolean"
+        },
+        "blockStatus" : {
+          "type" : "array",
+          "description" : "A list of block statuses -\n if the patron is not blocked then this value is empty or null",
+          "items" : {
+            "$ref" : "BlockStatus"
+          }
+        },
+        "receiveSms" : {
+          "type" : "boolean"
+        },
+        "tags" : {
+          "type" : "array",
+          "description" : "Tags associated with the patron. Can be used to e.g. give permissions to patron in external ressources.",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "emailAddress" : {
+          "type" : "string"
+        },
+        "notificationProtocols" : {
+          "type" : "array",
+          "description" : "Notification protocols that the patron want to receive notification on. SMS and EMAIL are not included.",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "phoneNumber" : {
+          "type" : "string"
         },
         "name" : {
-          "type" : "string",
-          "description" : "The full name of the patron"
+          "type" : "string"
         },
-        "guardian" : {
-          "type" : "Guardian"
+        "receivePostalMail" : {
+          "type" : "boolean"
         },
-        "email" : {
-          "type" : "string",
-          "description" : "Must be valid if supplied"
-        }
-      },
-      "required" : [ "cprNumber", "pincode", "preferredPickupBranch", "name", "guardian" ]
-    },
-    "AuthenticatedPatronV4" : {
-      "id" : "AuthenticatedPatronV4",
-      "properties" : {
-        "authenticated" : {
+        "allowBookings" : {
           "type" : "boolean",
-          "description" : "True if patron successfully authenticated.\n If false then either the user is not known in the FBS, or an invalid combination of authentication parameters\n has been used."
+          "description" : "True if the user is allowed to create bookings."
         },
-        "patron" : {
-          "type" : "PatronV4",
-          "description" : "Only available if patron exists in FBS and was succesfully authenticated."
-        }
-      },
-      "required" : [ "authenticated" ]
-    },
-    "AuthenticatedPatronV3" : {
-      "id" : "AuthenticatedPatronV3",
-      "properties" : {
-        "authenticated" : {
+        "defaultInterestPeriod" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "Length of default interest period in days"
+        },
+        "interests" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "InterestV1"
+          }
+        },
+        "resident" : {
           "type" : "boolean",
-          "description" : "True if patron successfully authenticated.\n If false then either the user is not known in the FBS, or an invalid combination of authentication parameters\n has been used."
-        },
-        "patron" : {
-          "type" : "PatronV3",
-          "description" : "Only available if patron exists in FBS and was succesfully authenticated."
+          "description" : "True if the user is resident in the same municipality as the library"
         }
       },
-      "required" : [ "authenticated" ]
+      "required" : [ "preferredPickupBranch", "patronId", "guardianVisibility", "receiveEmail", "receiveSms", "receivePostalMail", "defaultInterestPeriod", "resident" ]
     },
-    "Period" : {
-      "id" : "Period",
+    "PatronV6" : {
+      "id" : "PatronV6",
       "properties" : {
-        "from" : {
-          "type" : "string",
-          "description" : "Open-ended if not set"
+        "birthday" : {
+          "type" : "string"
         },
-        "to" : {
+        "secondaryAddress" : {
+          "type" : "AddressV2"
+        },
+        "preferredLanguage" : {
           "type" : "string",
-          "description" : "Open-ended if not set"
+          "description" : "Language in which the patron prefers the communication with the library to take place"
+        },
+        "preferredPickupBranch" : {
+          "type" : "string",
+          "description" : "ISIL of preferred pickup branch"
+        },
+        "address" : {
+          "type" : "AddressV2"
+        },
+        "onHold" : {
+          "type" : "Period",
+          "description" : "If not set then the patron is not on hold"
+        },
+        "patronId" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "Patron identifier to be used in subsequent service calls involving the patron"
+        },
+        "receiveEmail" : {
+          "type" : "boolean"
+        },
+        "blockStatus" : {
+          "type" : "array",
+          "description" : "A list of block statuses -\n if the patron is not blocked then this value is empty or null",
+          "items" : {
+            "$ref" : "BlockStatus"
+          }
+        },
+        "receiveSms" : {
+          "type" : "boolean"
+        },
+        "tags" : {
+          "type" : "array",
+          "description" : "Tags associated with the patron. Can be used to e.g. give permissions to patron in external ressources.",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "emailAddress" : {
+          "type" : "string"
+        },
+        "notificationProtocols" : {
+          "type" : "array",
+          "description" : "Notification protocols that the patron want to receive notification on. SMS and EMAIL are not included.",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "phoneNumber" : {
+          "type" : "string"
+        },
+        "name" : {
+          "type" : "string"
+        },
+        "receivePostalMail" : {
+          "type" : "boolean"
+        },
+        "allowBookings" : {
+          "type" : "boolean",
+          "description" : "True if the user is allowed to create bookings."
+        },
+        "defaultInterestPeriod" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "Length of default interest period in days"
+        },
+        "resident" : {
+          "type" : "boolean",
+          "description" : "True if the user is resident in the same municipality as the library"
         }
-      }
+      },
+      "required" : [ "preferredPickupBranch", "patronId", "receiveEmail", "receiveSms", "receivePostalMail", "defaultInterestPeriod", "resident" ]
     },
     "PatronV5" : {
       "id" : "PatronV5",
@@ -1178,6 +3051,864 @@
       },
       "required" : [ "preferredPickupBranch", "patronId", "receiveEmail", "receiveSms", "receivePostalMail", "defaultInterestPeriod", "resident" ]
     },
+    "GroupPatron" : {
+      "id" : "GroupPatron",
+      "properties" : {
+        "secondaryAddress" : {
+          "type" : "AddressV2"
+        },
+        "preferredLanguage" : {
+          "type" : "string",
+          "description" : "Language in which the patron prefers the communication with the library to take place"
+        },
+        "preferredPickupBranch" : {
+          "type" : "string",
+          "description" : "ISIL of preferred pickup branch"
+        },
+        "address" : {
+          "type" : "AddressV2"
+        },
+        "onHold" : {
+          "type" : "Period",
+          "description" : "If not set then the patron is not on hold"
+        },
+        "patronId" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "Patron identifier to be used in subsequent service calls involving the patron"
+        },
+        "receiveEmail" : {
+          "type" : "boolean"
+        },
+        "blockStatus" : {
+          "type" : "array",
+          "description" : "A list of block statuses -\n if the patron is not blocked then this value is empty or null",
+          "items" : {
+            "$ref" : "BlockStatus"
+          }
+        },
+        "contactPerson" : {
+          "type" : "string"
+        },
+        "receiveSms" : {
+          "type" : "boolean"
+        },
+        "tags" : {
+          "type" : "array",
+          "description" : "Tags associated with the patron. Can be used to e.g. give permissions to patron in external ressources.",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "emailAddress" : {
+          "type" : "string"
+        },
+        "notificationProtocols" : {
+          "type" : "array",
+          "description" : "Notification protocols that the patron want to receive notification on. SMS and EMAIL are not included.",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "phoneNumber" : {
+          "type" : "string"
+        },
+        "name" : {
+          "type" : "string"
+        },
+        "receivePostalMail" : {
+          "type" : "boolean"
+        },
+        "allowBookings" : {
+          "type" : "boolean",
+          "description" : "True if the user is allowed to create bookings."
+        },
+        "defaultInterestPeriod" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "Length of default interest period in days"
+        },
+        "interests" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "InterestV1"
+          }
+        }
+      },
+      "required" : [ "preferredPickupBranch", "patronId", "receiveEmail", "contactPerson", "receiveSms", "receivePostalMail", "defaultInterestPeriod" ]
+    },
+    "AuthenticatedPatronV9" : {
+      "id" : "AuthenticatedPatronV9",
+      "properties" : {
+        "patron" : {
+          "type" : "PatronV8",
+          "description" : "Only available if patron exists in FBS and was succesfully authenticated."
+        },
+        "authenticateStatus" : {
+          "type" : "string",
+          "description" : "AuthenticateStatus:\n <ul>\n     <li>- 'VALID': successfully authenticated</li>\n     <li>- 'INVALID': either the user is not known in the system, or an invalid combination of authentication parameters has been used.</li>\n     <li>- 'LOANER_LOCKED_OUT': user has been blocked temporary because of too many failed login attempts</li>\n </ul>",
+          "enum" : [ "VALID", "INVALID", "LOANER_LOCKED_OUT" ]
+        }
+      },
+      "required" : [ "authenticateStatus" ]
+    },
+    "UpdatePatronRequestV6" : {
+      "id" : "UpdatePatronRequestV6",
+      "properties" : {
+        "patron" : {
+          "type" : "PatronSettingsV6",
+          "description" : "Set this if patron details are to be changed"
+        },
+        "pincodeChange" : {
+          "type" : "PincodeChange",
+          "description" : "Set this if pincode is to be changed"
+        }
+      }
+    },
+    "PatronV9" : {
+      "id" : "PatronV9",
+      "properties" : {
+        "birthday" : {
+          "type" : "string"
+        },
+        "secondaryAddress" : {
+          "type" : "AddressV3"
+        },
+        "preferredLanguage" : {
+          "type" : "string",
+          "description" : "Language in which the patron prefers the communication with the library to take place"
+        },
+        "preferredPickupBranch" : {
+          "type" : "string",
+          "description" : "ISIL of preferred pickup branch"
+        },
+        "address" : {
+          "type" : "AddressV3"
+        },
+        "onHold" : {
+          "type" : "Period",
+          "description" : "If not set then the patron is not on hold"
+        },
+        "patronId" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "Patron identifier to be used in subsequent service calls involving the patron"
+        },
+        "guardianVisibility" : {
+          "type" : "boolean"
+        },
+        "receiveEmail" : {
+          "type" : "boolean"
+        },
+        "blockStatus" : {
+          "type" : "array",
+          "description" : "A list of block statuses -\n if the patron is not blocked then this value is empty or null",
+          "items" : {
+            "$ref" : "BlockStatus"
+          }
+        },
+        "keepLoanHistoricalData" : {
+          "type" : "boolean",
+          "description" : "Patron consent to keep historical loans"
+        },
+        "receiveSms" : {
+          "type" : "boolean"
+        },
+        "tags" : {
+          "type" : "array",
+          "description" : "Tags associated with the patron. Can be used to e.g. give permissions to patron in external ressources.",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "hasNationalRegistrySynchronizationConsent" : {
+          "type" : "boolean"
+        },
+        "emailAddress" : {
+          "type" : "string"
+        },
+        "notificationProtocols" : {
+          "type" : "array",
+          "description" : "Notification protocols that the patron want to receive notification on. SMS and EMAIL are not included.",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "phoneNumber" : {
+          "type" : "string"
+        },
+        "name" : {
+          "type" : "string"
+        },
+        "receivePostalMail" : {
+          "type" : "boolean"
+        },
+        "allowBookings" : {
+          "type" : "boolean",
+          "description" : "True if the user is allowed to create bookings."
+        },
+        "defaultInterestPeriod" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "Length of default interest period in days"
+        },
+        "interests" : {
+          "type" : "array",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "resident" : {
+          "type" : "boolean",
+          "description" : "True if the user is resident in the same municipality as the library"
+        }
+      },
+      "required" : [ "preferredPickupBranch", "patronId", "guardianVisibility", "receiveEmail", "receiveSms", "hasNationalRegistrySynchronizationConsent", "receivePostalMail", "defaultInterestPeriod", "resident" ]
+    },
+    "PatronV8" : {
+      "id" : "PatronV8",
+      "properties" : {
+        "birthday" : {
+          "type" : "string"
+        },
+        "secondaryAddress" : {
+          "type" : "AddressV2"
+        },
+        "preferredLanguage" : {
+          "type" : "string",
+          "description" : "Language in which the patron prefers the communication with the library to take place"
+        },
+        "preferredPickupBranch" : {
+          "type" : "string",
+          "description" : "ISIL of preferred pickup branch"
+        },
+        "address" : {
+          "type" : "AddressV2"
+        },
+        "onHold" : {
+          "type" : "Period",
+          "description" : "If not set then the patron is not on hold"
+        },
+        "patronId" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "Patron identifier to be used in subsequent service calls involving the patron"
+        },
+        "guardianVisibility" : {
+          "type" : "boolean"
+        },
+        "receiveEmail" : {
+          "type" : "boolean"
+        },
+        "blockStatus" : {
+          "type" : "array",
+          "description" : "A list of block statuses -\n if the patron is not blocked then this value is empty or null",
+          "items" : {
+            "$ref" : "BlockStatus"
+          }
+        },
+        "keepLoanHistoricalData" : {
+          "type" : "boolean",
+          "description" : "Patron consent to keep historical loans"
+        },
+        "receiveSms" : {
+          "type" : "boolean"
+        },
+        "tags" : {
+          "type" : "array",
+          "description" : "Tags associated with the patron. Can be used to e.g. give permissions to patron in external ressources.",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "hasNationalRegistrySynchronizationConsent" : {
+          "type" : "boolean"
+        },
+        "emailAddress" : {
+          "type" : "string"
+        },
+        "notificationProtocols" : {
+          "type" : "array",
+          "description" : "Notification protocols that the patron want to receive notification on. SMS and EMAIL are not included.",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "phoneNumber" : {
+          "type" : "string"
+        },
+        "name" : {
+          "type" : "string"
+        },
+        "receivePostalMail" : {
+          "type" : "boolean"
+        },
+        "allowBookings" : {
+          "type" : "boolean",
+          "description" : "True if the user is allowed to create bookings."
+        },
+        "defaultInterestPeriod" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "Length of default interest period in days"
+        },
+        "interests" : {
+          "type" : "array",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "resident" : {
+          "type" : "boolean",
+          "description" : "True if the user is resident in the same municipality as the library"
+        }
+      },
+      "required" : [ "preferredPickupBranch", "patronId", "guardianVisibility", "receiveEmail", "receiveSms", "hasNationalRegistrySynchronizationConsent", "receivePostalMail", "defaultInterestPeriod", "resident" ]
+    },
+    "UpdatePatronRequestV3" : {
+      "id" : "UpdatePatronRequestV3",
+      "properties" : {
+        "patron" : {
+          "type" : "PatronSettingsV3",
+          "description" : "Set this if patron details are to be changed"
+        },
+        "pincodeChange" : {
+          "type" : "PincodeChange",
+          "description" : "Set this if pincode is to be changed"
+        }
+      }
+    },
+    "Guardian" : {
+      "id" : "Guardian",
+      "properties" : {
+        "cprNumber" : {
+          "type" : "string"
+        },
+        "mobilePhoneNumber" : {
+          "type" : "string"
+        },
+        "address" : {
+          "type" : "Address"
+        },
+        "name" : {
+          "type" : "string",
+          "description" : "The full name of the guardian"
+        },
+        "email" : {
+          "type" : "string",
+          "description" : "Must be valid"
+        }
+      },
+      "required" : [ "cprNumber", "name", "email" ]
+    },
+    "UpdatePatronRequestV5" : {
+      "id" : "UpdatePatronRequestV5",
+      "properties" : {
+        "patron" : {
+          "type" : "PatronSettingsV5",
+          "description" : "Set this if patron details are to be changed"
+        },
+        "pincodeChange" : {
+          "type" : "PincodeChange",
+          "description" : "Set this if pincode is to be changed"
+        }
+      }
+    },
+    "GuardianV2" : {
+      "id" : "GuardianV2",
+      "properties" : {
+        "mobilePhoneNumber" : {
+          "type" : "string"
+        },
+        "address" : {
+          "type" : "AddressV3"
+        },
+        "name" : {
+          "type" : "string",
+          "description" : "The full name of the guardian"
+        },
+        "personIdentifier" : {
+          "type" : "string"
+        },
+        "email" : {
+          "type" : "string",
+          "description" : "Must be valid"
+        }
+      },
+      "required" : [ "name", "personIdentifier", "email" ]
+    },
+    "UpdatePatronRequestV4" : {
+      "id" : "UpdatePatronRequestV4",
+      "properties" : {
+        "patron" : {
+          "type" : "PatronSettingsV4",
+          "description" : "Set this if patron details are to be changed"
+        },
+        "pincodeChange" : {
+          "type" : "PincodeChange",
+          "description" : "Set this if pincode is to be changed"
+        }
+      }
+    },
+    "PersonPatronV4" : {
+      "id" : "PersonPatronV4",
+      "properties" : {
+        "birthday" : {
+          "type" : "string"
+        },
+        "secondaryAddress" : {
+          "type" : "AddressV3"
+        },
+        "preferredLanguage" : {
+          "type" : "string",
+          "description" : "Language in which the patron prefers the communication with the library to take place"
+        },
+        "preferredPickupBranch" : {
+          "type" : "string",
+          "description" : "ISIL of preferred pickup branch"
+        },
+        "address" : {
+          "type" : "AddressV3"
+        },
+        "onHold" : {
+          "type" : "Period",
+          "description" : "If not set then the patron is not on hold"
+        },
+        "patronId" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "Patron identifier to be used in subsequent service calls involving the patron"
+        },
+        "guardianVisibility" : {
+          "type" : "boolean"
+        },
+        "blockStatus" : {
+          "type" : "array",
+          "description" : "A list of block statuses -\n if the patron is not blocked then this value is empty or null",
+          "items" : {
+            "$ref" : "BlockStatus"
+          }
+        },
+        "phoneNumbers" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "PhoneNumberV1"
+          }
+        },
+        "tags" : {
+          "type" : "array",
+          "description" : "Tags associated with the patron. Can be used to e.g. give permissions to patron in external ressources.",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "notificationProtocols" : {
+          "type" : "array",
+          "description" : "Notification protocols that the patron want to receive notification on. SMS and EMAIL are not included.",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "emailAddresses" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "EmailAddressV2"
+          }
+        },
+        "name" : {
+          "type" : "string"
+        },
+        "receivePostalMail" : {
+          "type" : "boolean"
+        },
+        "allowBookings" : {
+          "type" : "boolean",
+          "description" : "True if the user is allowed to create bookings."
+        },
+        "defaultInterestPeriod" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "Length of default interest period in days"
+        },
+        "patronNote" : {
+          "type" : "string",
+          "description" : "Note to patron"
+        },
+        "interests" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "InterestV1"
+          }
+        },
+        "resident" : {
+          "type" : "boolean",
+          "description" : "True if the user is resident in the same municipality as the library"
+        }
+      },
+      "required" : [ "preferredPickupBranch", "patronId", "guardianVisibility", "receivePostalMail", "defaultInterestPeriod", "resident" ]
+    },
+    "PersonPatronV3" : {
+      "id" : "PersonPatronV3",
+      "properties" : {
+        "birthday" : {
+          "type" : "string"
+        },
+        "secondaryAddress" : {
+          "type" : "AddressV3"
+        },
+        "preferredLanguage" : {
+          "type" : "string",
+          "description" : "Language in which the patron prefers the communication with the library to take place"
+        },
+        "preferredPickupBranch" : {
+          "type" : "string",
+          "description" : "ISIL of preferred pickup branch"
+        },
+        "address" : {
+          "type" : "AddressV3"
+        },
+        "onHold" : {
+          "type" : "Period",
+          "description" : "If not set then the patron is not on hold"
+        },
+        "patronId" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "Patron identifier to be used in subsequent service calls involving the patron"
+        },
+        "guardianVisibility" : {
+          "type" : "boolean"
+        },
+        "blockStatus" : {
+          "type" : "array",
+          "description" : "A list of block statuses -\n if the patron is not blocked then this value is empty or null",
+          "items" : {
+            "$ref" : "BlockStatus"
+          }
+        },
+        "phoneNumbers" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "PhoneNumberV1"
+          }
+        },
+        "tags" : {
+          "type" : "array",
+          "description" : "Tags associated with the patron. Can be used to e.g. give permissions to patron in external ressources.",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "notificationProtocols" : {
+          "type" : "array",
+          "description" : "Notification protocols that the patron want to receive notification on. SMS and EMAIL are not included.",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "emailAddresses" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "EmailAddressV2"
+          }
+        },
+        "name" : {
+          "type" : "string"
+        },
+        "receivePostalMail" : {
+          "type" : "boolean"
+        },
+        "allowBookings" : {
+          "type" : "boolean",
+          "description" : "True if the user is allowed to create bookings."
+        },
+        "defaultInterestPeriod" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "Length of default interest period in days"
+        },
+        "interests" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "InterestV1"
+          }
+        },
+        "resident" : {
+          "type" : "boolean",
+          "description" : "True if the user is resident in the same municipality as the library"
+        }
+      },
+      "required" : [ "preferredPickupBranch", "patronId", "guardianVisibility", "receivePostalMail", "defaultInterestPeriod", "resident" ]
+    },
+    "PincodeChange" : {
+      "id" : "PincodeChange",
+      "properties" : {
+        "pincode" : {
+          "type" : "string",
+          "description" : "The new pincode for the libraryCard"
+        },
+        "libraryCardNumber" : {
+          "type" : "string",
+          "description" : "Identifies the libraryCard for which the pincode is to be changed.\n This can be either a physical card or the CPR number, that is used as a libraryCard"
+        }
+      },
+      "required" : [ "pincode", "libraryCardNumber" ]
+    },
+    "BlockStatus" : {
+      "id" : "BlockStatus",
+      "properties" : {
+        "blockedReason" : {
+          "type" : "string",
+          "description" : "Reason code for block"
+        },
+        "blockedSince" : {
+          "type" : "string"
+        },
+        "message" : {
+          "type" : "string",
+          "description" : "Message about block"
+        }
+      },
+      "required" : [ "blockedReason", "blockedSince", "message" ]
+    },
+    "BlockStatusRequest" : {
+      "id" : "BlockStatusRequest",
+      "properties" : {
+        "blockedReason" : {
+          "type" : "string",
+          "description" : "Reason code for block"
+        },
+        "blockedSince" : {
+          "type" : "string",
+          "description" : "The date from which the patron should be blocked.\n The dateformat is YYYY-MM-DD, so 9th of March 2023 is written 2023-03-09."
+        }
+      },
+      "required" : [ "blockedReason", "blockedSince" ]
+    },
+    "PatronWithGuardianRequestV4" : {
+      "id" : "PatronWithGuardianRequestV4",
+      "properties" : {
+        "pincode" : {
+          "type" : "string"
+        },
+        "nationalRegistryConsent" : {
+          "type" : "boolean"
+        },
+        "emailAddresses" : {
+          "type" : "array",
+          "description" : "Must be valid if supplied",
+          "items" : {
+            "$ref" : "EmailAddressV1"
+          }
+        },
+        "address" : {
+          "type" : "AddressV3"
+        },
+        "preferredPickupBranch" : {
+          "type" : "string",
+          "description" : "Must be a valid branch id (eg. DK-761501)"
+        },
+        "name" : {
+          "type" : "string",
+          "description" : "The full name of the patron"
+        },
+        "personId" : {
+          "type" : "string"
+        },
+        "guardian" : {
+          "type" : "GuardianV2"
+        },
+        "blockStatusRequest" : {
+          "type" : "BlockStatusRequest"
+        },
+        "phoneNumbers" : {
+          "type" : "array",
+          "description" : "Must be valid if supplied",
+          "items" : {
+            "$ref" : "PhoneNumberV1"
+          }
+        }
+      },
+      "required" : [ "preferredPickupBranch", "name", "personId", "guardian" ]
+    },
+    "AuthenticatedPatronV10" : {
+      "id" : "AuthenticatedPatronV10",
+      "properties" : {
+        "patron" : {
+          "type" : "PatronV9",
+          "description" : "Only available if patron exists in FBS and was succesfully authenticated."
+        },
+        "authenticateStatus" : {
+          "type" : "string",
+          "description" : "AuthenticateStatus:\n <ul>\n     <li>- 'VALID': successfully authenticated</li>\n     <li>- 'INVALID': either the user is not known in the system, or an invalid combination of authentication parameters has been used.</li>\n     <li>- 'LOANER_LOCKED_OUT': user has been blocked temporary because of too many failed login attempts</li>\n </ul>",
+          "enum" : [ "VALID", "INVALID", "LOANER_LOCKED_OUT" ]
+        }
+      },
+      "required" : [ "authenticateStatus" ]
+    },
+    "AuthenticatedPatronV4" : {
+      "id" : "AuthenticatedPatronV4",
+      "properties" : {
+        "authenticated" : {
+          "type" : "boolean",
+          "description" : "True if patron successfully authenticated.\n If false then either the user is not known in the FBS, or an invalid combination of authentication parameters\n has been used."
+        },
+        "patron" : {
+          "type" : "PatronV4",
+          "description" : "Only available if patron exists in FBS and was succesfully authenticated."
+        }
+      },
+      "required" : [ "authenticated" ]
+    },
+    "AuthenticatedPatronV3" : {
+      "id" : "AuthenticatedPatronV3",
+      "properties" : {
+        "authenticated" : {
+          "type" : "boolean",
+          "description" : "True if patron successfully authenticated.\n If false then either the user is not known in the FBS, or an invalid combination of authentication parameters\n has been used."
+        },
+        "patron" : {
+          "type" : "PatronV3",
+          "description" : "Only available if patron exists in FBS and was succesfully authenticated."
+        }
+      },
+      "required" : [ "authenticated" ]
+    },
+    "Period" : {
+      "id" : "Period",
+      "properties" : {
+        "from" : {
+          "type" : "string",
+          "description" : "Open-ended if not set"
+        },
+        "to" : {
+          "type" : "string",
+          "description" : "Open-ended if not set"
+        }
+      }
+    },
+    "PatronWithGuardianRequestV2" : {
+      "id" : "PatronWithGuardianRequestV2",
+      "properties" : {
+        "cprNumber" : {
+          "type" : "string"
+        },
+        "pincode" : {
+          "type" : "string"
+        },
+        "phoneNumber" : {
+          "type" : "string",
+          "description" : "Must be valid if supplied"
+        },
+        "address" : {
+          "type" : "Address"
+        },
+        "preferredPickupBranch" : {
+          "type" : "string",
+          "description" : "Must be a valid branch id (eg. DK-761501)"
+        },
+        "name" : {
+          "type" : "string",
+          "description" : "The full name of the patron"
+        },
+        "guardian" : {
+          "type" : "Guardian"
+        },
+        "blockStatusRequest" : {
+          "type" : "BlockStatusRequest"
+        },
+        "email" : {
+          "type" : "string",
+          "description" : "Must be valid if supplied"
+        }
+      },
+      "required" : [ "cprNumber", "pincode", "preferredPickupBranch", "name", "guardian" ]
+    },
+    "PatronWithGuardianRequestV3" : {
+      "id" : "PatronWithGuardianRequestV3",
+      "properties" : {
+        "pincode" : {
+          "type" : "string"
+        },
+        "emailAddresses" : {
+          "type" : "array",
+          "description" : "Must be valid if supplied",
+          "items" : {
+            "$ref" : "EmailAddressV1"
+          }
+        },
+        "address" : {
+          "type" : "AddressV3"
+        },
+        "preferredPickupBranch" : {
+          "type" : "string",
+          "description" : "Must be a valid branch id (eg. DK-761501)"
+        },
+        "name" : {
+          "type" : "string",
+          "description" : "The full name of the patron"
+        },
+        "personId" : {
+          "type" : "string"
+        },
+        "guardian" : {
+          "type" : "GuardianV2"
+        },
+        "blockStatusRequest" : {
+          "type" : "BlockStatusRequest"
+        },
+        "phoneNumbers" : {
+          "type" : "array",
+          "description" : "Must be valid if supplied",
+          "items" : {
+            "$ref" : "PhoneNumberV1"
+          }
+        }
+      },
+      "required" : [ "pincode", "preferredPickupBranch", "name", "personId", "guardian" ]
+    },
+    "AuthenticatedPatronV8" : {
+      "id" : "AuthenticatedPatronV8",
+      "properties" : {
+        "patron" : {
+          "type" : "PatronV7",
+          "description" : "Only available if patron exists in FBS and was succesfully authenticated."
+        },
+        "authenticateStatus" : {
+          "type" : "string",
+          "description" : "AuthenticateStatus:\n <ul>\n     <li>- 'VALID': successfully authenticated</li>\n     <li>- 'INVALID': either the user is not known in the system, or an invalid combination of authentication parameters has been used.</li>\n     <li>- 'LOANER_LOCKED_OUT': user has been blocked temporary because of too many failed login attempts</li>\n </ul>",
+          "enum" : [ "VALID", "INVALID", "LOANER_LOCKED_OUT" ]
+        }
+      },
+      "required" : [ "authenticateStatus" ]
+    },
+    "PhoneNumberV1" : {
+      "id" : "PhoneNumberV1",
+      "properties" : {
+        "receiveNotification" : {
+          "type" : "boolean"
+        },
+        "phoneNumber" : {
+          "type" : "string"
+        }
+      },
+      "required" : [ "receiveNotification", "phoneNumber" ]
+    },
+    "AuthenticatedPatronV7" : {
+      "id" : "AuthenticatedPatronV7",
+      "properties" : {
+        "patron" : {
+          "type" : "PatronV6",
+          "description" : "Only available if patron exists in FBS and was succesfully authenticated."
+        },
+        "authenticateStatus" : {
+          "type" : "string",
+          "description" : "AuthenticateStatus:\n <ul>\n     <li>- 'VALID': successfully authenticated</li>\n     <li>- 'INVALID': either the user is not known in the system, or an invalid combination of authentication parameters has been used.</li>\n     <li>- 'LOANER_LOCKED_OUT': user has been blocked temporary because of too many failed login attempts</li>\n </ul>",
+          "enum" : [ "VALID", "INVALID", "LOANER_LOCKED_OUT" ]
+        }
+      },
+      "required" : [ "authenticateStatus" ]
+    },
     "NotificationProtocol" : {
       "id" : "NotificationProtocol",
       "properties" : {
@@ -1191,6 +3922,15 @@
         }
       },
       "required" : [ "displayName", "name" ]
+    },
+    "PatronInterestsV1" : {
+      "id" : "PatronInterestsV1",
+      "properties" : {
+        "interests" : {
+          "type" : "Map"
+        }
+      },
+      "required" : [ "interests" ]
     },
     "AuthenticatedPatronV6" : {
       "id" : "AuthenticatedPatronV6",
@@ -1237,18 +3977,15 @@
       },
       "required" : [ "cprNumber", "pincode", "patron" ]
     },
-    "UpdatePatronRequestV3" : {
-      "id" : "UpdatePatronRequestV3",
+    "UpdateConsentV1" : {
+      "id" : "UpdateConsentV1",
       "properties" : {
-        "patron" : {
-          "type" : "PatronSettingsV3",
-          "description" : "Set this if patron details are to be changed"
-        },
-        "pincodeChange" : {
-          "type" : "PincodeChange",
-          "description" : "Set this if pincode is to be changed"
+        "consent" : {
+          "type" : "boolean",
+          "description" : "If consent is given or not."
         }
-      }
+      },
+      "required" : [ "consent" ]
     },
     "CreatePatronRequestV4" : {
       "id" : "CreatePatronRequestV4",
@@ -1265,41 +4002,1018 @@
       },
       "required" : [ "cprNumber", "pincode", "patron" ]
     },
-    "Guardian" : {
-      "id" : "Guardian",
+    "LibraryPatronV4" : {
+      "id" : "LibraryPatronV4",
+      "properties" : {
+        "secondaryAddress" : {
+          "type" : "AddressV3"
+        },
+        "preferredLanguage" : {
+          "type" : "string",
+          "description" : "Language in which the patron prefers the communication with the library to take place"
+        },
+        "preferredPickupBranch" : {
+          "type" : "string",
+          "description" : "ISIL of preferred pickup branch"
+        },
+        "address" : {
+          "type" : "AddressV3"
+        },
+        "onHold" : {
+          "type" : "Period",
+          "description" : "If not set then the patron is not on hold"
+        },
+        "patronId" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "Patron identifier to be used in subsequent service calls involving the patron"
+        },
+        "blockStatus" : {
+          "type" : "array",
+          "description" : "A list of block statuses -\n if the patron is not blocked then this value is empty or null",
+          "items" : {
+            "$ref" : "BlockStatus"
+          }
+        },
+        "phoneNumbers" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "PhoneNumberV1"
+          }
+        },
+        "tags" : {
+          "type" : "array",
+          "description" : "Tags associated with the patron. Can be used to e.g. give permissions to patron in external ressources.",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "notificationProtocols" : {
+          "type" : "array",
+          "description" : "Notification protocols that the patron want to receive notification on. SMS and EMAIL are not included.",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "emailAddresses" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "EmailAddressV2"
+          }
+        },
+        "name" : {
+          "type" : "string"
+        },
+        "receivePostalMail" : {
+          "type" : "boolean"
+        },
+        "allowBookings" : {
+          "type" : "boolean",
+          "description" : "True if the user is allowed to create bookings."
+        },
+        "defaultInterestPeriod" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "Length of default interest period in days"
+        },
+        "patronNote" : {
+          "type" : "string",
+          "description" : "Note to patron"
+        },
+        "interests" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "InterestV1"
+          }
+        },
+        "isil" : {
+          "type" : "string",
+          "description" : "ISIL of the library"
+        }
+      },
+      "required" : [ "preferredPickupBranch", "patronId", "receivePostalMail", "defaultInterestPeriod", "isil" ]
+    },
+    "CreatePatronRequestV7" : {
+      "id" : "CreatePatronRequestV7",
+      "properties" : {
+        "pincode" : {
+          "type" : "string"
+        },
+        "patron" : {
+          "type" : "PatronSettingsV6"
+        },
+        "personIdentifier" : {
+          "type" : "string"
+        },
+        "blockStatusRequest" : {
+          "type" : "BlockStatusRequest"
+        }
+      },
+      "required" : [ "pincode", "patron", "personIdentifier" ]
+    },
+    "LibraryPatronV3" : {
+      "id" : "LibraryPatronV3",
+      "properties" : {
+        "secondaryAddress" : {
+          "type" : "AddressV3"
+        },
+        "preferredLanguage" : {
+          "type" : "string",
+          "description" : "Language in which the patron prefers the communication with the library to take place"
+        },
+        "preferredPickupBranch" : {
+          "type" : "string",
+          "description" : "ISIL of preferred pickup branch"
+        },
+        "address" : {
+          "type" : "AddressV3"
+        },
+        "onHold" : {
+          "type" : "Period",
+          "description" : "If not set then the patron is not on hold"
+        },
+        "patronId" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "Patron identifier to be used in subsequent service calls involving the patron"
+        },
+        "blockStatus" : {
+          "type" : "array",
+          "description" : "A list of block statuses -\n if the patron is not blocked then this value is empty or null",
+          "items" : {
+            "$ref" : "BlockStatus"
+          }
+        },
+        "phoneNumbers" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "PhoneNumberV1"
+          }
+        },
+        "tags" : {
+          "type" : "array",
+          "description" : "Tags associated with the patron. Can be used to e.g. give permissions to patron in external ressources.",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "notificationProtocols" : {
+          "type" : "array",
+          "description" : "Notification protocols that the patron want to receive notification on. SMS and EMAIL are not included.",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "emailAddresses" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "EmailAddressV2"
+          }
+        },
+        "name" : {
+          "type" : "string"
+        },
+        "receivePostalMail" : {
+          "type" : "boolean"
+        },
+        "allowBookings" : {
+          "type" : "boolean",
+          "description" : "True if the user is allowed to create bookings."
+        },
+        "defaultInterestPeriod" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "Length of default interest period in days"
+        },
+        "interests" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "InterestV1"
+          }
+        },
+        "isil" : {
+          "type" : "string",
+          "description" : "ISIL of the library"
+        }
+      },
+      "required" : [ "preferredPickupBranch", "patronId", "receivePostalMail", "defaultInterestPeriod", "isil" ]
+    },
+    "CreatePatronRequestV8" : {
+      "id" : "CreatePatronRequestV8",
+      "properties" : {
+        "pincode" : {
+          "type" : "string"
+        },
+        "patron" : {
+          "type" : "PatronSettingsV6"
+        },
+        "nationalRegistryConsent" : {
+          "type" : "boolean"
+        },
+        "personIdentifier" : {
+          "type" : "string"
+        },
+        "blockStatusRequest" : {
+          "type" : "BlockStatusRequest"
+        }
+      },
+      "required" : [ "patron", "personIdentifier" ]
+    },
+    "LibraryPatronV2" : {
+      "id" : "LibraryPatronV2",
+      "properties" : {
+        "secondaryAddress" : {
+          "type" : "AddressV3"
+        },
+        "preferredLanguage" : {
+          "type" : "string",
+          "description" : "Language in which the patron prefers the communication with the library to take place"
+        },
+        "preferredPickupBranch" : {
+          "type" : "string",
+          "description" : "ISIL of preferred pickup branch"
+        },
+        "address" : {
+          "type" : "AddressV3"
+        },
+        "onHold" : {
+          "type" : "Period",
+          "description" : "If not set then the patron is not on hold"
+        },
+        "patronId" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "Patron identifier to be used in subsequent service calls involving the patron"
+        },
+        "blockStatus" : {
+          "type" : "array",
+          "description" : "A list of block statuses -\n if the patron is not blocked then this value is empty or null",
+          "items" : {
+            "$ref" : "BlockStatus"
+          }
+        },
+        "phoneNumbers" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "PhoneNumberV1"
+          }
+        },
+        "tags" : {
+          "type" : "array",
+          "description" : "Tags associated with the patron. Can be used to e.g. give permissions to patron in external ressources.",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "notificationProtocols" : {
+          "type" : "array",
+          "description" : "Notification protocols that the patron want to receive notification on. SMS and EMAIL are not included.",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "emailAddresses" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "EmailAddressV1"
+          }
+        },
+        "name" : {
+          "type" : "string"
+        },
+        "receivePostalMail" : {
+          "type" : "boolean"
+        },
+        "allowBookings" : {
+          "type" : "boolean",
+          "description" : "True if the user is allowed to create bookings."
+        },
+        "defaultInterestPeriod" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "Length of default interest period in days"
+        },
+        "interests" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "InterestV1"
+          }
+        },
+        "isil" : {
+          "type" : "string"
+        }
+      },
+      "required" : [ "preferredPickupBranch", "patronId", "receivePostalMail", "defaultInterestPeriod", "isil" ]
+    },
+    "CreatePatronRequestV5" : {
+      "id" : "CreatePatronRequestV5",
       "properties" : {
         "cprNumber" : {
           "type" : "string"
         },
-        "mobilePhoneNumber" : {
+        "pincode" : {
           "type" : "string"
         },
-        "address" : {
-          "type" : "Address"
-        },
-        "name" : {
-          "type" : "string",
-          "description" : "The full name of the guardian"
-        },
-        "email" : {
-          "type" : "string",
-          "description" : "Must be valid"
+        "patron" : {
+          "type" : "PatronSettingsV5"
         }
       },
-      "required" : [ "cprNumber", "name", "email" ]
+      "required" : [ "cprNumber", "pincode", "patron" ]
     },
-    "UpdatePatronRequestV4" : {
-      "id" : "UpdatePatronRequestV4",
+    "CreatePatronRequestV6" : {
+      "id" : "CreatePatronRequestV6",
       "properties" : {
-        "patron" : {
-          "type" : "PatronSettingsV4",
-          "description" : "Set this if patron details are to be changed"
+        "cprNumber" : {
+          "type" : "string"
         },
-        "pincodeChange" : {
-          "type" : "PincodeChange",
-          "description" : "Set this if pincode is to be changed"
+        "pincode" : {
+          "type" : "string"
+        },
+        "patron" : {
+          "type" : "PatronSettingsV5"
+        },
+        "blockStatusRequest" : {
+          "type" : "BlockStatusRequest"
         }
-      }
+      },
+      "required" : [ "cprNumber", "pincode", "patron" ]
+    },
+    "CompanyPatronV4" : {
+      "id" : "CompanyPatronV4",
+      "properties" : {
+        "secondaryAddress" : {
+          "type" : "AddressV3"
+        },
+        "preferredLanguage" : {
+          "type" : "string",
+          "description" : "Language in which the patron prefers the communication with the library to take place"
+        },
+        "preferredPickupBranch" : {
+          "type" : "string",
+          "description" : "ISIL of preferred pickup branch"
+        },
+        "address" : {
+          "type" : "AddressV3"
+        },
+        "onHold" : {
+          "type" : "Period",
+          "description" : "If not set then the patron is not on hold"
+        },
+        "patronId" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "Patron identifier to be used in subsequent service calls involving the patron"
+        },
+        "blockStatus" : {
+          "type" : "array",
+          "description" : "A list of block statuses -\n if the patron is not blocked then this value is empty or null",
+          "items" : {
+            "$ref" : "BlockStatus"
+          }
+        },
+        "contactPerson" : {
+          "type" : "string"
+        },
+        "phoneNumbers" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "PhoneNumberV1"
+          }
+        },
+        "tags" : {
+          "type" : "array",
+          "description" : "Tags associated with the patron. Can be used to e.g. give permissions to patron in external ressources.",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "notificationProtocols" : {
+          "type" : "array",
+          "description" : "Notification protocols that the patron want to receive notification on. SMS and EMAIL are not included.",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "emailAddresses" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "EmailAddressV2"
+          }
+        },
+        "companyIdentifier" : {
+          "type" : "string"
+        },
+        "name" : {
+          "type" : "string"
+        },
+        "receivePostalMail" : {
+          "type" : "boolean"
+        },
+        "allowBookings" : {
+          "type" : "boolean",
+          "description" : "True if the user is allowed to create bookings."
+        },
+        "defaultInterestPeriod" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "Length of default interest period in days"
+        },
+        "patronNote" : {
+          "type" : "string",
+          "description" : "Note to patron"
+        },
+        "interests" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "InterestV1"
+          }
+        }
+      },
+      "required" : [ "preferredPickupBranch", "patronId", "contactPerson", "companyIdentifier", "receivePostalMail", "defaultInterestPeriod" ]
+    },
+    "CompanyPatronV3" : {
+      "id" : "CompanyPatronV3",
+      "properties" : {
+        "secondaryAddress" : {
+          "type" : "AddressV3"
+        },
+        "preferredLanguage" : {
+          "type" : "string",
+          "description" : "Language in which the patron prefers the communication with the library to take place"
+        },
+        "preferredPickupBranch" : {
+          "type" : "string",
+          "description" : "ISIL of preferred pickup branch"
+        },
+        "address" : {
+          "type" : "AddressV3"
+        },
+        "onHold" : {
+          "type" : "Period",
+          "description" : "If not set then the patron is not on hold"
+        },
+        "patronId" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "Patron identifier to be used in subsequent service calls involving the patron"
+        },
+        "blockStatus" : {
+          "type" : "array",
+          "description" : "A list of block statuses -\n if the patron is not blocked then this value is empty or null",
+          "items" : {
+            "$ref" : "BlockStatus"
+          }
+        },
+        "contactPerson" : {
+          "type" : "string"
+        },
+        "phoneNumbers" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "PhoneNumberV1"
+          }
+        },
+        "tags" : {
+          "type" : "array",
+          "description" : "Tags associated with the patron. Can be used to e.g. give permissions to patron in external ressources.",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "notificationProtocols" : {
+          "type" : "array",
+          "description" : "Notification protocols that the patron want to receive notification on. SMS and EMAIL are not included.",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "emailAddresses" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "EmailAddressV2"
+          }
+        },
+        "companyIdentifier" : {
+          "type" : "string"
+        },
+        "name" : {
+          "type" : "string"
+        },
+        "receivePostalMail" : {
+          "type" : "boolean"
+        },
+        "allowBookings" : {
+          "type" : "boolean",
+          "description" : "True if the user is allowed to create bookings."
+        },
+        "defaultInterestPeriod" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "Length of default interest period in days"
+        },
+        "interests" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "InterestV1"
+          }
+        }
+      },
+      "required" : [ "preferredPickupBranch", "patronId", "contactPerson", "companyIdentifier", "receivePostalMail", "defaultInterestPeriod" ]
+    },
+    "EmailAddressV2" : {
+      "id" : "EmailAddressV2",
+      "properties" : {
+        "emailAddress" : {
+          "type" : "string"
+        },
+        "receiveNotification" : {
+          "type" : "boolean"
+        },
+        "verified" : {
+          "type" : "boolean"
+        }
+      },
+      "required" : [ "emailAddress", "receiveNotification", "verified" ]
+    },
+    "CompanyPatronV2" : {
+      "id" : "CompanyPatronV2",
+      "properties" : {
+        "secondaryAddress" : {
+          "type" : "AddressV3"
+        },
+        "preferredLanguage" : {
+          "type" : "string",
+          "description" : "Language in which the patron prefers the communication with the library to take place"
+        },
+        "preferredPickupBranch" : {
+          "type" : "string",
+          "description" : "ISIL of preferred pickup branch"
+        },
+        "address" : {
+          "type" : "AddressV3"
+        },
+        "onHold" : {
+          "type" : "Period",
+          "description" : "If not set then the patron is not on hold"
+        },
+        "patronId" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "Patron identifier to be used in subsequent service calls involving the patron"
+        },
+        "blockStatus" : {
+          "type" : "array",
+          "description" : "A list of block statuses -\n if the patron is not blocked then this value is empty or null",
+          "items" : {
+            "$ref" : "BlockStatus"
+          }
+        },
+        "contactPerson" : {
+          "type" : "string"
+        },
+        "phoneNumbers" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "PhoneNumberV1"
+          }
+        },
+        "tags" : {
+          "type" : "array",
+          "description" : "Tags associated with the patron. Can be used to e.g. give permissions to patron in external ressources.",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "notificationProtocols" : {
+          "type" : "array",
+          "description" : "Notification protocols that the patron want to receive notification on. SMS and EMAIL are not included.",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "emailAddresses" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "EmailAddressV1"
+          }
+        },
+        "companyIdentifier" : {
+          "type" : "string"
+        },
+        "name" : {
+          "type" : "string"
+        },
+        "receivePostalMail" : {
+          "type" : "boolean"
+        },
+        "allowBookings" : {
+          "type" : "boolean",
+          "description" : "True if the user is allowed to create bookings."
+        },
+        "defaultInterestPeriod" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "Length of default interest period in days"
+        },
+        "interests" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "InterestV1"
+          }
+        }
+      },
+      "required" : [ "preferredPickupBranch", "patronId", "contactPerson", "companyIdentifier", "receivePostalMail", "defaultInterestPeriod" ]
+    },
+    "GroupPatronV2" : {
+      "id" : "GroupPatronV2",
+      "properties" : {
+        "secondaryAddress" : {
+          "type" : "AddressV3"
+        },
+        "preferredLanguage" : {
+          "type" : "string",
+          "description" : "Language in which the patron prefers the communication with the library to take place"
+        },
+        "preferredPickupBranch" : {
+          "type" : "string",
+          "description" : "ISIL of preferred pickup branch"
+        },
+        "address" : {
+          "type" : "AddressV3"
+        },
+        "onHold" : {
+          "type" : "Period",
+          "description" : "If not set then the patron is not on hold"
+        },
+        "patronId" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "Patron identifier to be used in subsequent service calls involving the patron"
+        },
+        "blockStatus" : {
+          "type" : "array",
+          "description" : "A list of block statuses -\n if the patron is not blocked then this value is empty or null",
+          "items" : {
+            "$ref" : "BlockStatus"
+          }
+        },
+        "contactPerson" : {
+          "type" : "string"
+        },
+        "phoneNumbers" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "PhoneNumberV1"
+          }
+        },
+        "tags" : {
+          "type" : "array",
+          "description" : "Tags associated with the patron. Can be used to e.g. give permissions to patron in external ressources.",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "notificationProtocols" : {
+          "type" : "array",
+          "description" : "Notification protocols that the patron want to receive notification on. SMS and EMAIL are not included.",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "emailAddresses" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "EmailAddressV1"
+          }
+        },
+        "name" : {
+          "type" : "string"
+        },
+        "receivePostalMail" : {
+          "type" : "boolean"
+        },
+        "allowBookings" : {
+          "type" : "boolean",
+          "description" : "True if the user is allowed to create bookings."
+        },
+        "defaultInterestPeriod" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "Length of default interest period in days"
+        },
+        "interests" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "InterestV1"
+          }
+        }
+      },
+      "required" : [ "preferredPickupBranch", "patronId", "contactPerson", "receivePostalMail", "defaultInterestPeriod" ]
+    },
+    "BlockIdentifierV1" : {
+      "id" : "BlockIdentifierV1",
+      "properties" : {
+        "identifier" : {
+          "type" : "string"
+        }
+      },
+      "required" : [ "identifier" ]
+    },
+    "GroupPatronV3" : {
+      "id" : "GroupPatronV3",
+      "properties" : {
+        "secondaryAddress" : {
+          "type" : "AddressV3"
+        },
+        "preferredLanguage" : {
+          "type" : "string",
+          "description" : "Language in which the patron prefers the communication with the library to take place"
+        },
+        "preferredPickupBranch" : {
+          "type" : "string",
+          "description" : "ISIL of preferred pickup branch"
+        },
+        "address" : {
+          "type" : "AddressV3"
+        },
+        "onHold" : {
+          "type" : "Period",
+          "description" : "If not set then the patron is not on hold"
+        },
+        "patronId" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "Patron identifier to be used in subsequent service calls involving the patron"
+        },
+        "blockStatus" : {
+          "type" : "array",
+          "description" : "A list of block statuses -\n if the patron is not blocked then this value is empty or null",
+          "items" : {
+            "$ref" : "BlockStatus"
+          }
+        },
+        "contactPerson" : {
+          "type" : "string"
+        },
+        "phoneNumbers" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "PhoneNumberV1"
+          }
+        },
+        "tags" : {
+          "type" : "array",
+          "description" : "Tags associated with the patron. Can be used to e.g. give permissions to patron in external ressources.",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "notificationProtocols" : {
+          "type" : "array",
+          "description" : "Notification protocols that the patron want to receive notification on. SMS and EMAIL are not included.",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "emailAddresses" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "EmailAddressV2"
+          }
+        },
+        "name" : {
+          "type" : "string"
+        },
+        "receivePostalMail" : {
+          "type" : "boolean"
+        },
+        "allowBookings" : {
+          "type" : "boolean",
+          "description" : "True if the user is allowed to create bookings."
+        },
+        "defaultInterestPeriod" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "Length of default interest period in days"
+        },
+        "interests" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "InterestV1"
+          }
+        }
+      },
+      "required" : [ "preferredPickupBranch", "patronId", "contactPerson", "receivePostalMail", "defaultInterestPeriod" ]
+    },
+    "EmailAddressV1" : {
+      "id" : "EmailAddressV1",
+      "properties" : {
+        "emailAddress" : {
+          "type" : "string"
+        },
+        "receiveNotification" : {
+          "type" : "boolean"
+        }
+      },
+      "required" : [ "emailAddress", "receiveNotification" ]
+    },
+    "GroupPatronV4" : {
+      "id" : "GroupPatronV4",
+      "properties" : {
+        "secondaryAddress" : {
+          "type" : "AddressV3"
+        },
+        "preferredLanguage" : {
+          "type" : "string",
+          "description" : "Language in which the patron prefers the communication with the library to take place"
+        },
+        "preferredPickupBranch" : {
+          "type" : "string",
+          "description" : "ISIL of preferred pickup branch"
+        },
+        "address" : {
+          "type" : "AddressV3"
+        },
+        "onHold" : {
+          "type" : "Period",
+          "description" : "If not set then the patron is not on hold"
+        },
+        "patronId" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "Patron identifier to be used in subsequent service calls involving the patron"
+        },
+        "blockStatus" : {
+          "type" : "array",
+          "description" : "A list of block statuses -\n if the patron is not blocked then this value is empty or null",
+          "items" : {
+            "$ref" : "BlockStatus"
+          }
+        },
+        "contactPerson" : {
+          "type" : "string"
+        },
+        "phoneNumbers" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "PhoneNumberV1"
+          }
+        },
+        "tags" : {
+          "type" : "array",
+          "description" : "Tags associated with the patron. Can be used to e.g. give permissions to patron in external ressources.",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "notificationProtocols" : {
+          "type" : "array",
+          "description" : "Notification protocols that the patron want to receive notification on. SMS and EMAIL are not included.",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "emailAddresses" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "EmailAddressV2"
+          }
+        },
+        "name" : {
+          "type" : "string"
+        },
+        "receivePostalMail" : {
+          "type" : "boolean"
+        },
+        "allowBookings" : {
+          "type" : "boolean",
+          "description" : "True if the user is allowed to create bookings."
+        },
+        "defaultInterestPeriod" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "Length of default interest period in days"
+        },
+        "patronNote" : {
+          "type" : "string",
+          "description" : "Note to patron"
+        },
+        "interests" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "InterestV1"
+          }
+        }
+      },
+      "required" : [ "preferredPickupBranch", "patronId", "contactPerson", "receivePostalMail", "defaultInterestPeriod" ]
+    },
+    "LibraryPatron" : {
+      "id" : "LibraryPatron",
+      "properties" : {
+        "secondaryAddress" : {
+          "type" : "AddressV2"
+        },
+        "preferredLanguage" : {
+          "type" : "string",
+          "description" : "Language in which the patron prefers the communication with the library to take place"
+        },
+        "preferredPickupBranch" : {
+          "type" : "string",
+          "description" : "ISIL of preferred pickup branch"
+        },
+        "address" : {
+          "type" : "AddressV2"
+        },
+        "onHold" : {
+          "type" : "Period",
+          "description" : "If not set then the patron is not on hold"
+        },
+        "patronId" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "Patron identifier to be used in subsequent service calls involving the patron"
+        },
+        "receiveEmail" : {
+          "type" : "boolean"
+        },
+        "blockStatus" : {
+          "type" : "array",
+          "description" : "A list of block statuses -\n if the patron is not blocked then this value is empty or null",
+          "items" : {
+            "$ref" : "BlockStatus"
+          }
+        },
+        "receiveSms" : {
+          "type" : "boolean"
+        },
+        "tags" : {
+          "type" : "array",
+          "description" : "Tags associated with the patron. Can be used to e.g. give permissions to patron in external ressources.",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "emailAddress" : {
+          "type" : "string"
+        },
+        "notificationProtocols" : {
+          "type" : "array",
+          "description" : "Notification protocols that the patron want to receive notification on. SMS and EMAIL are not included.",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "phoneNumber" : {
+          "type" : "string"
+        },
+        "name" : {
+          "type" : "string"
+        },
+        "receivePostalMail" : {
+          "type" : "boolean"
+        },
+        "allowBookings" : {
+          "type" : "boolean",
+          "description" : "True if the user is allowed to create bookings."
+        },
+        "defaultInterestPeriod" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "Length of default interest period in days"
+        },
+        "interests" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "InterestV1"
+          }
+        },
+        "isil" : {
+          "type" : "string",
+          "description" : "ISIL of the library"
+        }
+      },
+      "required" : [ "preferredPickupBranch", "patronId", "receiveEmail", "receiveSms", "receivePostalMail", "defaultInterestPeriod", "isil" ]
+    },
+    "LoanerIdentifierV1" : {
+      "id" : "LoanerIdentifierV1",
+      "properties" : {
+        "expiryDate" : {
+          "type" : "string"
+        },
+        "identifier" : {
+          "type" : "string"
+        },
+        "description" : {
+          "type" : "string"
+        },
+        "identifierType" : {
+          "type" : "string"
+        },
+        "status" : {
+          "type" : "string"
+        }
+      },
+      "required" : [ "identifier", "identifierType", "status" ]
     },
     "AuthenticationRequest" : {
       "id" : "AuthenticationRequest",
@@ -1314,6 +5028,613 @@
         }
       },
       "required" : [ "pincode", "libraryCardNumber" ]
+    },
+    "FavoritesV1" : {
+      "id" : "FavoritesV1",
+      "properties" : {
+        "favorites" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "FavoriteV1"
+          }
+        },
+        "patronId" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "name" : {
+          "type" : "string"
+        }
+      },
+      "required" : [ "favorites", "patronId", "name" ]
+    },
+    "PersonPatronV2" : {
+      "id" : "PersonPatronV2",
+      "properties" : {
+        "birthday" : {
+          "type" : "string"
+        },
+        "secondaryAddress" : {
+          "type" : "AddressV3"
+        },
+        "preferredLanguage" : {
+          "type" : "string",
+          "description" : "Language in which the patron prefers the communication with the library to take place"
+        },
+        "preferredPickupBranch" : {
+          "type" : "string",
+          "description" : "ISIL of preferred pickup branch"
+        },
+        "address" : {
+          "type" : "AddressV3"
+        },
+        "onHold" : {
+          "type" : "Period",
+          "description" : "If not set then the patron is not on hold"
+        },
+        "patronId" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "Patron identifier to be used in subsequent service calls involving the patron"
+        },
+        "guardianVisibility" : {
+          "type" : "boolean"
+        },
+        "blockStatus" : {
+          "type" : "array",
+          "description" : "A list of block statuses -\n if the patron is not blocked then this value is empty or null",
+          "items" : {
+            "$ref" : "BlockStatus"
+          }
+        },
+        "phoneNumbers" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "PhoneNumberV1"
+          }
+        },
+        "tags" : {
+          "type" : "array",
+          "description" : "Tags associated with the patron. Can be used to e.g. give permissions to patron in external ressources.",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "notificationProtocols" : {
+          "type" : "array",
+          "description" : "Notification protocols that the patron want to receive notification on. SMS and EMAIL are not included.",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "emailAddresses" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "EmailAddressV1"
+          }
+        },
+        "name" : {
+          "type" : "string"
+        },
+        "receivePostalMail" : {
+          "type" : "boolean"
+        },
+        "allowBookings" : {
+          "type" : "boolean",
+          "description" : "True if the user is allowed to create bookings."
+        },
+        "defaultInterestPeriod" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "Length of default interest period in days"
+        },
+        "interests" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "InterestV1"
+          }
+        },
+        "resident" : {
+          "type" : "boolean",
+          "description" : "True if the user is resident in the same municipality as the library"
+        }
+      },
+      "required" : [ "preferredPickupBranch", "patronId", "guardianVisibility", "receivePostalMail", "defaultInterestPeriod", "resident" ]
+    },
+    "InterestV1" : {
+      "id" : "InterestV1",
+      "properties" : {
+        "displayName" : {
+          "type" : "string",
+          "description" : "Display name of the interest"
+        },
+        "name" : {
+          "type" : "string",
+          "description" : "Name of the interest"
+        }
+      },
+      "required" : [ "displayName", "name" ]
+    },
+    "AddressV2" : {
+      "id" : "AddressV2",
+      "properties" : {
+        "country" : {
+          "type" : "string",
+          "description" : "Country"
+        },
+        "city" : {
+          "type" : "string",
+          "description" : "City"
+        },
+        "street" : {
+          "type" : "string",
+          "description" : "Street and number"
+        },
+        "coName" : {
+          "type" : "string",
+          "description" : "c/o name"
+        },
+        "postalCode" : {
+          "type" : "string",
+          "description" : "Postal code"
+        }
+      },
+      "required" : [ "country", "city", "street", "coName", "postalCode" ]
+    },
+    "PatronSettingsV5" : {
+      "id" : "PatronSettingsV5",
+      "properties" : {
+        "emailAddress" : {
+          "type" : "string",
+          "description" : "Required if patron should receive email notifications\n Existing email addresses are overwritten with this value\n If left empty existing email addresses are deleted"
+        },
+        "preferredLanguage" : {
+          "type" : "string",
+          "description" : "Language in which the patron prefers the communication with the library to take place\n If left empty default library language will be used"
+        },
+        "notificationProtocols" : {
+          "type" : "array",
+          "description" : "Notification protocols that the patron want to receive notification on. SMS and EMAIL are not included.",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "phoneNumber" : {
+          "type" : "string",
+          "description" : "Required if patron should receive SMS notifications\n Existing phonenumbers are overwritten with this value\n If left empty existing phonenumbers are deleted"
+        },
+        "preferredPickupBranch" : {
+          "type" : "string",
+          "description" : "ISIL-number of preferred pickup branch"
+        },
+        "onHold" : {
+          "type" : "Period",
+          "description" : "If not set then the patron is not on hold"
+        },
+        "guardianVisibility" : {
+          "type" : "boolean"
+        },
+        "receiveEmail" : {
+          "type" : "boolean"
+        },
+        "receivePostalMail" : {
+          "type" : "boolean"
+        },
+        "interests" : {
+          "type" : "array",
+          "description" : "A list of interests of the patron.",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "receiveSms" : {
+          "type" : "boolean"
+        }
+      },
+      "required" : [ "preferredPickupBranch", "guardianVisibility", "receiveEmail", "receivePostalMail", "receiveSms" ]
+    },
+    "AddressV3" : {
+      "id" : "AddressV3",
+      "properties" : {
+        "country" : {
+          "type" : "string",
+          "description" : "Country"
+        },
+        "city" : {
+          "type" : "string",
+          "description" : "City"
+        },
+        "street" : {
+          "type" : "string",
+          "description" : "Street and number"
+        },
+        "coName" : {
+          "type" : "string",
+          "description" : "c/o name"
+        },
+        "postalCode" : {
+          "type" : "string",
+          "description" : "Postal code"
+        },
+        "district" : {
+          "type" : "string",
+          "description" : "Dsitrict"
+        },
+        "subDistrict" : {
+          "type" : "string",
+          "description" : "Subdistrict"
+        }
+      },
+      "required" : [ "country", "city", "street", "coName", "postalCode", "district", "subDistrict" ]
+    },
+    "PatronSettingsV6" : {
+      "id" : "PatronSettingsV6",
+      "properties" : {
+        "preferredLanguage" : {
+          "type" : "string",
+          "description" : "Language in which the patron prefers the communication with the library to take place\n If left empty default library language will be used"
+        },
+        "notificationProtocols" : {
+          "type" : "array",
+          "description" : "Notification protocols that the patron want to receive notification on. SMS and EMAIL are not included.",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "emailAddresses" : {
+          "type" : "array",
+          "description" : "Existing email addresses are overwritten with these values\n If left empty existing email addresses are deleted",
+          "items" : {
+            "$ref" : "EmailAddressV1"
+          }
+        },
+        "preferredPickupBranch" : {
+          "type" : "string",
+          "description" : "ISIL-number of preferred pickup branch"
+        },
+        "onHold" : {
+          "type" : "Period",
+          "description" : "If not set then the patron is not on hold"
+        },
+        "guardianVisibility" : {
+          "type" : "boolean"
+        },
+        "receivePostalMail" : {
+          "type" : "boolean"
+        },
+        "interests" : {
+          "type" : "array",
+          "description" : "A list of interests of the patron.",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "phoneNumbers" : {
+          "type" : "array",
+          "description" : "Existing phonenumbers are overwritten with these values\n If left empty existing phonenumbers are deleted",
+          "items" : {
+            "$ref" : "PhoneNumberV1"
+          }
+        }
+      },
+      "required" : [ "preferredPickupBranch", "guardianVisibility", "receivePostalMail" ]
+    },
+    "PatronWithGuardianRequest" : {
+      "id" : "PatronWithGuardianRequest",
+      "properties" : {
+        "cprNumber" : {
+          "type" : "string"
+        },
+        "pincode" : {
+          "type" : "string"
+        },
+        "phoneNumber" : {
+          "type" : "string",
+          "description" : "Must be valid if supplied"
+        },
+        "address" : {
+          "type" : "Address"
+        },
+        "preferredPickupBranch" : {
+          "type" : "string",
+          "description" : "Must be a valid branch id (eg. DK-761501)"
+        },
+        "name" : {
+          "type" : "string",
+          "description" : "The full name of the patron"
+        },
+        "guardian" : {
+          "type" : "Guardian"
+        },
+        "email" : {
+          "type" : "string",
+          "description" : "Must be valid if supplied"
+        }
+      },
+      "required" : [ "cprNumber", "pincode", "preferredPickupBranch", "name", "guardian" ]
+    },
+    "UpdatePatronAsGuardianRequestV1" : {
+      "id" : "UpdatePatronAsGuardianRequestV1",
+      "properties" : {
+        "patron" : {
+          "type" : "PatronSettingsV5",
+          "description" : "Set this if patron details are to be changed"
+        },
+        "pincodeChange" : {
+          "type" : "PincodeChange",
+          "description" : "Set this if pincode is to be changed"
+        },
+        "guardianPersonId" : {
+          "type" : "string",
+          "description" : "Identifies the guardian by CPR"
+        }
+      },
+      "required" : [ "guardianPersonId" ]
+    },
+    "UpdatePatronAsGuardianRequestV2" : {
+      "id" : "UpdatePatronAsGuardianRequestV2",
+      "properties" : {
+        "patron" : {
+          "type" : "PatronSettingsV6",
+          "description" : "Set this if patron details are to be changed"
+        },
+        "pincodeChange" : {
+          "type" : "PincodeChange",
+          "description" : "Set this if pincode is to be changed"
+        },
+        "guardianPersonId" : {
+          "type" : "string",
+          "description" : "Identifies the guardian by person identifier"
+        }
+      },
+      "required" : [ "guardianPersonId" ]
+    },
+    "ConsentV1" : {
+      "id" : "ConsentV1",
+      "properties" : {
+        "consentType" : {
+          "type" : "string",
+          "description" : "If you encounter another type of consent please add it to this documentation.\n <br> <br>\n ConsentTypes:\n <ul>\n     <li>- 'KEEP_HISTORICAL_LOAN_DATA' </li>\n     <li>- 'SYNC_WITH_NATIONAL_REGISTRY' </li>\n </ul>"
+        },
+        "consentDate" : {
+          "type" : "string",
+          "description" : "Date that consent was given."
+        }
+      },
+      "required" : [ "consentType", "consentDate" ]
+    },
+    "CompanyPatron" : {
+      "id" : "CompanyPatron",
+      "properties" : {
+        "secondaryAddress" : {
+          "type" : "AddressV2"
+        },
+        "preferredLanguage" : {
+          "type" : "string",
+          "description" : "Language in which the patron prefers the communication with the library to take place"
+        },
+        "preferredPickupBranch" : {
+          "type" : "string",
+          "description" : "ISIL of preferred pickup branch"
+        },
+        "address" : {
+          "type" : "AddressV2"
+        },
+        "onHold" : {
+          "type" : "Period",
+          "description" : "If not set then the patron is not on hold"
+        },
+        "patronId" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "Patron identifier to be used in subsequent service calls involving the patron"
+        },
+        "receiveEmail" : {
+          "type" : "boolean"
+        },
+        "blockStatus" : {
+          "type" : "array",
+          "description" : "A list of block statuses -\n if the patron is not blocked then this value is empty or null",
+          "items" : {
+            "$ref" : "BlockStatus"
+          }
+        },
+        "contactPerson" : {
+          "type" : "string"
+        },
+        "receiveSms" : {
+          "type" : "boolean"
+        },
+        "tags" : {
+          "type" : "array",
+          "description" : "Tags associated with the patron. Can be used to e.g. give permissions to patron in external ressources.",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "emailAddress" : {
+          "type" : "string"
+        },
+        "notificationProtocols" : {
+          "type" : "array",
+          "description" : "Notification protocols that the patron want to receive notification on. SMS and EMAIL are not included.",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "phoneNumber" : {
+          "type" : "string"
+        },
+        "name" : {
+          "type" : "string"
+        },
+        "receivePostalMail" : {
+          "type" : "boolean"
+        },
+        "allowBookings" : {
+          "type" : "boolean",
+          "description" : "True if the user is allowed to create bookings."
+        },
+        "defaultInterestPeriod" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "Length of default interest period in days"
+        },
+        "interests" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "InterestV1"
+          }
+        },
+        "cvr" : {
+          "type" : "string"
+        }
+      },
+      "required" : [ "preferredPickupBranch", "patronId", "receiveEmail", "contactPerson", "receiveSms", "receivePostalMail", "defaultInterestPeriod", "cvr" ]
+    },
+    "FavoriteV1" : {
+      "id" : "FavoriteV1",
+      "properties" : {
+        "bibliographicRecordId" : {
+          "type" : "string"
+        },
+        "periodicalNumber" : {
+          "type" : "string"
+        },
+        "periodicalVolume" : {
+          "type" : "string"
+        },
+        "periodicalYear" : {
+          "type" : "string"
+        }
+      },
+      "required" : [ "bibliographicRecordId" ]
+    },
+    "PatronAuthenticationResponse" : {
+      "id" : "PatronAuthenticationResponse",
+      "properties" : {
+        "authenticateStatus" : {
+          "type" : "string",
+          "description" : "AuthenticateStatus:\n <ul>\n     <li>- 'VALID': successfully authenticated</li>\n     <li>- 'INVALID': either the user is not known in the system, or an invalid combination of authentication parameters has been used.</li>\n     <li>- 'LOANER_LOCKED_OUT': user has been blocked temporary because of too many failed login attempts</li>\n </ul>",
+          "enum" : [ "VALID", "INVALID", "LOANER_LOCKED_OUT" ]
+        },
+        "patronId" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "patronType" : {
+          "type" : "string",
+          "enum" : [ "PERSON", "COMPANY", "LIBRARY", "GROUP" ]
+        }
+      },
+      "required" : [ "authenticateStatus", "patronId", "patronType" ]
+    },
+    "PersonPatron" : {
+      "id" : "PersonPatron",
+      "properties" : {
+        "birthday" : {
+          "type" : "string"
+        },
+        "secondaryAddress" : {
+          "type" : "AddressV2"
+        },
+        "preferredLanguage" : {
+          "type" : "string",
+          "description" : "Language in which the patron prefers the communication with the library to take place"
+        },
+        "preferredPickupBranch" : {
+          "type" : "string",
+          "description" : "ISIL of preferred pickup branch"
+        },
+        "address" : {
+          "type" : "AddressV2"
+        },
+        "onHold" : {
+          "type" : "Period",
+          "description" : "If not set then the patron is not on hold"
+        },
+        "patronId" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "Patron identifier to be used in subsequent service calls involving the patron"
+        },
+        "guardianVisibility" : {
+          "type" : "boolean"
+        },
+        "receiveEmail" : {
+          "type" : "boolean"
+        },
+        "blockStatus" : {
+          "type" : "array",
+          "description" : "A list of block statuses -\n if the patron is not blocked then this value is empty or null",
+          "items" : {
+            "$ref" : "BlockStatus"
+          }
+        },
+        "receiveSms" : {
+          "type" : "boolean"
+        },
+        "tags" : {
+          "type" : "array",
+          "description" : "Tags associated with the patron. Can be used to e.g. give permissions to patron in external ressources.",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "emailAddress" : {
+          "type" : "string"
+        },
+        "notificationProtocols" : {
+          "type" : "array",
+          "description" : "Notification protocols that the patron want to receive notification on. SMS and EMAIL are not included.",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "phoneNumber" : {
+          "type" : "string"
+        },
+        "name" : {
+          "type" : "string"
+        },
+        "receivePostalMail" : {
+          "type" : "boolean"
+        },
+        "allowBookings" : {
+          "type" : "boolean",
+          "description" : "True if the user is allowed to create bookings."
+        },
+        "defaultInterestPeriod" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "Length of default interest period in days"
+        },
+        "interests" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "InterestV1"
+          }
+        },
+        "resident" : {
+          "type" : "boolean",
+          "description" : "True if the user is resident in the same municipality as the library"
+        }
+      },
+      "required" : [ "preferredPickupBranch", "patronId", "guardianVisibility", "receiveEmail", "receiveSms", "receivePostalMail", "defaultInterestPeriod", "resident" ]
+    },
+    "UpdatePincodeRequestV1" : {
+      "id" : "UpdatePincodeRequestV1",
+      "properties" : {
+        "pincode" : {
+          "type" : "string",
+          "description" : "The new pincode for the patron"
+        },
+        "uuid" : {
+          "type" : "string",
+          "description" : "UUID provided to patron in email when resetting pincode"
+        }
+      },
+      "required" : [ "pincode", "uuid" ]
     },
     "PatronSettingsV3" : {
       "id" : "PatronSettingsV3",
@@ -1392,19 +5713,22 @@
       },
       "required" : [ "preferredPickupBranch", "receiveEmail", "receivePostalMail", "receiveSms" ]
     },
-    "PincodeChange" : {
-      "id" : "PincodeChange",
+    "UpdateGuardianRequestV2" : {
+      "id" : "UpdateGuardianRequestV2",
       "properties" : {
-        "pincode" : {
-          "type" : "string",
-          "description" : "The new pincode for the libraryCard"
+        "patronId" : {
+          "type" : "integer",
+          "format" : "int64"
         },
-        "libraryCardNumber" : {
+        "personId" : {
           "type" : "string",
-          "description" : "Identifies the libraryCard for which the pincode is to be changed.\n This can be either a physical card or the CPR number, that is used as a libraryCard"
+          "description" : "If patronId is provided, this field will be ignored"
+        },
+        "guardian" : {
+          "type" : "GuardianV2"
         }
       },
-      "required" : [ "pincode", "libraryCardNumber" ]
+      "required" : [ "guardian" ]
     }
   }
 }

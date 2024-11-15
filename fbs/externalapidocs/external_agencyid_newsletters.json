@@ -1,0 +1,240 @@
+{
+  "apiVersion" : "1.0",
+  "swaggerVersion" : "1.2",
+  "basePath" : "/rest",
+  "resourcePath" : "/external/{agencyid}/newsletters",
+  "apis" : [ {
+    "path" : "/external/{agencyid}/newsletters/preferences/patron/v1",
+    "operations" : [ {
+      "method" : "POST",
+      "nickname" : "getNewslettersWithPreferencesBySubscriber",
+      "type" : "array",
+      "items" : {
+        "$ref" : "NewsletterV1"
+      },
+      "parameters" : [ {
+        "type" : "string",
+        "description" : "ISIL of the agency (e.g. DK-761500)",
+        "paramType" : "path",
+        "name" : "agencyid",
+        "required" : true
+      }, {
+        "type" : "NewsletterPatronSubscriptionRequestV1",
+        "description" : "patronId and email",
+        "paramType" : "body",
+        "name" : "subscriptionRequest",
+        "required" : true
+      } ],
+      "summary" : "Fetches the list of newsletters with preferences that a patron subscribed to with an email.",
+      "responseMessages" : [ {
+        "code" : 400,
+        "message" : "bad request"
+      }, {
+        "code" : 401,
+        "message" : "client unauthorized"
+      }, {
+        "code" : 404,
+        "message" : "Mailchimp configuration not found"
+      } ]
+    } ]
+  }, {
+    "path" : "/external/{agencyid}/newsletters/preferences/v1",
+    "operations" : [ {
+      "method" : "GET",
+      "nickname" : "getNewslettersWithPreferences",
+      "type" : "array",
+      "items" : {
+        "$ref" : "NewsletterV1"
+      },
+      "parameters" : [ {
+        "type" : "string",
+        "description" : "ISIL of the agency (e.g. DK-761500)",
+        "paramType" : "path",
+        "name" : "agencyid",
+        "required" : true
+      } ],
+      "summary" : "Fetches the newsletters with preferences from the Mailchimp platform configured on the Agency",
+      "responseMessages" : [ {
+        "code" : 400,
+        "message" : "bad request"
+      }, {
+        "code" : 401,
+        "message" : "client unauthorized"
+      }, {
+        "code" : 404,
+        "message" : "Mailchimp configuration not found"
+      } ]
+    } ]
+  }, {
+    "path" : "/external/{agencyid}/newsletters/subscribe/v1",
+    "operations" : [ {
+      "method" : "PUT",
+      "nickname" : "subscribeFromNewslettersWithPreferences",
+      "type" : "void",
+      "parameters" : [ {
+        "type" : "string",
+        "description" : "ISIL of the agency (e.g. DK-761500)",
+        "paramType" : "path",
+        "name" : "agencyid",
+        "required" : true
+      }, {
+        "type" : "NewsletterSubscriptionDetailsV1",
+        "paramType" : "body",
+        "name" : "subscriptionDetails",
+        "required" : true
+      } ],
+      "summary" : "Subscribe to newsletter preferences with an email from the Mailchimp platform configured on the Agency",
+      "responseMessages" : [ {
+        "code" : 400,
+        "message" : "bad request"
+      }, {
+        "code" : 401,
+        "message" : "client unauthorized"
+      }, {
+        "code" : 404,
+        "message" : "Mailchimp configuration not found"
+      } ]
+    } ]
+  }, {
+    "path" : "/external/{agencyid}/newsletters/unsubscribe/v1",
+    "operations" : [ {
+      "method" : "PUT",
+      "nickname" : "unsubscribeFromNewslettersWithPreferences",
+      "type" : "void",
+      "parameters" : [ {
+        "type" : "string",
+        "description" : "ISIL of the agency (e.g. DK-761500)",
+        "paramType" : "path",
+        "name" : "agencyid",
+        "required" : true
+      }, {
+        "type" : "NewsletterSubscriptionDetailsV1",
+        "paramType" : "body",
+        "name" : "subscriptionDetails",
+        "required" : true
+      } ],
+      "summary" : "Unsubscribe from newsletter preferences with an email from the Mailchimp platform configured on the Agency",
+      "responseMessages" : [ {
+        "code" : 400,
+        "message" : "bad request"
+      }, {
+        "code" : 401,
+        "message" : "client unauthorized"
+      }, {
+        "code" : 404,
+        "message" : "Mailchimp configuration not found"
+      } ]
+    } ]
+  } ],
+  "models" : {
+    "NewsletterGroupNameV1" : {
+      "id" : "NewsletterGroupNameV1",
+      "properties" : {
+        "name" : {
+          "type" : "string",
+          "description" : "The preference name stored in Mailchimp"
+        },
+        "id" : {
+          "type" : "string",
+          "description" : "The preference id stored in Mailchimp"
+        }
+      },
+      "required" : [ "name", "id" ]
+    },
+    "NewsletterV1" : {
+      "id" : "NewsletterV1",
+      "properties" : {
+        "listId" : {
+          "type" : "string",
+          "description" : "Newsletter contact list id"
+        },
+        "name" : {
+          "type" : "string",
+          "description" : "The newslatter name"
+        },
+        "tags" : {
+          "type" : "array",
+          "description" : "The newsletter preferences",
+          "items" : {
+            "$ref" : "NewsletterTagV1"
+          }
+        },
+        "interestCategories" : {
+          "type" : "array",
+          "description" : "The newsletter preferences",
+          "items" : {
+            "$ref" : "NewsletterGroupCategoryV1"
+          }
+        }
+      },
+      "required" : [ "listId", "name" ]
+    },
+    "NewsletterGroupCategoryV1" : {
+      "id" : "NewsletterGroupCategoryV1",
+      "properties" : {
+        "id" : {
+          "type" : "string",
+          "description" : "The preference id stored in Mailchimp"
+        },
+        "title" : {
+          "type" : "string",
+          "description" : "The preference name stored in Mailchimp"
+        },
+        "interests" : {
+          "type" : "array",
+          "description" : "The preference name stored in Mailchimp",
+          "items" : {
+            "$ref" : "NewsletterGroupNameV1"
+          }
+        }
+      },
+      "required" : [ "id", "title" ]
+    },
+    "NewsletterSubscriptionDetailsV1" : {
+      "id" : "NewsletterSubscriptionDetailsV1",
+      "properties" : {
+        "emailAddress" : {
+          "type" : "string",
+          "description" : "Patron email"
+        },
+        "subscriptions" : {
+          "type" : "array",
+          "description" : "Subscription details",
+          "items" : {
+            "$ref" : "NewsletterV1"
+          }
+        }
+      },
+      "required" : [ "emailAddress" ]
+    },
+    "NewsletterPatronSubscriptionRequestV1" : {
+      "id" : "NewsletterPatronSubscriptionRequestV1",
+      "properties" : {
+        "emailAddress" : {
+          "type" : "string",
+          "description" : "The email address of the patron"
+        },
+        "patronId" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "The id of the patron"
+        }
+      },
+      "required" : [ "emailAddress", "patronId" ]
+    },
+    "NewsletterTagV1" : {
+      "id" : "NewsletterTagV1",
+      "properties" : {
+        "name" : {
+          "type" : "string",
+          "description" : "The preference name stored in Mailchimp"
+        },
+        "id" : {
+          "type" : "string",
+          "description" : "The preference id stored in Mailchimp"
+        }
+      },
+      "required" : [ "name", "id" ]
+    }
+  }
+}

@@ -4,6 +4,39 @@
   "basePath" : "/rest",
   "resourcePath" : "/external/{agencyid}/patron/{patronid}",
   "apis" : [ {
+    "path" : "/external/{agencyid}/patron/{patronid}/fee/expected-fees/v1",
+    "operations" : [ {
+      "method" : "GET",
+      "nickname" : "getExpectedFees",
+      "type" : "array",
+      "items" : {
+        "$ref" : "FeeV2"
+      },
+      "parameters" : [ {
+        "type" : "string",
+        "description" : "ISIL of the agency (e.g. DK-761500)",
+        "paramType" : "path",
+        "name" : "agencyid",
+        "required" : true
+      }, {
+        "type" : "integer",
+        "format" : "int64",
+        "description" : "the patron that owns the fees",
+        "paramType" : "path",
+        "name" : "patronid",
+        "required" : true
+      } ],
+      "summary" : "Returns a list of expected fees of a patron, if all overdue loans were to be returned today.",
+      "notes" : "\n <p>This endpoint is intended for use with event-based fees.</p>\n <p>If Cicero is configured to use time-based fees, this operation will always return an empty list.</p>\n <p>Note: Expected fees vary from normal fees in the following ways:\n <ul>\n <li>The fee id (bill number) is -1.</li>\n <li>The creation date is today.</li>\n <li>The due date is null.</li>\n <li>The payableByClient field is false.</li>\n </ul>",
+      "responseMessages" : [ {
+        "code" : 400,
+        "message" : "bad request"
+      }, {
+        "code" : 401,
+        "message" : "client unauthorized"
+      } ]
+    } ]
+  }, {
     "path" : "/external/{agencyid}/patron/{patronid}/fee/{feeId}/transactions/v1",
     "operations" : [ {
       "method" : "GET",
