@@ -25,7 +25,7 @@ $filterPaths = [
     // Branches etc.
     '/external/v1/{agencyid}/branches',
     '/external/{agencyid}/catalog/availability/v3',
-    '/external/{agencyid}/catalog/holdings/v3',
+    '/external/{agencyid}/catalog/holdingsLogistics/v1',
 ];
 
 // Define basic output structure.

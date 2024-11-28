@@ -1,0 +1,64 @@
+{
+  "apiVersion" : "1.0",
+  "swaggerVersion" : "1.2",
+  "basePath" : "/rest",
+  "resourcePath" : "/external/{agencyid}/ill",
+  "apis" : [ {
+    "path" : "/external/{agencyid}/ill/requestitem/v1",
+    "operations" : [ {
+      "method" : "POST",
+      "nickname" : "itemRequestedV1",
+      "type" : "InterlibraryLoanResponseV1",
+      "parameters" : [ {
+        "type" : "string",
+        "description" : "ISIL of the agency (e.g. NO-2030000)",
+        "paramType" : "path",
+        "name" : "agencyid",
+        "required" : true
+      }, {
+        "type" : "InterlibraryLoanRequestV1",
+        "description" : "interlibrary loan request",
+        "paramType" : "body",
+        "name" : "interlibraryLoanRequest",
+        "required" : true
+      } ],
+      "summary" : "Initiate a request for a interlibrary loan for a given requesting agency, itemNumber, and enduserId.",
+      "notes" : "\n The parameters for the requestingAgency, enduserId, and itemNumber is placed in the interlibrary loan request.\n The result of the request has either successful = true/false.\n The response contains a InterLibraryLoanResult, which can be any of these values:\n <ul>\n    <li>- PATRON_NOT_FOUND</li>\n    <li>- MATERIAL_NOT_FOUND</li>\n    <li>- MATERIAL_NOT_RESERVABLE</li>\n    <li>- SENDING_FAILURE</li>\n    <li>- OK</li>\n </ul>\n The request is only successful if the InterLibraryLoanResult is OK, and successful is set to true.\n <p>\n PATRON_NOT_FOUND means that no libraryLoaner exists for the requestingAgency\n MATERIAL_NOT_FOUND means that no material exists for the given materialId\n MATERIAL_NOT_RESERVABLE means that the material can't be reserved\n SENDING_FAILURE means that we were not able to send the ItemRequested message to the requestingAgency\n OK means that request was successful"
+    } ]
+  } ],
+  "models" : {
+    "InterlibraryLoanRequestV1" : {
+      "id" : "InterlibraryLoanRequestV1",
+      "properties" : {
+        "itemNumber" : {
+          "type" : "string",
+          "description" : "Item number of the material being requested."
+        },
+        "requestingAgency" : {
+          "type" : "string",
+          "description" : "AgencyISIL for the requesting agency initiating the InterlibraryLoan."
+        },
+        "enduserId" : {
+          "type" : "string",
+          "description" : "Patron identifier number (e.g. library card number or social security card number) for the patron requesting the InterlibraryLoan."
+        }
+      },
+      "required" : [ "itemNumber", "requestingAgency", "enduserId" ]
+    },
+    "InterlibraryLoanResponseV1" : {
+      "id" : "InterlibraryLoanResponseV1",
+      "properties" : {
+        "result" : {
+          "type" : "string",
+          "description" : "Result. If successfull is True, then we always have result = OK\n The other possible options are PATRON_NOT_FOUND, MATERIAL_NOT_FOUND, SENDING_FAILURE",
+          "enum" : [ "PATRON_NOT_FOUND", "MATERIAL_NOT_FOUND", "MATERIAL_NOT_RESERVABLE", "SENDING_FAILURE", "OK" ]
+        },
+        "successful" : {
+          "type" : "boolean",
+          "description" : "Was the operation successful?"
+        }
+      },
+      "required" : [ "result", "successful" ]
+    }
+  }
+}

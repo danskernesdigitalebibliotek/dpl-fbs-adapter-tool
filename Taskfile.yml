@@ -17,7 +17,7 @@ tasks:
   dev:convert:
     summary: Convert FBS swagger to FBS adapter
     cmds:
-#      - task dev:swagger2yaml
+      - task dev:swagger2yaml
       - task dev:php:cli -- convert.php fbs/service.yaml fbs-adapter.yaml
 
   dev:php:cli:

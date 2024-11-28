@@ -36,7 +36,7 @@
         "required" : true
       } ],
       "summary" : "Renew loans.",
-      "notes" : "\n Returns an array of the updated loans.\n <p>\n If the materials could not be renewed, the return date will be unchanged.\n </p>\n\n The response field renewalStatus will contain a list of one or more of these values:\n <ul>\n <li>- renewed</li>\n <li>- deniedReserved</li>\n <li>- deniedMaxRenewalsReached</li>\n <li>- deniedLoanerIsBlocked</li>\n <li>- deniedMaterialIsNotLoanable</li>\n <li>- deniedMaterialIsNotFound</li>\n <li>- deniedLoanerNotFound</li>\n <li>- deniedLoaningProfileNotFound</li>\n <li>- deniedOtherReason</li>\n </ul>\n <p>\n If any other value is encountered then it must be treated as 'deniedOtherReason'.\n </p>\n The response contains the field loanDetails.loanType, which can be any of these values:\n <ul>\n <li>- loan</li>\n <li>- interLibraryLoan</li>\n </ul>\n <p>\n The values are subject to change. If an unrecognized value is encountered, it should be treated as 'other' .\n </p>",
+      "notes" : "\n Returns an array of the updated loans.\n <p>\n If the materials could not be renewed, the return date will be unchanged.\n </p>\n <p>\n The response field renewalStatus will contain a list of one or more of these values:\n <ul>\n <li>- renewed</li>\n <li>- deniedReserved</li>\n <li>- deniedMaxRenewalsReached</li>\n <li>- deniedLoanerIsBlocked</li>\n <li>- deniedMaterialIsNotLoanable</li>\n <li>- deniedMaterialIsNotFound</li>\n <li>- deniedLoanerNotFound</li>\n <li>- deniedLoaningProfileNotFound</li>\n <li>- deniedOtherReason</li>\n </ul>\n <p>\n If any other value is encountered then it must be treated as 'deniedOtherReason'.\n </p>\n The response contains the field loanDetails.loanType, which can be any of these values:\n <ul>\n <li>- loan</li>\n <li>- interLibraryLoan</li>\n </ul>\n <p>\n The values are subject to change. If an unrecognized value is encountered, it should be treated as 'other' .\n </p>",
       "responseMessages" : [ {
         "code" : 400,
         "message" : "bad request"
@@ -76,6 +76,39 @@
       "responseMessages" : [ {
         "code" : 400,
         "message" : "bad request"
+      }, {
+        "code" : 401,
+        "message" : "client unauthorized"
+      }, {
+        "code" : 404,
+        "message" : "patron not found"
+      } ]
+    } ]
+  }, {
+    "path" : "/external/{agencyid}/patrons/{patronid}/loans/withhistoricalloans/v1",
+    "operations" : [ {
+      "method" : "GET",
+      "nickname" : "getLoansWithHistory",
+      "type" : "LoansWithHistoryV1",
+      "parameters" : [ {
+        "type" : "string",
+        "description" : "ISIL of the agency (e.g. DK-761500)",
+        "paramType" : "path",
+        "name" : "agencyid",
+        "required" : true
+      }, {
+        "type" : "integer",
+        "format" : "int64",
+        "description" : "the ID of the patron that owns the loans",
+        "paramType" : "path",
+        "name" : "patronid",
+        "required" : true
+      } ],
+      "summary" : "Retrieves material loans and historical loans for the given patron.",
+      "notes" : "\n <p>\n Retrieves an object containg two arrays of loans and historical loans corresponding to the given patron ID.\n If the patron has not given consent to keep historical data, no historical loans will be retrieved.\n <p>",
+      "responseMessages" : [ {
+        "code" : 400,
+        "message" : "bad request com.dantek.dl.rest.RestException"
       }, {
         "code" : 401,
         "message" : "client unauthorized"
@@ -128,6 +161,49 @@
     } ]
   } ],
   "models" : {
+    "HistoricalLoanV1" : {
+      "id" : "HistoricalLoanV1",
+      "properties" : {
+        "recordId" : {
+          "type" : "string",
+          "description" : "The FAUST number of the bibliographic record"
+        },
+        "loanType" : {
+          "type" : "string",
+          "description" : "The loan type, either <b>loan</b> or <b>interLibraryLoan</b>"
+        },
+        "periodical" : {
+          "type" : "Periodical",
+          "description" : "Present if material is a periodical"
+        },
+        "dueDate" : {
+          "type" : "string",
+          "description" : "The date when the material must be returned"
+        },
+        "ilBibliographicRecord" : {
+          "type" : "ILLBibliographicRecord",
+          "description" : "Additional bibliographic information for inter-library loans"
+        },
+        "loanDate" : {
+          "type" : "string",
+          "description" : "The date when the material was picked up"
+        },
+        "materialItemNumber" : {
+          "type" : "string",
+          "description" : "Identifies the exact material that has been loaned"
+        },
+        "loanId" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "Identifies the loan for use when renewing the loan"
+        },
+        "returnedDate" : {
+          "type" : "string",
+          "description" : "Date when the material was returned"
+        }
+      },
+      "required" : [ "recordId", "loanType", "dueDate", "loanDate", "materialItemNumber", "loanId" ]
+    },
     "LoanDetailsV2" : {
       "id" : "LoanDetailsV2",
       "properties" : {
@@ -339,6 +415,26 @@
         }
       },
       "required" : [ "patronName", "isRenewable", "loanDetails", "isLongtermLoan", "renewalStatusList" ]
+    },
+    "LoansWithHistoryV1" : {
+      "id" : "LoansWithHistoryV1",
+      "properties" : {
+        "loans" : {
+          "type" : "array",
+          "description" : "List of loans",
+          "items" : {
+            "$ref" : "LoanV2"
+          }
+        },
+        "historicalMaterialLoans" : {
+          "type" : "array",
+          "description" : "List of historical material loans",
+          "items" : {
+            "$ref" : "HistoricalLoanV1"
+          }
+        }
+      },
+      "required" : [ "loans", "historicalMaterialLoans" ]
     }
   }
 }
