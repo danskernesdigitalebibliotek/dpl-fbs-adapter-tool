@@ -319,11 +319,11 @@
       "properties" : {
         "expiryDate" : {
           "type" : "string",
-          "description" : "The date where the patron is no longer interested in the reserved material.\n If not set, a date will be calculated from the libraries default interest period"
+          "description" : "The date where the patron is no longer interested in the reserved material.\n If not set, the reservation will keep the original date."
         },
         "pickupBranch" : {
           "type" : "string",
-          "description" : "ISIL-number of pickup branch.\n If not set, will default to patrons preferred pickup branch"
+          "description" : "ISIL-number of pickup branch.\n If not set, the reservation will keep the original pickup branch."
         },
         "reservationId" : {
           "type" : "integer",

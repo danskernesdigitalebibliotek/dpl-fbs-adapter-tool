@@ -38,6 +38,40 @@
       } ]
     } ]
   }, {
+    "path" : "/external/v1/{agencyid}/branches/contact",
+    "operations" : [ {
+      "method" : "GET",
+      "nickname" : "getBranchContacts",
+      "type" : "array",
+      "items" : {
+        "$ref" : "BranchContact"
+      },
+      "parameters" : [ {
+        "type" : "string",
+        "description" : "ISIL of the agency (e.g. DK-761500)",
+        "paramType" : "path",
+        "name" : "agencyid",
+        "required" : true
+      }, {
+        "type" : "array",
+        "description" : "List of branch IDs to get contact information for",
+        "items" : {
+          "type" : "string"
+        },
+        "paramType" : "query",
+        "name" : "branchIds"
+      } ],
+      "summary" : "Get contact information for branches.",
+      "notes" : "\n Returns a list of branch contacts.",
+      "responseMessages" : [ {
+        "code" : 400,
+        "message" : "bad request"
+      }, {
+        "code" : 401,
+        "message" : "client unauthorized"
+      } ]
+    } ]
+  }, {
     "path" : "/external/v1/{agencyid}/departments",
     "operations" : [ {
       "method" : "GET",
@@ -276,6 +310,44 @@
         }
       },
       "required" : [ "sectionId", "title" ]
+    },
+    "BranchContact" : {
+      "id" : "BranchContact",
+      "properties" : {
+        "branchId" : {
+          "type" : "string",
+          "description" : "ISIL of the branch (e.g. DK-761501)"
+        },
+        "zipCode" : {
+          "type" : "string",
+          "description" : "ZIP code of the branch"
+        },
+        "website" : {
+          "type" : "string",
+          "description" : "Website of the branch"
+        },
+        "address" : {
+          "type" : "string",
+          "description" : "Address of the branch"
+        },
+        "city" : {
+          "type" : "string",
+          "description" : "City where the branch is located"
+        },
+        "phone" : {
+          "type" : "string",
+          "description" : "Phone number of the branch"
+        },
+        "title" : {
+          "type" : "string",
+          "description" : "Name of the branch"
+        },
+        "email" : {
+          "type" : "string",
+          "description" : "Email address of the branch"
+        }
+      },
+      "required" : [ "branchId", "zipCode", "website", "address", "city", "phone", "title", "email" ]
     },
     "AgencyLocation" : {
       "id" : "AgencyLocation",
