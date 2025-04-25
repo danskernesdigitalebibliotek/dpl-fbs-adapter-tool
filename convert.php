@@ -9,7 +9,7 @@ $yaml = Yaml::parseFile($argv[1]);
 // Defined the input paths that should be in the transformed output.
 $filterPaths = [
     // Patron
-    '/external/{agencyid}/patrons/{patronid}/v2',
+    '/external/{agencyid}/patrons/person/{patronid}/v2',
     '/external/{agencyid}/patrons/{patronid}/v5',
     // Patron create
     '/external/{agencyid}/patrons/v4',
