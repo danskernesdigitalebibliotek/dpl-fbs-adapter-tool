@@ -12,7 +12,7 @@ $filterPaths = [
     '/external/{agencyid}/patrons/person/{patronid}/v2',
     '/external/{agencyid}/patrons/{patronid}/v8',
     // Patron create
-    '/external/{agencyid}/patrons/v4',
+    '/external/{agencyid}/patrons/v9',
     '/external/{agencyid}/patrons/withGuardian/v1',
     // Loans
     '/external/{agencyid}/patrons/{patronid}/loans/v2',
